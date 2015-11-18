@@ -1,0 +1,16 @@
+<h2>Алфавитный указатель</h2>
+
+{% if alphabet_song_list %}
+    <table WIDTH=40%>
+    {% for song in alphabet_song_list %}
+        <tr>
+            <TD><a href="{% url 'hymnals:results' song.hymnal_id song.id %}">{{ song.Name }}</a></TD>
+            <TD ALIGN="right">{{ song.Page_Score }}</TD>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No songs are available.</p>
+{% endif %}
+
+<p><a href="{% url 'hymnals:choir' %}">Список сборников</a></p>

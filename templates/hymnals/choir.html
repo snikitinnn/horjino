@@ -1,0 +1,21 @@
+<h2>Сборники гимнов</h2>
+
+{% if latest_hymnal_list %}
+    <table WIDTH=60%>
+    {% for hymnal in latest_hymnal_list %}
+        <tr>
+            <TD><a href="{% url 'hymnals:detail' hymnal.id %}">{{ hymnal.Hymnal_Name }}</a></TD>
+            <TD ALIGN="right">{{ hymnal.Theme }}</TD>
+        </tr>
+    {% endfor %}
+    </table>
+    <p>
+        <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><BR>
+        <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
+    </p>
+    <BR>
+    <a href="/">Главная страницa</a><BR>
+{% else %}
+    <p>No hymnals are available.</p>
+{% endif %}
+
