@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>{{ hymnal.Hymnal_Name}}</h2>
 
 {% if selected_song_list %}
@@ -18,3 +21,5 @@
     <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
     <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
 </p>
+
+{% endblock %}

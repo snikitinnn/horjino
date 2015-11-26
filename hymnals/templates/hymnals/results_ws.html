@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>{{ song.Name }}</h2>
 
 <TABLE WIDTH=40%>
@@ -14,3 +17,5 @@
     <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
     <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
 </p>
+
+{% endblock %}

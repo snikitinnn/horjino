@@ -1,5 +1,8 @@
 <h2>Дата богослужения: {{ ws.Date}}</h2>
 <!--<h2>{{ ws.id }}</h2>-->
+{% extends 'base.html' %}
+
+{% block content %}
 
 
 {% if selected_songvsws_list %}
@@ -21,3 +24,5 @@
     <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
     <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
 </p>
+
+{% endblock %}

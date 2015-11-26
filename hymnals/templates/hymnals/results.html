@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>{{ song.Name }}</h2>
 <!--<h2>{{ song_count }}</h2>-->
 
@@ -33,3 +36,5 @@
     <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
     <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
 </p>
+
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h2>Список богослужений</h2>
 
 {% if latest_ws_list %}
@@ -16,3 +19,5 @@
 {% else %}
     <p>No hymnals are available.</p>
 {% endif %}
+
+{% endblock %}

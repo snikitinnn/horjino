@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h2>Алфавитный указатель</h2>
 
 {% if alphabet_song_list %}
@@ -14,3 +18,4 @@
 {% endif %}
 
 <p><a href="{% url 'hymnals:choir' %}">Список сборников</a></p>
+{% endblock %}
