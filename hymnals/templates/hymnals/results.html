@@ -1,0 +1,35 @@
+<h2>{{ song.Name }}</h2>
+<!--<h2>{{ song_count }}</h2>-->
+
+
+<TABLE WIDTH=40%>
+<!--<TABLE BORDER>-->
+<!--<CAPTION ALIGN="top">{{ song.Name }}</CAPTION>-->
+    <TR>
+        <TD>{{ song.Name_Alt }}</TD><TD ALIGN="right">{{ song.Authors }}</TD>
+    </TR>
+    <TR>
+        <TD></TD><TD ALIGN="right">{{ song.Authors_2 }}</TD>
+    </TR>
+    <TR>
+        <TD>{{ hymnal.Hymnal_Name }}</TD><TD ALIGN="right">{{ song.Page_Score }}</TD>
+    </TR>
+<!--    <TR>
+        {% if date_list %}
+            <h2>{{ song_count }}</h2>
+            {% for song_vs_ws in date_list %}
+                <tr>
+                    <TD>{{ song_vs_ws.Date}}</TD><TD></TD>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </TR>-->
+
+</TABLE>
+
+<p>
+    <a href="{% url 'hymnals:detail' hymnal.id %}">Оглавление сборника</a><br>
+    <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><br>
+    <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
+    <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
+</p>
