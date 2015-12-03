@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h2>Сборники гимнов</h2>
-{% endblock %}
-
 {% block content %}
+<h2>Сборники гимнов</h2>
 
 {% if latest_hymnal_list %}
     <table WIDTH=60%>
@@ -15,6 +12,7 @@
         </tr>
     {% endfor %}
     </table>
+
     <p>
         <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><BR>
         <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
