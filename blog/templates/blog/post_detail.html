@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>Мой блог</h2>
+
+<div class = "detail">
+    <h3>{{ post.title }}</a></h3>
+    <p>{{ post.pubdate}}</p>
+    <p>{{ post.content}}</p>
+</div> <!-- div class=list -->
+
+<!--<a href="{% url 'blog:listing' %}">Весь список</a>-->
+
+{% endblock content %}

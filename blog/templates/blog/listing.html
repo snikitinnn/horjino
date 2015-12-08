@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>Мой блог</h2>
+
+<div class = "list">
+{% if blog_list %}
+    {% for post in blog_list %}
+            <hr>
+            <h3><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h3>
+            <p>{{ post.pubdate}}</p>
+            <p>{{ post.content}}</p>
+    {% endfor %}
+{% else %}
+    <p>Нет записей.</p>
+{% endif %}
+</div> <!-- div class=list -->
+
+<a href="{% url 'blog:post_new' %}">Новая запись</a>
+
+{% endblock content %}
