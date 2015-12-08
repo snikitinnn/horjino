@@ -2,6 +2,19 @@ body {
     padding: 50px 10px 110px 10px;
 }
 
+/*input[type="text"], textarea {
+  padding: 8px;
+}*/
+
+input, textarea {
+  outline: none;
+  border: none;
+  border: solid 1px #DCDCDC;
+}
+
+textarea {
+  height: 120px;
+}
 .container {
     height: 70px;
 }

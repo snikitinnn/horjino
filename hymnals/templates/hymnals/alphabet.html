@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'choir.html' %}
 
-{% block content %}
+{% block alphabet %}
 
 <h2>Алфавитный указатель</h2>
 
@@ -18,4 +18,5 @@
 {% endif %}
 
 <p><a href="{% url 'hymnals:choir' %}">Список сборников</a></p>
-{% endblock %}
+
+{% endblock alphabet %}

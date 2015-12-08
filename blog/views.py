@@ -1,4 +1,7 @@
+# -*- coding: UTF-8 -*-
 from django.shortcuts import render
+from forms import PostForms
+from models import Post
 
 # Create your views here.
 def about(request):
@@ -6,6 +9,11 @@ def about(request):
 
 def blog(request):
     return render(request, 'blog/blog.html')
+
+def listing(request):
+    blog_list = Post.objects.all()
+    context = {'blog_list': blog_list}
+    return render(request, 'blog/listing.html', context)
 
 # from django.http.response import HttpResponse
 # from django.template.loader import get_template
@@ -22,3 +30,39 @@ def blog(request):
 #     t = get_template('blog/blog.html')
 #     html = t.render(Context({'name': view}))
 #     return HttpResponse(html)
+
+# новый пост
+def post_new(request):
+
+    if request.method == "POST":
+        form = PostForms(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('blog:listing')# listing
+#            return redirect('blog:post_detail', pk = post.pk )# страницы формы
+    else:
+        form = PostForms
+
+    return render (request, 'blog:post_new.html', {'form':form})
+
+# пост в деталях, иными словами на одной странице
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post':post})
+
+
+# редактирование поста
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForms(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('blog:post_detail', pk=post.pk)
+    else:
+        form = PostForms(instance=post)
+    return render(request, 'blog/post_new.html', {'form': form})
