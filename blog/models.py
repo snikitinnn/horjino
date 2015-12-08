@@ -2,19 +2,25 @@
 from django.db import models
 from django.utils import timezone
 
+class User(models.Model):
+    class Meta():
+        db_table = 'auth_users'
+    username = models.CharField(max_length=30)
+    email = models.CharField(max_length = 254)
+
 class Post(models.Model):
     class Meta():
         db_table = 'blog_posts'
 
-    user = models.ForeignKey('auth.user', default=1)
+#    user = models.ForeignKey(User, default=1)
     title = models.CharField(max_length=200)
     content = models.TextField()
-    pubdate = models.DateTimeField(default=timezone.now)
+    pubdate = models.DateField(default=timezone.now)
 #    publiched_date = models.DateTimeField(blank=True, null=True)
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    # def publish(self):
+    #     self.pubdate = timezone.now()
+    #     self.save()
 
     def __unicode__(self):
         return self.title

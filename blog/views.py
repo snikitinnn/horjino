@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from forms import PostForms
 from models import Post
 
@@ -38,19 +38,18 @@ def post_new(request):
         form = PostForms(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            post.user = request.user
             post.save()
             return redirect('blog:listing')# listing
 #            return redirect('blog:post_detail', pk = post.pk )# страницы формы
     else:
         form = PostForms
-
-    return render (request, 'blog:post_new.html', {'form':form})
+    return render (request, 'blog/post_new.html', {'form':form})
 
 # пост в деталях, иными словами на одной странице
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post':post})
+    return render(request, 'blog:post_detail', {'post':post})
 
 
 # редактирование поста
