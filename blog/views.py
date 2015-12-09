@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from forms import PostForms
 from models import Post
 
@@ -47,21 +47,22 @@ def post_new(request):
     return render (request, 'blog/post_new.html', {'form':form})
 
 # пост в деталях, иными словами на одной странице
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog:post_detail', {'post':post})
+def post_detail(request, id):
+    post = get_object_or_404(Post, pk=id)
+    context = ({'post':post})
+    return render(request, 'blog/post_detail.html', context)
 
 
 # редактирование поста
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def post_edit(request, id):
+    post = get_object_or_404(Post, pk=id)
     if request.method == "POST":
         form = PostForms(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('blog:post_detail', pk=post.pk)
+            return redirect('blog:post_detail', pk=post.id)
     else:
         form = PostForms(instance=post)
     return render(request, 'blog/post_new.html', {'form': form})

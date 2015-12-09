@@ -3,13 +3,15 @@
 
 {% block content %}
 <h2>Мой блог</h2>
-
 <div class = "detail">
+    <hr>
     <h3>{{ post.title }}</a></h3>
     <p>{{ post.pubdate}}</p>
     <p>{{ post.content}}</p>
 </div> <!-- div class=list -->
+<hr>
 
-<!--<a href="{% url 'blog:listing' %}">Весь список</a>-->
+<h4><a href="{% url 'blog:post_new' %}">Добавить запись</a></h4>
+<h4><a href="{% url 'blog:post_detail' %}">Редактировать</a></h4>
 
 {% endblock content %}
