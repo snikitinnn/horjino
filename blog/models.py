@@ -7,6 +7,7 @@ class User(models.Model):
         db_table = 'auth_users'
     username = models.CharField(max_length=30)
     email = models.CharField(max_length = 254)
+    password = models.CharField(max_length = 128)
 
 class Post(models.Model):
     class Meta():
@@ -16,6 +17,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     pubdate = models.DateField(default=timezone.now)
+    isnews = models.BooleanField()
 #    publiched_date = models.DateTimeField(blank=True, null=True)
 
     # def publish(self):

@@ -1,6 +1,5 @@
 from django.http.response import HttpResponse
 from django.template.loader import get_template
-from django.shortcuts import render
 from django.template import Context
 
 # Create your views here.

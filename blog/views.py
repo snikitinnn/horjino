@@ -15,6 +15,12 @@ def listing(request):
     context = {'blog_list': blog_list}
     return render(request, 'blog/listing.html', context)
 
+def news(request):
+    blog_list = Post.objects.all()
+    blog_list = blog_list.filter(isnews=True).order_by('-pubdate')
+    context = {'blog_list': blog_list}
+    return render(request, 'blog/news.html', context)
+
 # from django.http.response import HttpResponse
 # from django.template.loader import get_template
 # from django.template import Context
