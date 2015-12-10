@@ -49,7 +49,7 @@ def post_new(request):
 # пост в деталях, иными словами на одной странице
 def post_detail(request, id):
     post = get_object_or_404(Post, pk=id)
-    context = ({'post':post})
+    context = {'post':post}
     return render(request, 'blog/post_detail.html', context)
 
 
@@ -65,4 +65,4 @@ def post_edit(request, id):
             return redirect('blog:post_detail', pk=post.id)
     else:
         form = PostForms(instance=post)
-    return render(request, 'blog/post_new.html', {'form': form})
+    return render(request, 'blog/post_new.html', {'form':form})

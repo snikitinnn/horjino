@@ -6,12 +6,12 @@
 <div class = "detail">
     <hr>
     <h3>{{ post.title }}</a></h3>
-    <p>{{ post.pubdate}}</p>
     <p>{{ post.content}}</p>
+    <p>{{ post.pubdate}}</p>
 </div> <!-- div class=list ++ -->
 <hr>
 
 <h4><a href="{% url 'blog:post_new' %}">Добавить запись</a></h4>
-<h4><a href="{% url 'blog:post_detail' %}">Редактировать</a></h4>
+<h4><a href="{% url 'blog:post_edit' post.id %}">Редактировать</a></h4>
 
 {% endblock content %}
