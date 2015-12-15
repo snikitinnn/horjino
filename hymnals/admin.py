@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
 from django.forms import ModelForm
-from hymnals.models import Hymnal, Song, WS, SongvsWS
+from hymnals.models import Chorus, Hymnal, Song, WS, SongvsWS
 
 class SongvsWSInline(admin.TabularInline):
     model = SongvsWS
@@ -63,6 +63,7 @@ class SongvsWSAdmin(admin.ModelAdmin):
     list_display = ('ws','song','Perform')
     list_filter = ('ws__Date','song__hymnal__Hymnal_Name','song',)
 
+admin.site.register(Chorus)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Hymnal, HymnalAdmin)
 admin.site.register(WS, WSAdmin)

@@ -1,11 +1,11 @@
-{% extends 'choir.html' %}
+{% extends 'base.html' %}
 
-{% block alphabet %}
+{% block content %}
 
 <h2>Алфавитный указатель</h2>
 
 {% if alphabet_song_list %}
-    <table WIDTH=40%>
+    <table WIDTH=80%>
     {% for song in alphabet_song_list %}
         <tr>
             <TD><a href="{% url 'hymnals:results' song.hymnal_id song.id %}">{{ song.Name }}</a></TD>
@@ -17,6 +17,4 @@
     <p>No songs are available.</p>
 {% endif %}
 
-<p><a href="{% url 'hymnals:choir' %}">Список сборников</a></p>
-
-{% endblock alphabet %}
+{% endblock content %}

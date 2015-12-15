@@ -11,7 +11,7 @@ def blog(request):
     return render(request, 'blog/blog.html')
 
 def listing(request):
-    blog_list = Post.objects.all()
+    blog_list = Post.objects.order_by('-pubdate')
     context = {'blog_list': blog_list}
     return render(request, 'blog/listing.html', context)
 

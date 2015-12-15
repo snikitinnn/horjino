@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Сборники гимнов</h2>
+<h2>{{chorus.name}}</h2>
+<hr>
+<h3>Сборники гимнов</h3>
 
-{% if latest_hymnal_list %}
+{% if hymnal_list %}
     <table WIDTH=60%>
-    {% for hymnal in latest_hymnal_list %}
+    {% for hymnal in hymnal_list %}
         <tr>
-            <TD><a href="{% url 'hymnals:detail' hymnal.id %}">{{ hymnal.Hymnal_Name }}</a></TD>
-            <TD ALIGN="right">{{ hymnal.Theme }}</TD>
+            <TD><a href="{% url 'hymnals:detail' hymnal.id %}">{{ hymnal.Hymnal_Name }}</a></TD>            
         </tr>
     {% endfor %}
     </table>
 
-    <p>
-        <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><BR>
-        <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
-    </p>
-    <BR>
-    <a href="/">Главная страницa</a><BR>
+    <br>
+    <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><BR></h4>
+    <hr>
+    <h4><a href="{% url 'hymnals:ws' %}">Список богослужений</a></h4>
 {% else %}
     <p>No hymnals are available.</p>
 {% endif %}

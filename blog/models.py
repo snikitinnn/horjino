@@ -7,7 +7,7 @@ class User(models.Model):
         db_table = 'auth_users'
     username = models.CharField(max_length=30)
     email = models.CharField(max_length = 254)
-    password = models.CharField(max_length = 128)
+    password = models.CharField(default='qwerty', max_length = 128)
 
 class Post(models.Model):
     class Meta():

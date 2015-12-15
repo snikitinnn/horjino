@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from hymnals import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.choir, name='choir'),
+    url(r'^choir/(?P<chorus_id>\d+)/$', views.choir, name='choir'),
     url(r'^(?P<hymnal_id>\d+)/$', views.detail, name='detail'),
     url(r'^alphabet/$', views.alphabet, name='alphabet'),
     url(r'^(?P<hymnal_id>\d+)/(?P<song_id>\d+)/$', views.results, name='results'),

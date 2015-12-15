@@ -11,11 +11,11 @@
     </TR>
 </TABLE>
 
-<p>
+    <br>
     <a href="{% url 'hymnals:detail' hymnal.id %}">Оглавление сборника</a><br>
     <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><br>
-    <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
-    <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
-</p>
+    <hr>
+    <a href="{% url 'hymnals:ws' %}">Список богослужений</a><br>
 
-{% endblock %}
+
+{% endblock content %}

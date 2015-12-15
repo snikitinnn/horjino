@@ -1,6 +1,12 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
 
+class Chorus(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=120)
+    def __unicode__(self):
+        return self.name
+
 class Hymnal(models.Model):
     Hymnal_Name = models.CharField(max_length=200)
     Theme = models.CharField(max_length=200)

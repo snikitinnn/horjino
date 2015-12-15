@@ -30,11 +30,10 @@
 
 </TABLE>
 
-<p>
-    <a href="{% url 'hymnals:detail' hymnal.id %}">Оглавление сборника</a><br>
-    <a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><br>
-    <a href="{% url 'hymnals:choir' %}">Список сборников</a><br>
-    <a href="{% url 'hymnals:ws' %}">Список богослужений</a>
-</p>
+    <br>
+    <h4><a href="{% url 'hymnals:detail' hymnal.id %}">Оглавление сборника</a></h4>
+    <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a></h4>
+    <hr>
+    <h4><a href="{% url 'hymnals:ws' %}">Список богослужений</a></h4>
 
-{% endblock %}
+{% endblock content %}

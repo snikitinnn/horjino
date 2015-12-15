@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import get_object_or_404, render
-from hymnals.models import Song, Hymnal, WS, SongvsWS
+from hymnals.models import Chorus, Song, Hymnal, WS, SongvsWS
 
-def choir(request):
-    latest_hymnal_list = Hymnal.objects.all()
-    context = {'latest_hymnal_list': latest_hymnal_list}
+def choir(request, chorus_id):
+    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
+#    hymnal_list = Hymnal.objects.all()
+#    hymnal_list = hymnal_list.filter(chorus_id=chorus_id).order_by('Hymnal_Name')
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'hymnal_list': hymnal_list, 'chorus':chorus}
     return render(request, 'hymnals/choir.html', context)
 
 def detail(request, hymnal_id):
