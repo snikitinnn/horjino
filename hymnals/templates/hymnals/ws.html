@@ -8,7 +8,7 @@
     {% for ws in latest_ws_list %}
         <tr>
             <TD width=30%><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date }}</a></TD>
-             <TD ALIGN="right">{{ ws.Chorus_Name }}</TD>
+            <TD ALIGN="right">{{ ws.Chorus_Name }}</TD>
             <TD ALIGN="right">{{ ws.Event }}</TD>
         </tr>
     {% endfor %}

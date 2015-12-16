@@ -7,7 +7,7 @@
     <table WIDTH=80%>
     {% for song in selected_song_list %}
         <tr>
-            <TD><a href="{% url 'hymnals:results' song.hymnal_id song.id %}">{{ song.Name }}</a></TD>
+            <TD><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
             <TD ALIGN="right">{{ song.Page_Score }}</TD>
         </tr>
     {% endfor %}

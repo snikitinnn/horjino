@@ -2,16 +2,13 @@
 
 {% block content %}
 <h2>Дата богослужения: {{ ws.Date}}</h2>
-<!--<h2>{{ ws.id }}</h2>-->
 
-
-{% if selected_songvsws_list %}
+{% if songvsws_list %}
     <table WIDTH=60%>
-    {% for song in selected_songvsws_list  %}
+    {% for song in songvsws_list  %}
         <tr>
-            <TD><a href="{% url 'hymnals:results' song.h song.s %}">{{ song.song }}</a></TD>
-            <TD ALIGN="right">{{ song.Page_Score }}</TD>
-            <TD ALIGN="right">{{ song.hymnal }}</TD>
+            <TD><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
+            <TD ALIGN="right">{{ song.song__Page_Score }}</TD>
         </tr>
     {% endfor %}
     </table>
