@@ -5,16 +5,17 @@
 <h2>Алфавитный указатель</h2>
 
 {% if alphabet_song_list %}
-    <table WIDTH=80%>
+    <table WIDTH=100%>
     {% for song in alphabet_song_list %}
         <tr>
-            <TD><a href="{% url 'hymnals:results' song.hymnal_id song.id %}">{{ song.Name }}</a></TD>
-            <TD ALIGN="right">{{ song.Page_Score }}</TD>
+            <TD width=50%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
+            <TD width=20% ALIGN="right">{{ song.Page_Score }}</TD>
+            <TD ALIGN="right">{{ song.hymnal }}</TD>
         </tr>
         {% endfor %}
     </table>
 {% else %}
-    <p>No songs are available.</p>
+    <p>Таких гимнов нет в базе данных.</p>
 {% endif %}
 
 {% endblock content %}

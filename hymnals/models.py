@@ -22,6 +22,8 @@ class Song(models.Model):
     Page_Score = models.IntegerField()
     Authors = models.CharField(max_length=200)
     Authors_2 = models.CharField(max_length=200)
+    class Meta:
+        ordering = ['Page_Score']
     def __unicode__(self):
         return self.Name
 
@@ -53,6 +55,10 @@ class SongvsWS(models.Model):
         return self.song.Page_Score
     def hymnal(self):
         return self.song.hymnal
+    def date(self):
+        return self.ws.Date
+    def event(self):
+        return self.ws.Event
 
     def __unicode__(self):
         return str(self.song.Name)
