@@ -22,8 +22,6 @@ class Song(models.Model):
     Page_Score = models.IntegerField()
     Authors = models.CharField(max_length=200)
     Authors_2 = models.CharField(max_length=200)
-    class Meta:
-        ordering = ['Name']
     def __unicode__(self):
         return self.Name
 
@@ -35,7 +33,7 @@ class WS(models.Model):
     Regents = models.CharField(max_length=200)
     Event = models.CharField(max_length=200)
     Note = models.CharField(max_length=200)
-#    singing = models.ManyToManyField(Song, through='SongvsWS')
+    singing = models.ManyToManyField(Song, through='SongvsWS')
     class Meta:
         ordering = ['-Date']
     def __unicode__(self):
@@ -51,10 +49,10 @@ class SongvsWS(models.Model):
     song = models.ForeignKey(Song)
     ws = models.ForeignKey(WS, related_name='Date1')
     Perform = models.IntegerField()
+    def page(self):
+        return self.song.Page_Score
+    def hymnal(self):
+        return self.song.hymnal
 
-#    objects = models.Manager()
-#    song_name = SongMan()
-#    class Meta:
-#        ordering = ['song']
     def __unicode__(self):
-        return str(self.Perform)
+        return str(self.song.Name)

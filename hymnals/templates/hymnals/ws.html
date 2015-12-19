@@ -4,15 +4,20 @@
 <h2>Список богослужений</h2>
 
 {% if latest_ws_list %}
-    <table WIDTH=100%>
+
     {% for ws in latest_ws_list %}
-        <tr>
-            <TD width=30%><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date }}</a></TD>
-            <TD ALIGN="right">{{ ws.Chorus_Name }}</TD>
-            <TD ALIGN="right">{{ ws.Event }}</TD>
-        </tr>
+        {% ifchanged %}
+            <hr>
+            <p ALIGN="left"> {{ ws.Date|date:"E" }}</p>
+        {% endifchanged %}
+        <table WIDTH=100% >
+            <tr>
+                <TD width=30%><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date }}</a></TD>
+                <TD width=30% ALIGN="right">{{ ws.Chorus_Name }}</TD>
+                <TD ALIGN="right">{{ ws.Event }}</TD>
+            </tr>
+        </table>
     {% endfor %}
-    </table>
 
     <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a></h4>
 {% else %}

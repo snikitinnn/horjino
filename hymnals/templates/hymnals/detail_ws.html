@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Дата богослужения: {{ ws.Date}}</h2>
+<h2>Дата богослужения:</h2>
+<h3>{{ ws.Date }}</h3>
 
 {% if songvsws_list %}
-    <table WIDTH=60%>
+    <table WIDTH=80%>
     {% for song in songvsws_list  %}
         <tr>
             <TD><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
-            <TD ALIGN="right">{{ song.song__Page_Score }}</TD>
+            <TD ALIGN="right">{{ song.page }}</TD>
+            <TD ALIGN="right">{{ song.hymnal }}</TD>
         </tr>
     {% endfor %}
     </table>
