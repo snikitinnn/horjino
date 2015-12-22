@@ -33,7 +33,7 @@
         </TR>
         {% for ws in singing_list %}
             <TR>
-                <TD width=50% ><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.date }}</a></TD>
+                <TD width=50% ><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></TD>
                 <TD ALIGN="right">{{ ws.event }}</TD>
             </TR>
         {% endfor %}

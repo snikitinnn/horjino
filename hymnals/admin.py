@@ -7,9 +7,9 @@ class SongvsWSInline(admin.TabularInline):
     model = SongvsWS
     fk_name = 'ws'
     extra = 0
-    list_display = ('Perform','song',)
+    list_display = ('sequence','song',)
     fieldsets = [
-        (None,{'fields': ['Perform','song'],
+        (None,{'fields': ['sequence','song'],
                'classes': ['collapse']}
         ),
     ]
@@ -60,7 +60,7 @@ class HymnalAdmin(admin.ModelAdmin):
     list_filter = ('Hymnal_Name',)
 
 class SongvsWSAdmin(admin.ModelAdmin):
-    list_display = ('ws','song','Perform')
+    list_display = ('ws','song','sequence')
     list_filter = ('ws__Date','song__hymnal__Hymnal_Name','song',)
 
 admin.site.register(Chorus)

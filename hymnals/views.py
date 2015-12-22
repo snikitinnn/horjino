@@ -48,6 +48,7 @@ def ws(request):
 def detail_ws(request, ws_id):
     ws = get_object_or_404(WS, pk=ws_id)
     songvsws_list = SongvsWS.objects.filter(ws_id=ws_id)
+    songvsws_list = songvsws_list.order_by('sequence')
     context = {'ws':ws, 'songvsws_list':songvsws_list}
     return render(request, 'hymnals/detail_ws.html', context)
 

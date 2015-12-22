@@ -4,7 +4,7 @@
 <h2>{{ hymnal.Hymnal_Name}}</h2>
 
 {% if selected_song_list %}
-    <table WIDTH=80%>
+    <table WIDTH=100%>
     {% for song in selected_song_list %}
         <tr>
             <TD><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>

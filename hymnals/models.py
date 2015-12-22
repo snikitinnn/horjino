@@ -41,16 +41,16 @@ class WS(models.Model):
     def __unicode__(self):
         return str(self.Date)
 
-class SongMan(models.Manager):
-    def get_queryset(self):
-        return SongMan(self)
+#class SongMan(models.Manager):
+#    def get_queryset(self):
+#        return SongMan(self)
 #    class Meta:
 #        ordering = ['song']
 
 class SongvsWS(models.Model):
     song = models.ForeignKey(Song)
     ws = models.ForeignKey(WS, related_name='Date1')
-    Perform = models.IntegerField()
+    sequence = models.IntegerField()
     def page(self):
         return self.song.Page_Score
     def hymnal(self):
@@ -61,4 +61,4 @@ class SongvsWS(models.Model):
         return self.ws.Event
 
     def __unicode__(self):
-        return str(self.song.Name)
+        return self.song.Name
