@@ -29,9 +29,8 @@ class Song(models.Model):
 
 class WS(models.Model):
     Date = models.DateField()
-    chorus_id = models.IntegerField()
+    chorus = models.ForeignKey(Chorus)
     Supper = models.BooleanField()
-    Chorus_Name = models.CharField(max_length=200)
     Regents = models.CharField(max_length=200)
     Event = models.CharField(max_length=200)
     Note = models.CharField(max_length=200)
@@ -40,12 +39,6 @@ class WS(models.Model):
         ordering = ['-Date']
     def __unicode__(self):
         return str(self.Date)
-
-#class SongMan(models.Manager):
-#    def get_queryset(self):
-#        return SongMan(self)
-#    class Meta:
-#        ordering = ['song']
 
 class SongvsWS(models.Model):
     song = models.ForeignKey(Song)
@@ -59,6 +52,7 @@ class SongvsWS(models.Model):
         return self.ws.Date
     def event(self):
         return self.ws.Event
-
+    def chorus(self):
+        return self.ws.chorus
     def __unicode__(self):
         return self.song.Name

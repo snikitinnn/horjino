@@ -34,14 +34,22 @@ def results_song(request, song_id):
     return render(request, 'hymnals/results_song.html', context)
 
 def alphabet(request):
-    alphabet_song_list = Song.objects.all().order_by('Name')
+    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score')
+    alphabet_song_list = alphabet_song_list.order_by('Name')
     context = {'alphabet_song_list' : alphabet_song_list}
     return render(request, 'hymnals/alphabet.html', context)
 
 #######################################
 
 def ws(request):
-    latest_ws_list = WS.objects.all()
+    latest_ws_list = WS.objects.values('id','Date','chorus__name','Event')
+    context = {'latest_ws_list': latest_ws_list}
+    return render(request, 'hymnals/ws.html', context)
+
+def ws_chorus(request, chorus_id):
+#    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    latest_ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
+    latest_ws_list = latest_ws_list.values('id','Date','chorus__name','Event')
     context = {'latest_ws_list': latest_ws_list}
     return render(request, 'hymnals/ws.html', context)
 
@@ -58,13 +66,3 @@ def results_ws(request, ws_id, song_id):
     context = {'song': song, 'ws': ws}
     return render(request, 'hymnals/results_ws.html', context)
 
-# <!--    <TR>
-#         {% if date_list %}
-#             <h2>{{ song_count }}</h2>
-#             {% for song_vs_ws in date_list %}
-#                 <tr>
-#                     <TD>{{ song_vs_ws.Date}}</TD><TD></TD>
-#                 </tr>
-#             {% endfor %}
-#         {% endif %}
-#     </TR>-->

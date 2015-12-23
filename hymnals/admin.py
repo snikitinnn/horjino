@@ -33,17 +33,6 @@ def get_my_choices():
             )
     return choices_list
 
-# class SongAdminForm(ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(SongAdminForm, self).__init__(*args, **kwargs)
-#         self.fields['my_choice_field'] = forms.ChoiceField(choices=get_my_choices())
-#     class Meta:
-#         model = Song
-#
-#     def clean_name(self):
-#         # do something that validates your data
-#         return self.cleaned_data["name"]
-
 class SongAdmin(admin.ModelAdmin):
 #    form = SongAdminForm
     list_display = ('Name','Name_Alt','hymnal','Page_Score','Authors','Authors_2',)
@@ -51,8 +40,8 @@ class SongAdmin(admin.ModelAdmin):
 
 class WSAdmin(admin.ModelAdmin):
     inlines = [SongvsWSInline,]
-    list_display = ('Date','Supper','Chorus_Name','Regents','Event','Note',)
-    list_filter = ('Chorus_Name','Date',)
+    list_display = ('Date','Supper','chorus','Regents','Event','Note',)
+    list_filter = ('chorus','Date',)
 
 class HymnalAdmin(admin.ModelAdmin):
     inlines = [SongInline,]
