@@ -10,6 +10,7 @@ class Chorus(models.Model):
 class Hymnal(models.Model):
     Hymnal_Name = models.CharField(max_length=200)
     Theme = models.CharField(max_length=200)
+    chorus = models.ForeignKey(Chorus, default=None)
     class Meta:
         ordering = ['Hymnal_Name']
     def __unicode__(self):

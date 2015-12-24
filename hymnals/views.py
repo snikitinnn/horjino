@@ -33,8 +33,18 @@ def results_song(request, song_id):
     context = {'singing_list':singing_list, 'song': song, 'hymnal': song.hymnal}
     return render(request, 'hymnals/results_song.html', context)
 
+#####################################
+
 def alphabet(request):
     alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score')
+    alphabet_song_list = alphabet_song_list.order_by('Name')
+    context = {'alphabet_song_list' : alphabet_song_list}
+    return render(request, 'hymnals/alphabet.html', context)
+
+def alphabet_chorus(request, chorus_id):
+    alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
+    alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
+    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score')
     alphabet_song_list = alphabet_song_list.order_by('Name')
     context = {'alphabet_song_list' : alphabet_song_list}
     return render(request, 'hymnals/alphabet.html', context)
@@ -47,11 +57,12 @@ def ws(request):
     return render(request, 'hymnals/ws.html', context)
 
 def ws_chorus(request, chorus_id):
-#    chorus = get_object_or_404(Chorus, pk=chorus_id)
     latest_ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
-    latest_ws_list = latest_ws_list.values('id','Date','chorus__name','Event')
+    latest_ws_list = latest_ws_list.values('id','Date','Event')
     context = {'latest_ws_list': latest_ws_list}
     return render(request, 'hymnals/ws.html', context)
+
+#######################################
 
 def detail_ws(request, ws_id):
     ws = get_object_or_404(WS, pk=ws_id)

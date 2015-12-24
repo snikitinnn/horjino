@@ -3,11 +3,7 @@
 {% block content %}
 <h2>Список богослужений</h2>
 
-
-
 {% if latest_ws_list %}
-
-
 
     {% for ws in latest_ws_list %}
         {% ifchanged %}
@@ -23,9 +19,10 @@
         </table>
     {% endfor %}
 
-    <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a></h4>
 {% else %}
     <p>Список пуст.</p>
 {% endif %}
+    <hr>
+    <h4><a href="{% url 'hymnals:ws' %}">Список богослужений для всех хоров</a></h4>
 
 {% endblock content %}

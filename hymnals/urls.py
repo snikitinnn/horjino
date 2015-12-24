@@ -4,12 +4,13 @@ from hymnals import views
 
 urlpatterns = patterns('',
     url(r'^choir/(?P<chorus_id>\d+)/$', views.choir, name='choir'),
-    url(r'^alphabet/$', views.alphabet, name='alphabet'),
     url(r'^(?P<hymnal_id>\d+)/$', views.detail, name='detail'),
     url(r'^(?P<hymnal_id>\d+)/(?P<song_id>\d+)/$', views.results, name='results'),
     url(r'^song/(?P<song_id>\d+)/$', views.results_song, name='song'),
+    url(r'^alphabet/$', views.alphabet, name='alphabet'),
+    url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),                       
     url(r'^ws/$', views.ws, name='ws'),
-    url(r'^ws/chorus/(?P<ws_id>\d+)/$', views.ws_chorus, name='ws_chorus'),
+    url(r'^ws/chorus/(?P<chorus_id>\d+)/$', views.ws_chorus, name='ws_chorus'),
     url(r'^ws/(?P<ws_id>\d+)/$', views.detail_ws, name='detail_ws'),
     url(r'^ws/(?P<ws_id>\d+)/(?P<song_id>\d+)/$', views.results_ws, name='results_ws'),
 )
