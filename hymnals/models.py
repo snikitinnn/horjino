@@ -8,21 +8,22 @@ class Chorus(models.Model):
         return self.name
 
 class Hymnal(models.Model):
-    Hymnal_Name = models.CharField(max_length=200)
-    Theme = models.CharField(max_length=200)
+    Hymnal_Name = models.CharField(max_length=50)
+    Theme = models.CharField(max_length=65)
     chorus = models.ForeignKey(Chorus, default=None)
+    icon = models.CharField(default=None,max_length=50)
     class Meta:
         ordering = ['Hymnal_Name']
     def __unicode__(self):
         return self.Hymnal_Name
 
 class Song(models.Model):
-    Name = models.CharField(max_length=200)
-    Name_Alt = models.CharField(max_length=200)
+    Name = models.CharField(max_length=100)
+    Name_Alt = models.CharField(max_length=100)
     hymnal = models.ForeignKey(Hymnal)
     Page_Score = models.IntegerField()
-    Authors = models.CharField(max_length=200)
-    Authors_2 = models.CharField(max_length=200)
+    Authors = models.CharField(max_length=50)
+    Authors_2 = models.CharField(max_length=50)
     class Meta:
         ordering = ['Page_Score']
     def __unicode__(self):
@@ -32,9 +33,9 @@ class WS(models.Model):
     Date = models.DateField()
     chorus = models.ForeignKey(Chorus)
     Supper = models.BooleanField()
-    Regents = models.CharField(max_length=200)
-    Event = models.CharField(max_length=200)
-    Note = models.CharField(max_length=200)
+    Regents = models.CharField(max_length=100)
+    Event = models.CharField(max_length=100)
+    Note = models.CharField(max_length=100)
     singing = models.ManyToManyField(Song, through='SongvsWS')
     class Meta:
         ordering = ['-Date']

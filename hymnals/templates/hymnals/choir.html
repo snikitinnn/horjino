@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <h2>{{chorus.name}}</h2>
@@ -9,7 +10,10 @@
     <table WIDTH=60%>
     {% for hymnal in hymnal_list %}
         <tr>
-            <TD><a href="{% url 'hymnals:detail' hymnal.id %}">{{ hymnal.Hymnal_Name }}</a></TD>            
+            <td><a href="{% url 'hymnals:detail' hymnal.id %}"><img src="{% static 'img' %}/{{hymnal.icon}}" /></a></td>
+        </tr>
+        <tr>
+            <td>{{hymnal}}</td>
         </tr>
     {% endfor %}
     </table>

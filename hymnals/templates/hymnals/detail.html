@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <h2>{{ hymnal.Hymnal_Name}}</h2>
+<img src="{% static 'img' %}/{{hymnal.icon}}" />
+<br>
 
 {% if selected_song_list %}
     <table WIDTH=100%>

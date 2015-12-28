@@ -18,3 +18,15 @@ textarea {
 .container {
     height: 70px;
 }
+
+.choir_content {
+    width: 880px;
+    overflow:hidden;
+    margin: 20px auto 0 auto;
+    color: red;
+    background-color: blue;
+}
+
+.hymnal_icon {
+    background-size: auto auto;
+}
