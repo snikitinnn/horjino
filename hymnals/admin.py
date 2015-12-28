@@ -49,7 +49,7 @@ class HymnalAdmin(admin.ModelAdmin):
     list_filter = ('Hymnal_Name',)
 
 class SongvsWSAdmin(admin.ModelAdmin):
-    list_display = ('ws','song','sequence')
+    list_display = ('ws','song','sequence',)
     list_filter = ('ws__Date','song__hymnal__Hymnal_Name','song',)
 
 admin.site.register(Chorus)

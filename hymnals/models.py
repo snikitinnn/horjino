@@ -25,7 +25,7 @@ class Song(models.Model):
     Authors = models.CharField(max_length=50)
     Authors_2 = models.CharField(max_length=50)
     class Meta:
-        ordering = ['Page_Score']
+        ordering = ['Name']#ordering = ['Page_Score']
     def __unicode__(self):
         return self.Name
 

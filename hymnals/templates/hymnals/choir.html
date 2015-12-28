@@ -13,7 +13,7 @@
             <td><a href="{% url 'hymnals:detail' hymnal.id %}"><img src="{% static 'img' %}/{{hymnal.icon}}" /></a></td>
         </tr>
         <tr>
-            <td>{{hymnal}}</td>
+            <td><a href="{% url 'hymnals:detail' hymnal.id %}">{{hymnal}}</a></td>
         </tr>
     {% endfor %}
     </table>
