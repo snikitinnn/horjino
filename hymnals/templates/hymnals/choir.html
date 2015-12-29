@@ -10,10 +10,8 @@
     <table WIDTH=60%>
     {% for hymnal in hymnal_list %}
         <tr>
-            <td><a href="{% url 'hymnals:detail' hymnal.id %}"><img src="{% static 'img' %}/{{hymnal.icon}}" /></a></td>
-        </tr>
-        <tr>
             <td><a href="{% url 'hymnals:detail' hymnal.id %}">{{hymnal}}</a></td>
+            <td><a href="{% url 'hymnals:detail' hymnal.id %}"><img src="{% static 'img' %}/small_{{hymnal.icon}}" /></a></td>
         </tr>
     {% endfor %}
     </table>
