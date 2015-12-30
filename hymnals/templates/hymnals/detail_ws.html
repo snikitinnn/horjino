@@ -6,17 +6,16 @@
 <h3>{{ ws.Date }}</h3>
 
 {% if songvsws_list %}
-    <table WIDTH=80%>
+    <table WIDTH=100%>
     {% for song in songvsws_list  %}
         <tr>
-            <TD><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
-            <TD ALIGN="center">{{ song.page }}</TD>
-
-            <TD ALIGN="center">
+            <TD width=15% align="center">
                 <a href="{% url 'hymnals:detail' song.hymnal.id %}">
                     <img src="{% static 'img' %}/small_{{song.hymnal.icon}}" alt="{{ song.hymnal }}"/>
                 </a>
             </TD>
+            <TD width = 70%><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
+            <TD ALIGN="center">{{ song.page }}</TD>
         </tr>
     {% endfor %}
     </table>

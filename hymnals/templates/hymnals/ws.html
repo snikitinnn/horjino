@@ -4,14 +4,11 @@
 
 <h3>Список богослужений</h3>
 
-<h4>Сегодня:</h4>
-<h4>{{ cur_date|date:"j E" }}</h4>
+<h4>Сегодня: {{ cur_date|date:"j E" }}</h4>
 
 {% if ws_list %}
-
     {% for ws in ws_list %}
         {% ifchanged %}
-            <hr>
             <h4 ALIGN="center"> {{ ws.Date|date:"F Y" }}</h4>
         {% endifchanged %}
         <table WIDTH=100% >
@@ -22,7 +19,6 @@
             </tr>
         </table>
     {% endfor %}
-
 {% else %}
     <p>Список пуст.</p>
 {% endif %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 
@@ -8,9 +9,9 @@
     <table WIDTH=100%>
     {% for song in alphabet_song_list %}
         <tr>
-            <TD width=50%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
-            <TD width=20% ALIGN="right">{{ song.Page_Score }}</TD>
-            <TD ALIGN="right">{{ song.hymnal__Hymnal_Name }}</TD>
+            <TD width=15% align="center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></TD>
+            <TD width=70% align="left"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
+            <TD align="center">{{ song.Page_Score }}</TD>
         </tr>
         {% endfor %}
     </table>

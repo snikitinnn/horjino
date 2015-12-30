@@ -7,11 +7,15 @@
 <h3>Сборники гимнов</h3>
 
 {% if hymnal_list %}
-    <table WIDTH=60%>
+    <table width=100%>
     {% for hymnal in hymnal_list %}
         <tr>
-            <td><a href="{% url 'hymnals:detail' hymnal.id %}">{{hymnal}}</a></td>
-            <td><a href="{% url 'hymnals:detail' hymnal.id %}"><img src="{% static 'img' %}/small_{{hymnal.icon}}" /></a></td>
+            <td width=15% align="center">
+                <a href="{% url 'hymnals:detail' hymnal.id %}">
+                    <img class="hymnal_icon" src="{% static 'img' %}/small_{{hymnal.icon}}" />
+                </a>
+            </td>
+            <td align="left"><a href="{% url 'hymnals:detail' hymnal.id %}">{{hymnal}}</a></td>
         </tr>
     {% endfor %}
     </table>

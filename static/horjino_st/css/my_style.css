@@ -27,12 +27,23 @@ textarea {
     background-color: blue;
 }
 
-.hymnal_icon {
-    width: 200%;
+td {
+  padding: 1px;
+  border: solid 1px #f4f4f4;
 }
 
     @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 568px) {
+
+td .hymnal_icon{
+  width: 25px;
+  vertical-align: middle;
+}
+
+td .hymnal_icon_ll{
+  width: 20px;
+  vertical-align: middle;
+}
 
 }

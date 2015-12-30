@@ -40,7 +40,7 @@ def results_song(request, song_id):
 #####################################
 
 def alphabet(request):
-    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score')
+    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon')
     alphabet_song_list = alphabet_song_list.order_by('Name')
     context = {'alphabet_song_list' : alphabet_song_list}
     return render(request, 'hymnals/alphabet.html', context)
@@ -48,7 +48,7 @@ def alphabet(request):
 def alphabet_chorus(request, chorus_id):
     alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
     alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
-    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score')
+    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon')
     alphabet_song_list = alphabet_song_list.order_by('Name')
     context = {'alphabet_song_list' : alphabet_song_list}
     return render(request, 'hymnals/alphabet.html', context)
