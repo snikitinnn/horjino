@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 from django import forms
-from hymnals.models import Song,Chorus
+
+from models import Chorus
+
 
 class ChorusForm(forms.ModelForm):
 

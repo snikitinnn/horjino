@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import get_object_or_404, render
-from hymnals.models import Chorus, Song, Hymnal, WS, SongvsWS
+from django.utils import timezone
+
+from models import Chorus, Song, Hymnal, WS, SongvsWS
+
 
 def choir(request, chorus_id):
 #    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
@@ -53,15 +56,26 @@ def alphabet_chorus(request, chorus_id):
 #######################################
 
 def ws(request):
-    latest_ws_list = WS.objects.values('id','Date','chorus__name','Event')
-    context = {'latest_ws_list': latest_ws_list}
+    cur_date = timezone.now()
+    ws_list = WS.objects.values('id','Date','chorus__name','Event')
+    context = {'ws_list': ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_chorus(request, chorus_id):
-    latest_ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
-    latest_ws_list = latest_ws_list.values('id','Date','Event')
-    context = {'latest_ws_list': latest_ws_list}
+    cur_date = timezone.now()
+    ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
+    ws_list = ws_list.values('id','Date','Event')
+    context = {'ws_list': ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
+
+def ws_last(request):
+    cur_date = timezone.now()
+    coming_ws_list = WS.objects.extra(where=['Date>=%s'], params=[cur_date])
+#    latest_ws_list = WS.objects.extra(where=['Date<%s'], params=[cur_date])
+    coming_ws_list = coming_ws_list.values('id','Date','chorus__name','Event')
+    context = {'ws_list': coming_ws_list, 'cur_date':cur_date}
+    return render(request, 'hymnals/ws.html', context)
+
 
 #######################################
 
@@ -77,4 +91,3 @@ def results_ws(request, ws_id, song_id):
     ws = get_object_or_404(WS, pk=ws_id)
     context = {'song': song, 'ws': ws}
     return render(request, 'hymnals/results_ws.html', context)
-

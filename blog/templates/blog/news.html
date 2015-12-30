@@ -2,9 +2,15 @@
 {% load staticfiles %}
 
 {% block content %}
+
 <h2>*Сайт в разработке</h2>
 <hr>
 <h3>Последние новости.</h3>
+
+<div class = "ws">
+    <h4><a href="{% url 'hymnals:ws_last' %}">Предстоящие богослужения</a></h4>
+</div>
+
 <div class = "list">
 {% if blog_list %}
     {% for post in blog_list %}
@@ -18,5 +24,5 @@
 {% endif %}
 </div> <!-- div class=list -->
 
-{% endblock %}
+{% endblock content %}
 

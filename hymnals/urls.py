@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import patterns, url
+
 from hymnals import views
 
 urlpatterns = patterns('',
@@ -10,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^alphabet/$', views.alphabet, name='alphabet'),
     url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),                       
     url(r'^ws/$', views.ws, name='ws'),
+    url(r'^ws/last/$', views.ws_last, name='ws_last'),
     url(r'^ws/chorus/(?P<chorus_id>\d+)/$', views.ws_chorus, name='ws_chorus'),
     url(r'^ws/(?P<ws_id>\d+)/$', views.detail_ws, name='detail_ws'),
     url(r'^ws/(?P<ws_id>\d+)/(?P<song_id>\d+)/$', views.results_ws, name='results_ws'),
