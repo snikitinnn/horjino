@@ -13,9 +13,9 @@
         {% endifchanged %}
         <table WIDTH=100% >
             <tr>
-                <TD width=30% ALIGN="center"><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></TD>
-                <TD width=30% ALIGN="right">{{ ws.chorus__name }}</TD>
-                <TD ALIGN="right">{{ ws.Event }}</TD>
+                <TD width=35% ALIGN="center"><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></TD>
+                <TD ALIGN="right">{{ ws.chorus__name }}</TD>
+                <TD width=45% ALIGN="right">{{ ws.Event }}</TD>
             </tr>
         </table>
     {% endfor %}

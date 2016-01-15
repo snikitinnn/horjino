@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+<div>
 <h2>{{chorus.name}}</h2>
 <hr>
 <h3>Сборники гимнов</h3>
@@ -27,7 +28,7 @@
 {% else %}
     <p>Таких гимнов нет в базе данных.</p>
 {% endif %}
-
+</div>
 {% endblock content %}
 
     <!--{% block alphabet %}-->

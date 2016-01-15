@@ -9,8 +9,16 @@
         <input name="title" type="text" class="form-control" placeholder="Заголовок"/>
     </div>
     <div class="form-group">
-        <textarea name="content" class="form-control" placeholder="Содержание">
-        </textarea>
+        <textarea name="content" class="form-control" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+        <select name="category" class="form-control">
+            <option disabled>Выберите тип</option>
+            <option value="general">General</option>
+            <option value="news">News</option>
+            <option value="private">Private</option>
+            <option value="reflection">Reflection</option>
+        </select>
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-default" value="Отправить" />

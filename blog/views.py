@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import get_object_or_404, render, redirect
 from forms import PostForms
-from models import Post
+from models import Post,User
+
 
 # Create your views here.
 def about(request):
@@ -17,7 +18,7 @@ def listing(request):
 
 def news(request):
     blog_list = Post.objects.all()
-    blog_list = blog_list.filter(isnews=True).order_by('-pubdate')
+    blog_list = blog_list.filter(category='news').order_by('-pubdate')
     context = {'blog_list': blog_list}
     return render(request, 'blog/news.html', context)
 
@@ -43,8 +44,9 @@ def post_new(request):
     if request.method == "POST":
         form = PostForms(request.POST)
         if form.is_valid():
+            user = User.objects.get(id=1)
             post = form.save(commit=False)
-            post.user = request.user
+            post.user = user
             post.save()
             return redirect('blog:listing')# listing
 #            return redirect('blog:post_detail', pk = post.pk )# страницы формы
@@ -72,3 +74,8 @@ def post_edit(request, id):
     else:
         form = PostForms(instance=post)
     return render(request, 'blog/post_new.html', {'form':form})
+
+        # <select name="category" class="form-control">
+        #     <option disabled>Выберите тип</option>
+        #     <option>general</option>
+        # </select>
