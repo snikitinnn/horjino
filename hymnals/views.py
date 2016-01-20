@@ -35,7 +35,11 @@ def results_song(request, song_id):
     singing_list = SongvsWS.objects.filter(song_id=song_id)
     singing_list = singing_list.order_by('-ws__Date')
     context = {'singing_list':singing_list, 'song': song, 'hymnal': song.hymnal}
-    return render(request, 'hymnals/results_song.html', context)
+    return render(request, 'hymnals/390.html', context)
+
+def lyrics(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    return render(request, 'hymnals/lyrics.html', {'song': song})
 
 #####################################
 
