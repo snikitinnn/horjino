@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
+
+import os
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
 from models import Chorus, Song, Hymnal, WS, SongvsWS
-
 
 def choir(request, chorus_id):
 #    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
@@ -32,10 +33,14 @@ def results(request, hymnal_id, song_id):
 
 def results_song(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
-    singing_list = SongvsWS.objects.filter(song_id=song_id)
-    singing_list = singing_list.order_by('-ws__Date')
+    singing_list = SongvsWS.objects.filter(song_id=song_id).order_by('-ws__Date')
+    file_name = 'lyrics/'+str(song_id)+'.html'
     context = {'singing_list':singing_list, 'song': song, 'hymnal': song.hymnal}
-    return render(request, 'hymnals/390.html', context)
+
+    if os.path.exists('hymnals/templates/'+file_name):
+        return render(request, file_name, context)
+    else:
+        return render(request, 'lyrics/0.html', context)
 
 def lyrics(request, song_id):
     song = get_object_or_404(Song, pk=song_id)

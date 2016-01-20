@@ -18,11 +18,3 @@ class PostForms(forms.ModelForm):
     )
     category = forms.ChoiceField(choices=selfield)
 
-class LoginForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('username', 'password',)
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=128)
-

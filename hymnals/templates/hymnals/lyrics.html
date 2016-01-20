@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{{ song.Name }}</h3>
+
+<br>
+<table>
+    {% if song %}
+
+    {% else %}
+        <tr>
+            <TD>В базе данных нет даты исполнения этого гимна.</TD><TD></TD>
+        </tr>
+    {% endif %}
+</table>
+
+<br>
+<h4><a href="{% url 'hymnals:alphabet_chorus' song.hymnal.chorus.id %}">Алфавитный указатель гимнов хора</a></h4>
+<hr>
+<h4><a href="{% url 'hymnals:ws_chorus' song.hymnal.chorus.id %}">Список богослужений с участием хора</a></h4>
+
+{% endblock content %}
