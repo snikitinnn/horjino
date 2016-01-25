@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from forms import PostForms
 from models import Post,User
 
-
 # Create your views here.
 def about(request):
     return render(request, 'blog/about.html',)
@@ -12,6 +11,11 @@ def blog(request):
     return render(request, 'blog/blog.html')
 
 def listing(request):
+    if not request.user.is_authenticated():
+        return redirect('/login/?next=%s' % request.path)
+    elif request.user.is_superuser==False:
+        return redirect('/login/?next=%s' % request.path)
+
     blog_list = Post.objects.order_by('-pubdate')
     context = {'blog_list': blog_list}
     return render(request, 'blog/listing.html', context)
@@ -22,24 +26,12 @@ def news(request):
     context = {'blog_list': blog_list}
     return render(request, 'blog/news.html', context)
 
-# from django.http.response import HttpResponse
-# from django.template.loader import get_template
-# from django.template import Context
-#
-# def about(request):
-#     view = 'index'
-#     t = get_template('blog/about.html')
-#     html = t.render(Context({'name': view}))
-#     return HttpResponse(html)
-#
-# def blog(request):
-#     view = 'index'
-#     t = get_template('blog/blog.html')
-#     html = t.render(Context({'name': view}))
-#     return HttpResponse(html)
-
 # новый пост
 def post_new(request):
+    if not request.user.is_authenticated():
+        return redirect('/login/?next=%s' % request.path)
+    elif request.user.is_superuser==False:
+        return redirect('/login/?next=%s' % request.path)
 
     if request.method == "POST":
         form = PostForms(request.POST)
@@ -106,13 +98,6 @@ class LogoutView(View):
     def get(self, request):
         # Выполняем выход для пользователя, запросившего данное представление.
         logout(request)
-
         # После чего, перенаправляем пользователя на главную страницу.
         return HttpResponseRedirect("/")
-
-
-        # <select name="category" class="form-control">
-        #     <option disabled>Выберите тип</option>
-        #     <option>general</option>
-        # </select>
 

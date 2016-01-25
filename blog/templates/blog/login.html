@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Войти</title>
-  </head>
-  <body>
-    <form action="" method="post">
-      {% csrf_token %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <h4 class="error">Извините, логин или пароль неверные.</h4>
+    <h4 class="error">Введите еще раз.</h4>
+  {% else %}
+    <h4>Ваш логин и пароль:</h4>
+  {% endif %}
+
+<form role="form" method="POST">
+    {% csrf_token %}
       <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
-      {{ form.as_p }}
-      <button type="submit">Войти</button>
-    </form>
-  </body>
-</html>
+    <div class="form-group">
+        <input name="username" id="username" type="text" class="form-control" placeholder="Логин"/>
+    </div>
+    <div class="form-group">
+        <input name="password" id="password" type="password" class="form-control" placeholder="Пароль"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Войти" />
+    </div>
+</form>
+
+{% endblock content %}

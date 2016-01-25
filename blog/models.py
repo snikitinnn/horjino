@@ -8,6 +8,7 @@ class User(models.Model):
     username = models.CharField(max_length=30)
     email = models.CharField(max_length = 254)
     password = models.CharField(default='qwerty', max_length = 128)
+    is_superuser = models.BooleanField(default=0)
     def __unicode__(self):
         return self.username
 
