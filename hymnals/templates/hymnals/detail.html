@@ -3,14 +3,22 @@
 
 {% block content %}
 <h2>{{ hymnal.Hymnal_Name}}</h2>
-<div><img class="hymnal_icon" src="{% static 'img' %}/{{hymnal.icon}}" /></div>
-<br>
+<div>
+    <img class="hymnal_icon" src="{% static 'img' %}/{{hymnal.icon}}" />
+    <h4>
+    {% if order == 'p' %}
+        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'n' %}">по алфавиту</a>
+    {% else %}
+        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'p' %}">по порядку</a>
+    {% endif %}
+    </h4>
+</div>
 
 {% if selected_song_list %}
     <table width=100%>
     {% for song in selected_song_list %}
         <tr>
-            <TD width = 70%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
+            <TD width = 80%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
             <TD align ="center">{{ song.Page_Score }}</TD>
         </tr>
     {% endfor %}
@@ -20,7 +28,7 @@
 {% endif %}
 
     <br>
-    <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель</a><br></h4>
+    <h4><a href="{% url 'hymnals:alphabet' 'n' %}">Алфавитный указатель</a><br></h4>
     <hr>
     <h4><a href="{% url 'hymnals:ws' %}">Список богослужений</a></h4>
 

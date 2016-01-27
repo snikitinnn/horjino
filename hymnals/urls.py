@@ -1,16 +1,15 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import patterns, url
-
 from hymnals import views
 
 urlpatterns = patterns('',
     url(r'^choir/(?P<chorus_id>\d+)/$', views.choir, name='choir'),
-    url(r'^(?P<hymnal_id>\d+)/$', views.detail, name='detail'),
+    url(r'^(?P<hymnal_id>\d+)/(?P<order>\D+)/$', views.detail, name='detail'),
     url(r'^(?P<hymnal_id>\d+)/(?P<song_id>\d+)/$', views.results, name='results'),
     url(r'^song/(?P<song_id>\d+)/$', views.results_song, name='song'),
     url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
-    url(r'^alphabet/$', views.alphabet, name='alphabet'),
-    url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),                       
+    url(r'^alphabet/(?P<order>\D+)/$', views.alphabet, name='alphabet'),
+    url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),
     url(r'^ws/$', views.ws, name='ws'),
     url(r'^ws/last/$', views.ws_last, name='ws_last'),
     url(r'^ws/chorus/(?P<chorus_id>\d+)/$', views.ws_chorus, name='ws_chorus'),

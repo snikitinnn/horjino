@@ -10,7 +10,7 @@
     {% for song in songvsws_list  %}
         <tr>
             <TD width=15% align="center">
-                <a href="{% url 'hymnals:detail' song.hymnal.id %}">
+                <a href="{% url 'hymnals:detail' song.hymnal.id 'n' %}">
                     <img src="{% static 'img' %}/small_{{song.hymnal.icon}}" alt="{{ song.hymnal }}"/>
                 </a>
             </TD>
@@ -24,6 +24,6 @@
 {% endif %}
 
     <br>
-    <h4><a href="{% url 'hymnals:alphabet' %}">Алфавитный указатель всех гимнов</a><br></h4>
+    <h4><a href="{% url 'hymnals:alphabet' 'n' %}">Алфавитный указатель всех гимнов</a><br></h4>
 
 {% endblock content %}

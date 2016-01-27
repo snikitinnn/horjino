@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>Поиск ресурса</h2>
+<form role="form" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <input name="title" type="text" class="form-control" placeholder="Заголовок"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Найти" />
+    </div>
+</form>
+{% endblock content %}
+

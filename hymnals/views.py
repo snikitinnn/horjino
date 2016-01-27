@@ -8,16 +8,20 @@ from models import Chorus, Song, Hymnal, WS, SongvsWS
 
 def choir(request, chorus_id):
 #    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
-    hymnal_list = Hymnal.objects.filter(chorus_id=chorus_id, active=True)
+    hymnal_list = Hymnal.objects.filter(chorus_id=chorus_id, active=True).order_by('id')
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     context = {'hymnal_list': hymnal_list, 'chorus':chorus}
     return render(request, 'hymnals/choir.html', context)
 
 # hymnals
-def detail(request, hymnal_id):
-    selected_song_list = Song.objects.extra(where=['hymnal_id=%s'], params=[hymnal_id])
+def detail(request, hymnal_id, order):
+    song_list = Song.objects.extra(where=['hymnal_id=%s'], params=[hymnal_id])
+    if order == 'p':
+        selected_song_list = song_list.order_by('Page_Score')
+    else:
+        selected_song_list = song_list.order_by('Name')
     hymnal = get_object_or_404(Hymnal, pk=hymnal_id)
-    context = {'selected_song_list' : selected_song_list, 'hymnal': hymnal}
+    context = {'selected_song_list' : selected_song_list, 'hymnal': hymnal, 'order' : order}
     return render(request, 'hymnals/detail.html', context)
 
 def results(request, hymnal_id, song_id):
@@ -48,10 +52,14 @@ def lyrics(request, song_id):
 
 #####################################
 
-def alphabet(request):
+def alphabet(request, order):
     alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon')
-    alphabet_song_list = alphabet_song_list.order_by('Name')
-    context = {'alphabet_song_list' : alphabet_song_list}
+    if order == 'p':
+        alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Name')
+    else:
+        alphabet_song_list = alphabet_song_list.order_by('Name')
+
+    context = {'alphabet_song_list' : alphabet_song_list, 'order' : order}
     return render(request, 'hymnals/alphabet.html', context)
 
 def alphabet_chorus(request, chorus_id):
@@ -90,7 +98,8 @@ def ws_last(request):
 
 def detail_ws(request, ws_id):
     ws = get_object_or_404(WS, pk=ws_id)
-    songvsws_list = SongvsWS.objects.filter(ws_id=ws_id)
+#    songvsws_list = SongvsWS.objects.filter(ws_id=ws_id)
+    songvsws_list = SongvsWS.objects.extra(where=['ws_id=%s'], params=[ws_id])
     songvsws_list = songvsws_list.order_by('sequence')
     context = {'ws':ws, 'songvsws_list':songvsws_list}
     return render(request, 'hymnals/detail_ws.html', context)
