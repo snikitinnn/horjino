@@ -59,3 +59,8 @@ class SongvsWS(models.Model):
         return self.ws.chorus
     def __unicode__(self):
         return self.song.Name
+
+class Search(models.Model):
+    class Meta():
+        db_table = 'hymnals_song'
+    Name = models.CharField(max_length=100)

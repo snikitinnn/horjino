@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django import forms
-
-from models import Chorus
-
+from models import Chorus, Search
 
 class ChorusForm(forms.ModelForm):
 
@@ -12,3 +10,10 @@ class ChorusForm(forms.ModelForm):
     name = forms.CharField(max_length=200)
     content = forms.Textarea()
     isnews = forms.CheckboxInput()
+
+class SearchForm(forms.ModelForm):
+
+    class Meta:
+        model = Search
+        fields = ('Name',)
+    Name = forms.CharField(max_length=100)

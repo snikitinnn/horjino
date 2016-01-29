@@ -30,3 +30,20 @@ from django.test import TestCase
 #             {% endfor %}
 #         {% endif %}
 #     </TR>-->
+
+# <form role="form" method="POST">
+#     {% csrf_token %}
+#     <div class="form-group">
+#         <input name="Name" type="text" class="form-control" placeholder="Название гимна"/>
+#     </div>
+#     <div class="form-group">
+#         <input name="Authors" type="text" class="form-control" placeholder="Автор"/>
+#     </div>
+#     <div class="form-group">
+#         <input type="submit" class="btn btn-default" value="Найти" />
+#     </div>
+# </form>
+
+
+# <li class="active"><a href="{% 'hymnals:findform' '1' %}">Название</a></li>
+#   <li><a href="{% 'hymnals:findform' '2' %}">Автор</a></li>

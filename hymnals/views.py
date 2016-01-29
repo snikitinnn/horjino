@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 import os
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
-
+from forms import SearchForm
 from models import Chorus, Song, Hymnal, WS, SongvsWS
 
 def choir(request, chorus_id):
@@ -109,3 +109,44 @@ def results_ws(request, ws_id, song_id):
     ws = get_object_or_404(WS, pk=ws_id)
     context = {'song': song, 'ws': ws}
     return render(request, 'hymnals/results_ws.html', context)
+
+########################################
+
+def search(request):
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+        # кривой ход, потомучто blank=True не срабатывает
+        # if form.Name == '':
+        #     form.Name = 'NULL'
+        # if form.Authors == '':
+        #     form.Name = 'NULL'
+        # if form.Name != 'NULL' and form.Name != 'NULL':
+        if 1: #form.is_valid():
+            search = form.save(commit=False)
+
+            song_list = Song.objects.values('id','Name', 'hymnal__Hymnal_Name','Page_Score','hymnal__icon')
+            # if form.Name != 'NULL':
+            #     selected_song_list = song_list.filter(Name__contains=search.Name)
+            # elif form.Authors != 'NULL':
+            #     selected_song_list = song_list.filter(Authors__contains=search.Authors)
+            # else:
+            #     selected_song_list = song_list.filter(Name__contains=search.Name, Authors__contains=search.Authors)
+
+            #selected_song_list = [name_song_list, authors_song_list,]
+            selected_song_list = song_list.filter(Name__contains=search.Name)
+
+            # if search.order == 'p':
+            #     selected_song_list = selected_song_list.order_by('hymnal__Hymnal_Name','Name')
+            # else:
+            selected_song_list = selected_song_list.order_by('Name')
+            context = {'selected_song_list' : selected_song_list}
+            return render (request, 'hymnals/found.html', context)
+    else:
+        form = SearchForm
+    return render (request, 'hymnals/search.html', {'form':form})
+
+def found(request):
+    return render (request, 'hymnals/found.html', search)
+
+def findform(request):
+    return render (request, 'hymnals/findform.html' )
