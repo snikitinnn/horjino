@@ -121,7 +121,7 @@ def search(request):
         # if form.Authors == '':
         #     form.Name = 'NULL'
         # if form.Name != 'NULL' and form.Name != 'NULL':
-        if 1: #form.is_valid():
+        if form.is_valid():
             search = form.save(commit=False)
 
             song_list = Song.objects.values('id','Name', 'hymnal__Hymnal_Name','Page_Score','hymnal__icon')
@@ -136,9 +136,9 @@ def search(request):
             selected_song_list = song_list.filter(Name__contains=search.Name)
 
             # if search.order == 'p':
-            #     selected_song_list = selected_song_list.order_by('hymnal__Hymnal_Name','Name')
+            selected_song_list = selected_song_list.order_by('hymnal__Hymnal_Name','Name')
             # else:
-            selected_song_list = selected_song_list.order_by('Name')
+            # selected_song_list = selected_song_list.order_by('Name')
             context = {'selected_song_list' : selected_song_list}
             return render (request, 'hymnals/found.html', context)
     else:

@@ -26,6 +26,7 @@ class Song(models.Model):
     Authors = models.CharField(max_length=50)
     Authors_2 = models.CharField(max_length=50)
     class Meta:
+        db_table = 'hymnals_song'
         ordering = ['Name']#ordering = ['Page_Score']
     def __unicode__(self):
         return self.Name
@@ -61,6 +62,4 @@ class SongvsWS(models.Model):
         return self.song.Name
 
 class Search(models.Model):
-    class Meta():
-        db_table = 'hymnals_song'
     Name = models.CharField(max_length=100)
