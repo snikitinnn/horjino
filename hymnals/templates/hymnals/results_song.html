@@ -17,7 +17,7 @@
     </TR>
     <TR>
         <TD width=50%>Сборник:</TD>
-        <TD ALIGN="right"><a href="{% url 'hymnals:detail' hymnal.id %}">{{ song.hymnal }}</a></TD>
+        <TD ALIGN="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></TD>
     </TR>
     <TR>
         <TD width=50%>Страница:</TD>
@@ -26,8 +26,8 @@
 </table>
 
 <br>
-<table>
     {% if singing_list %}
+    <table>
         <TR>
             <TD><h4>Даты богослужений:</h4></TD><TD></TD>
         </TR>
@@ -37,12 +37,11 @@
                 <TD ALIGN="right">{{ ws.event }}</TD>
             </TR>
         {% endfor %}
+    </table>
     {% else %}
-        <tr>
-            <TD>В базе данных нет даты исполнения этого гимна.</TD><TD></TD>
-        </tr>
+        <p>В базе данных нет даты исполнения этого гимна.</p>
     {% endif %}
-</table>
+
 
 {% block lyrics %}
 {% endblock lyrics %}

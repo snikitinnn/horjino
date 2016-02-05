@@ -47,3 +47,8 @@ from django.test import TestCase
 
 # <li class="active"><a href="{% 'hymnals:findform' '1' %}">Название</a></li>
 #   <li><a href="{% 'hymnals:findform' '2' %}">Автор</a></li>
+
+# <ul class="nav nav-tabs">
+#   <li class="active"><a href="/hymnals/search/">По названию</a></li>
+#   <li class="disabled"><a href="#">По автору</a></li>
+# </ul>

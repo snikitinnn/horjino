@@ -9,7 +9,9 @@
     <h4>
     {% if order == 'p' %}
         <a class="btn btn-default" href="{% url 'hymnals:alphabet' 'n' %}">по названию</a>
+        <a class="btn btn-default" href="{% url 'hymnals:alphabet' 'p' %}">по сборникам</a>
     {% else %}
+        <a class="btn btn-default" href="{% url 'hymnals:alphabet' 'n' %}">по названию</a>
         <a class="btn btn-default" href="{% url 'hymnals:alphabet' 'p' %}">по сборникам</a>
     {% endif %}
     </h4>
