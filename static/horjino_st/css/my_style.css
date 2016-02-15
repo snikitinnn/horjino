@@ -1,12 +1,15 @@
 body {
+    background: url("http://ilyakhasanov.ru/images/Background/27.jpg") 0 0 repeat;
+/*    background-image: url(horjino_st/img/27.jpg) 0 0 repeat; */
     padding: 5px 5px 110px 5px;
     width:100%;
     max-width:1000px;
 }
 
-/*input[type="text"], textarea {
-  padding: 8px;
-}*/
+.nb p {
+  color: ligthgray;
+  font-size: 75%;
+  }
 
 input, textarea {
   outline: none;
@@ -21,19 +24,14 @@ textarea {
     height: 70px;
 }
 
-.choir_content {
-    width: 880px;
-    overflow:hidden;
-    margin: 20px auto 0 auto;
-    color: red;
-    background-color: blue;
-}
-
 td {
   padding: 1px;
   border: solid 1px #f4f4f4;
 }
 
+.page {
+    font-weight: bold;
+}
     @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 568px) {

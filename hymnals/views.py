@@ -2,9 +2,10 @@
 
 import os
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils import timezone
+#from django.utils import timezone
 from forms import SearchForm
 from models import Chorus, Song, Hymnal, WS, SongvsWS
+from datetime import date
 
 def choir(request, chorus_id):
 #    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
@@ -86,9 +87,9 @@ def ws_chorus(request, chorus_id):
     return render(request, 'hymnals/ws.html', context)
 
 def ws_last(request):
-    cur_date = timezone.now()
+#    cur_date = timezone.now()
+    cur_date = date.today()
     coming_ws_list = WS.objects.extra(where=['Date>=%s'], params=[cur_date])
-#    latest_ws_list = WS.objects.extra(where=['Date<%s'], params=[cur_date])
     coming_ws_list = coming_ws_list.values('id','Date','chorus__name','Event')
     context = {'ws_list': coming_ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)

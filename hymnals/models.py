@@ -61,5 +61,17 @@ class SongvsWS(models.Model):
     def __unicode__(self):
         return self.song.Name
 
+class Topic(models.Model):
+    name = models.CharField(max_length=40)
+    def __unicode__(self):
+        return self.name
+
+class TopicvsSong(models.Model):
+    topic = models.ForeignKey(Topic)
+    song = models.ForeignKey(Song)
+    def __unicode__(self):
+        return self.song.name
+
+
 class Search(models.Model):
     Name = models.CharField(max_length=100)

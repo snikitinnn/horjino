@@ -15,7 +15,7 @@
                 </a>
             </TD>
             <TD width = 70%><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
-            <TD ALIGN="center">{{ song.page }}</TD>
+            <TD class = "page" ALIGN="center">{{ song.page }}</TD>
         </tr>
     {% endfor %}
     </table>
