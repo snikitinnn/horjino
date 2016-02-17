@@ -173,5 +173,5 @@ def file_view(request, song_id):
 #    p.save()
 #    return response
 
-    my_file = open('media/pdf/'+song_id+'.pdf','rb').read()
+    my_file = open('media/pdf/'+str(song_id)+'.pdf','rb').read()
     return HttpResponse(my_file, content_type = "application/pdf")

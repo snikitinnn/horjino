@@ -3,6 +3,8 @@
 
 {% block content %}
 <h2>{{ hymnal.Hymnal_Name}}</h2>
+<!-- if not Worship Service hymnal book -->
+{% if hymnal.id != 23 %}
 <div>
     <img class="hymnal_icon" src="{% static 'img' %}/{{hymnal.icon}}" />
     <h4>
@@ -15,6 +17,7 @@
     {% endif %}
     </h4>
 </div>
+{% endif %}
 
 {% if selected_song_list %}
     <table width=100%>

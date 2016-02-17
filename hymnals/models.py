@@ -25,6 +25,7 @@ class Song(models.Model):
     Page_Score = models.IntegerField()
     Authors = models.CharField(max_length=50)
     Authors_2 = models.CharField(max_length=50)
+    accords = models.IntegerField(default=0)
     class Meta:
         db_table = 'hymnals_song'
         ordering = ['Name']#ordering = ['Page_Score']

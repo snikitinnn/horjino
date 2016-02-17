@@ -3,14 +3,22 @@
 {% block content %}
 <h2>{{ song.Name }}</h2>
 <table>
+    {% if song.Authors %}
     <TR>
         <TD width=50%>Автор:</TD>
-        <TD align="right">{{ song.Authors }}</TD>
+        <TD align="right">
+                {{ song.Authors }}
+        </TD>
     </TR>
-    <TR>
-        <TD width=50%></TD>
-        <TD align="right">{{ song.Authors_2 }}</TD>
-    </TR>
+        {% if song.Authors_2 %}
+        <TR>
+            <TD width=50%></TD>
+            <TD align="right">
+                {{ song.Authors_2 }}
+            </TD>
+        </TR>
+        {% endif %}
+    {% endif %}
     <TR>
         <TD width=50%>Начальные слова:</TD>
         <TD align="right">{{ song.Name_Alt }}</TD>
@@ -26,7 +34,7 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a href="{% url 'hymnals:file_view' song.id %}">PDF-файл</a>
+                    <a href="{% url 'hymnals:pdf' song.id %}">PDF-файл</a>
                 {% else %}
                     Нет файла
                 {% endif %}
