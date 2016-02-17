@@ -5,23 +5,33 @@
 <table>
     <TR>
         <TD width=50%>Автор:</TD>
-        <TD  ALIGN="right">{{ song.Authors }}</TD>
+        <TD align="right">{{ song.Authors }}</TD>
     </TR>
     <TR>
         <TD width=50%></TD>
-        <TD ALIGN="right">{{ song.Authors_2 }}</TD>
+        <TD align="right">{{ song.Authors_2 }}</TD>
     </TR>
     <TR>
         <TD width=50%>Начальные слова:</TD>
-        <TD ALIGN="right">{{ song.Name_Alt }}</TD>
+        <TD align="right">{{ song.Name_Alt }}</TD>
     </TR>
     <TR>
         <TD width=50%>Сборник:</TD>
-        <TD ALIGN="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></TD>
+        <TD align="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></TD>
     </TR>
     <TR>
-        <TD width=50%>Страница:</TD>
-        <TD ALIGN="right">{{ song.Page_Score }}</TD>
+        <td width=50%>Страница:</td>
+        <td align="right">
+            {% if song.Page_Score %}
+                {{ song.Page_Score }}
+            {% else %}
+                {% if song.accords %}
+                    <a href="{% url 'hymnals:file_view' song.id %}">PDF-файл</a>
+                {% else %}
+                    Нет файла
+                {% endif %}
+            {% endif %}
+        </td>
     </TR>
 </table>
 
@@ -42,7 +52,7 @@
         <p>В базе данных нет даты исполнения этого гимна.</p>
     {% endif %}
 
-
+<hr>
 {% block lyrics %}
 {% endblock lyrics %}
 <hr>

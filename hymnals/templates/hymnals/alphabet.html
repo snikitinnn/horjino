@@ -20,7 +20,11 @@
         <tr>
             <TD width=15% align="center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></TD>
             <TD width=70% align="left"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
-            <TD class = "page" align="center">{{ song.Page_Score }}</TD>
+            <TD class = "page" align="center">
+            {% if song.Page_Score %}
+                {{ song.Page_Score }}
+            {% endif %}
+            </TD>
         </tr>
         {% endfor %}
     </table>

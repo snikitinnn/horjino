@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^song/(?P<song_id>\d+)/$', views.results_song, name='song'),
     url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
+    url(r'^song/pdf/(?P<song_id>\d+)$', views.file_view, name='pdf'),
 
     url(r'^alphabet/(?P<order>\D+)/$', views.alphabet, name='alphabet'),
     url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),
