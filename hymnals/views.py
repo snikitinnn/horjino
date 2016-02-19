@@ -6,6 +6,7 @@ from django.utils import timezone
 from forms import SearchForm
 from models import Chorus, Song, Hymnal, WS, SongvsWS
 from datetime import date
+from pytils import translit
 
 def choir(request, chorus_id):
 #    hymnal_list = Hymnal.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
@@ -153,25 +154,14 @@ def found(request):
 def findform(request):
     return render (request, 'hymnals/findform.html' )
 
-from reportlab.pdfgen import canvas
 from django.http import HttpResponse
-
 def file_view(request, song_id):
-    # Create the HttpResponse object with the appropriate PDF headers.
-#    response = HttpResponse(content_type='application/pdf')
-#    response['Content-Disposition'] = 'attachment; O_blagodat.pdf'
+    song = get_object_or_404(Song, pk=song_id) # output is __unicode__
+    filename = translit.slugify(unicode(song.Name))
+    with open('static/pdf/' + str(song_id) + '.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s.pdf' %filename
+        return response
+    pdf.closed
 
-    # Create the PDF object, using the response object as its "file."
-#    p = canvas.Canvas(response)
 
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-#    p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-#    p.showPage()
-#    p.save()
-#    return response
-
-    my_file = open('media/pdf/'+str(song_id)+'.pdf','rb').read()
-    return HttpResponse(my_file, content_type = "application/pdf")

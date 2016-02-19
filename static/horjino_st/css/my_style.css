@@ -14,7 +14,7 @@ body {
 input, textarea {
   outline: none;
   border: none;
-  border: solid 1px #DCDCDC;
+/*  border: solid 1px #DCDCDC; */
 }
 
 textarea {
@@ -26,7 +26,8 @@ textarea {
 
 td {
   padding: 1px;
-  border: solid 1px #f4f4f4;
+  border: none;
+/*  border: solid 1px #f4f4f4; */
 }
 
 .page {
@@ -40,6 +41,9 @@ body {
     padding: 5px 5px 110px 5px;
 }
 
+td {
+  border: none;
+}
 td .hymnal_icon{
   width: 25px;
   vertical-align: middle;

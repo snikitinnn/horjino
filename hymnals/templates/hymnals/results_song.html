@@ -34,7 +34,7 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a href="{% url 'hymnals:pdf' song.id %}">PDF-файл</a>
+                    <a class="btn btn-default" href="{% url 'hymnals:pdf' song.id %}">PDF-файл</a>
                 {% else %}
                     Нет файла
                 {% endif %}
@@ -60,7 +60,6 @@
         <p>В базе данных нет даты исполнения этого гимна.</p>
     {% endif %}
 
-<hr>
 {% block lyrics %}
 {% endblock lyrics %}
 <hr>
