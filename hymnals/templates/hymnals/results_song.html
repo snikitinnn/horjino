@@ -34,7 +34,7 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-default" href="{% url 'hymnals:pdf' song.id %}">PDF-файл</a>
+                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
                 {% else %}
                     Нет файла
                 {% endif %}
@@ -65,6 +65,6 @@
 <hr>
 <h4><a href="{% url 'hymnals:alphabet_chorus' song.hymnal.chorus.id %}">Алфавитный указатель гимнов хора</a></h4>
 <hr>
-<h4><a href="{% url 'hymnals:ws_chorus' song.hymnal.chorus.id %}">Список богослужений с участием хора</a></h4>
+<h4><a href="{% url 'hymnals:ws_chorus' song.hymnal.chorus.id %}">Список богослужений</a></h4>
 
 {% endblock content %}

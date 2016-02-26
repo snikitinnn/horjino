@@ -17,7 +17,11 @@
             <TD width = 70%><a href="{% url 'hymnals:song' song.song_id %}">{{ song.song }}</a></TD>
             <TD class = "page" align="center">
             {% if song.page %}
-               {{ song.page }}
+                {{ song.page }}
+            {% else %}
+                {% if song.accords %}
+                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.song_id %}">PDF</a>
+                {% endif %}
             {% endif %}
             </TD>
         </tr>

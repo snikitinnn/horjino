@@ -16,7 +16,7 @@ class User(models.Model):
 class Post(models.Model):
     class Meta():
         db_table = 'blog_posts'
-
+        ordering = ['-pubdate']
     user = models.ForeignKey(User)
     title = models.CharField(max_length=200)
     content = models.TextField()

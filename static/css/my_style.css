@@ -30,6 +30,11 @@ td {
 /*  border: solid 1px #f4f4f4; */
 }
 
+td .btn-mini {
+  font-size: 60%;
+  font-weight: bold;
+}
+
 .page {
     font-weight: bold;
 }

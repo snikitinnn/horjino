@@ -55,7 +55,7 @@ def lyrics(request, song_id):
 #####################################
 
 def alphabet(request, order):
-    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon')
+    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords')
     if order == 'p':
         alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Name')
     else:

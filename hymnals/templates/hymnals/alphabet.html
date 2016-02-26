@@ -23,6 +23,10 @@
             <TD class = "page" align="center">
             {% if song.Page_Score %}
                 {{ song.Page_Score }}
+            {% else %}
+                {% if song.accords %}
+                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
+                {% endif %}
             {% endif %}
             </TD>
         </tr>

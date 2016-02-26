@@ -59,6 +59,8 @@ class SongvsWS(models.Model):
         return self.ws.Event
     def chorus(self):
         return self.ws.chorus
+    def accords(self):
+        return self.song.accords
     def __unicode__(self):
         return self.song.Name
 
