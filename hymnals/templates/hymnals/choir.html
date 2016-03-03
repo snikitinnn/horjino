@@ -22,7 +22,9 @@
     </table>
 
     <br>
-    <h4><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}">Алфавитный указатель гимнов</a><BR></h4>
+    <h4><a href="{% url 'hymnals:topic_chorus' chorus.id %}">Тематический указатель</a><br></h4>
+    <hr>
+    <h4><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}">Алфавитный указатель гимнов</a><br></h4>
     <hr>
     <h4><a href="{% url 'hymnals:ws_chorus' chorus.id %}">Список богослужений</a></h4>
 {% else %}

@@ -1,27 +1,28 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
 from django.forms import ModelForm
-from hymnals.models import Chorus, Hymnal, Song, WS, SongvsWS, Topic, TopicvsSong
+from hymnals.models import Chorus, Hymnal, Song, WS, SongvsWS, Topic, TopicSong
 
 
-class TopicvsSongInline(admin.TabularInline):
-    model = TopicvsSong
+# class TopicvsSongInline(admin.TabularInline):
+#     model = TopicvsSong
+#     fk_name = 'topic'
+#     extra = 0
+#     list_display = ('song',)
+#     fieldsets = [
+#         (None,{'fields': ['song'],
+#                'classes': ['collapse']}
+#         ),
+#     ]
+
+class TopicSongInline(admin.TabularInline):
+    model = TopicSong
     extra = 0
-    list_display = ('name',)
+    list_display = ('song',)
     fieldsets = [
-        (None,{'fields': ['name'],
+        (None,{'fields': ['song'],
                'classes': ['collapse']}
-        ),
-    ]
-
-class TopicInline(admin.TabularInline):
-    model = Topic
-    extra = 0
-    list_display = ('name',)
-    fieldsets = [
-        (None,{'fields': ['name'],
-               'classes': ['collapse']}
-        ),
+         ),
     ]
 
 class SongvsWSInline(admin.TabularInline):
@@ -55,10 +56,9 @@ def get_my_choices():
     return choices_list
 
 class TopicAdmin(admin.ModelAdmin):
-#    form = SongAdminForm
+    inlines = [TopicSongInline,]
     list_display = ('name',)
-    list_filter = ('name',)
-
+ #    list_filter = ('song',)
 
 class SongAdmin(admin.ModelAdmin):
 #    form = SongAdminForm
@@ -79,9 +79,9 @@ class SongvsWSAdmin(admin.ModelAdmin):
     list_display = ('ws','song','sequence',)
     list_filter = ('ws__Date','song__hymnal__Hymnal_Name','song',)
 
-class TopicvsSongAdmin(admin.ModelAdmin):
-    list_display = ('song','topic',)
-    list_filter = ('song__Name',)
+class TopicSongAdmin(admin.ModelAdmin):
+    list_display = ('topic','song')
+    list_filter = ('topic','song')
 
 admin.site.register(Chorus)
 admin.site.register(Song, SongAdmin)
@@ -89,4 +89,4 @@ admin.site.register(Hymnal, HymnalAdmin)
 admin.site.register(WS, WSAdmin)
 admin.site.register(SongvsWS, SongvsWSAdmin)
 admin.site.register(Topic, TopicAdmin)
-admin.site.register(TopicvsSong, TopicvsSongAdmin)
+admin.site.register(TopicSong, TopicSongAdmin)

@@ -25,4 +25,9 @@ urlpatterns = patterns('',
     url(r'^found/$', views.found, name='found'),
 #    url(r'^findform/(?P<findname>\d+)/$', views.findform, name='findform'),
     url(r'^search/findform/$', views.findform, name='findform'),
+
+    url(r'^topic/chorus/(?P<chorus_id>\d+)/$', views.topic_chorus, name='topic_chorus'),
+    url(r'^topic/chorus/(?P<chorus_id>\d+)/(?P<topic_id>\d+)/$', views.detail_topic, name='detail_topic'),
+#    url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
+
 )

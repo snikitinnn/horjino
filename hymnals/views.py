@@ -4,7 +4,7 @@ import os
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from forms import SearchForm
-from models import Chorus, Song, Hymnal, WS, SongvsWS
+from models import Chorus, Song, Hymnal, WS, SongvsWS, Topic, TopicSong
 from datetime import date
 from pytils import translit
 
@@ -114,6 +114,22 @@ def results_ws(request, ws_id, song_id):
 
 ########################################
 
+def topic_chorus(request, chorus_id):
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    topic_list = Topic.objects.all()
+    topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
+    context = {'topic_list' : topic_list, 'chorus':chorus}
+    return render(request, 'hymnals/topic_chorus.html', context)
+
+def detail_topic(request, topic_id, chorus_id):
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    topic = get_object_or_404(Topic, pk=topic_id)
+    song_list = TopicSong.objects.extra(where=['topic_id=%s'], params=[topic_id]) #prefetch_related('song')
+    context = {'song_list' : song_list, 'topic' : topic, 'chorus' : chorus}
+    return render(request, 'hymnals/detail_topic.html', context)
+
+########################################
+
 def search(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
@@ -159,9 +175,8 @@ def file_view(request, song_id):
     song = get_object_or_404(Song, pk=song_id) # output is __unicode__
     filename = translit.slugify(unicode(song.Name))
     with open('static/pdf/' + str(song_id) + '.pdf', 'rb') as pdf:
+#/home/users/s/snikitinnn/domains/snikitinnn.myjino.ru/static/
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=%s.pdf' %filename
         return response
     pdf.closed
-
-

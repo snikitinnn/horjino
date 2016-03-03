@@ -65,15 +65,47 @@ class SongvsWS(models.Model):
         return self.song.Name
 
 class Topic(models.Model):
+    class Meta:
+        db_table = 'hymnals_topic'
     name = models.CharField(max_length=40)
+    theme = models.ManyToManyField(Song, through='TopicSong')
     def __unicode__(self):
         return self.name
 
-class TopicvsSong(models.Model):
+class TopicSong(models.Model):
     topic = models.ForeignKey(Topic)
     song = models.ForeignKey(Song)
+    def page(self):
+        return self.song.Page_Score
+    def hymnal(self):
+        return self.song.hymnal
+    def chorus(self):
+        return self.song.hymnal.chorus
+    def accords(self):
+        return self.song.accords
+    # def topic(self):
+    #     return self.topic.name
     def __unicode__(self):
-        return self.song.name
+        return self.song.Name
+
+
+# class TopicvsSong(models.Model):
+#     class Meta:
+#         db_table = 'hymnals_topicvssong'
+#     topic = models.ForeignKey(Topic)
+#     song = models.ForeignKey(Song)
+#     def page(self):
+#         return self.song.Page_Score
+#     def hymnal(self):
+#         return self.song.hymnal
+#     def chorus(self):
+#         return self.song.hymnal.chorus
+#     def accords(self):
+#         return self.song.accords
+#     def topic(self):
+#         return self.topic.name
+#     def __unicode__(self):
+#         return self.song.Name
 
 
 class Search(models.Model):
