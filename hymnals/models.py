@@ -83,8 +83,6 @@ class TopicSong(models.Model):
         return self.song.hymnal.chorus
     def accords(self):
         return self.song.accords
-    # def topic(self):
-    #     return self.topic.name
     def __unicode__(self):
         return self.song.Name
 

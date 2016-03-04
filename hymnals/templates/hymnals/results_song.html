@@ -4,30 +4,30 @@
 <h2>{{ song.Name }}</h2>
 <table>
     {% if song.Authors %}
-    <TR>
-        <TD width=50%>Автор:</TD>
-        <TD align="right">
+    <tr>
+        <td width=50%>Автор:</td>
+        <td align="right">
                 {{ song.Authors }}
-        </TD>
-    </TR>
+        </td>
+    </tr>
         {% if song.Authors_2 %}
-        <TR>
-            <TD width=50%></TD>
-            <TD align="right">
+        <tr>
+            <td width=50%></td>
+            <td align="right">
                 {{ song.Authors_2 }}
-            </TD>
-        </TR>
+            </td>
+        </tr>
         {% endif %}
     {% endif %}
-    <TR>
-        <TD width=50%>Начальные слова:</TD>
-        <TD align="right">{{ song.Name_Alt }}</TD>
-    </TR>
-    <TR>
-        <TD width=50%>Сборник:</TD>
-        <TD align="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></TD>
-    </TR>
-    <TR>
+    <tr>
+        <td width=50%>Начальные слова:</td>
+        <td align="right">{{ song.Name_Alt }}</td>
+    </tr>
+    <tr>
+        <td width=50%>Сборник:</td>
+        <td align="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></td>
+    </tr>
+    <tr>
         <td width=50%>Страница:</td>
         <td align="right">
             {% if song.Page_Score %}
@@ -40,28 +40,48 @@
                 {% endif %}
             {% endif %}
         </td>
-    </TR>
+    </tr>
 </table>
 
 <br>
     {% if singing_list %}
     <table>
-        <TR>
-            <TD><h4>Даты богослужений:</h4></TD><TD></TD>
-        </TR>
+        <tr>
+            <td><h4>Даты богослужений:</h4></td><td></td>
+        </tr>
         {% for ws in singing_list %}
-            <TR>
-                <TD width=50% ><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></TD>
-                <TD ALIGN="right">{{ ws.event }}</TD>
-            </TR>
+            <tr>
+                <td width=50% ><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></td>
+                <td ALIGN="right">{{ ws.event }}</td>
+            </tr>
         {% endfor %}
     </table>
     {% else %}
         <p>В базе данных нет даты исполнения этого гимна.</p>
     {% endif %}
 
+    <br>
+    {% if topic_list %}
+    <table>
+        <tr>
+            <td><h4>Темы гимна:</h4></td><td></td>
+        </tr>
+        {% for topic in topic_list %}
+            <tr>
+                <td width=50% ><a href="{% url 'hymnals:detail_topic' song.hymnal.chorus.id topic.topic.id %}">{{ topic.topic.name }}</a></td>
+                <td ALIGN="right"></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>К этому гимну не привязана ни одна тема</p>
+    {% endif %}
+
 {% block lyrics %}
 {% endblock lyrics %}
+
+<br>
+<h4><a href="{% url 'hymnals:topic_chorus' song.hymnal.chorus.id %}">Тематический указатель</a><br></h4>
 <hr>
 <h4><a href="{% url 'hymnals:alphabet_chorus' song.hymnal.chorus.id %}">Алфавитный указатель гимнов хора</a></h4>
 <hr>

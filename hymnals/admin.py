@@ -25,6 +25,16 @@ class TopicSongInline(admin.TabularInline):
          ),
     ]
 
+class TopicSong2Inline(admin.TabularInline):
+    model = TopicSong
+    extra = 0
+    list_display = ('topic',)
+    fieldsets = [
+        (None,{'fields': ['topic'],
+               'classes': ['collapse']}
+         ),
+    ]
+
 class SongvsWSInline(admin.TabularInline):
     model = SongvsWS
     fk_name = 'ws'
@@ -58,10 +68,11 @@ def get_my_choices():
 class TopicAdmin(admin.ModelAdmin):
     inlines = [TopicSongInline,]
     list_display = ('name',)
- #    list_filter = ('song',)
+    ordering = ['name']
 
 class SongAdmin(admin.ModelAdmin):
 #    form = SongAdminForm
+    inlines = [TopicSong2Inline,]
     list_display = ('Name','Name_Alt','hymnal','Page_Score','Authors','Authors_2',)
     list_filter = ('Name',)
 

@@ -40,9 +40,10 @@ def results(request, hymnal_id, song_id):
 def results_song(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     singing_list = SongvsWS.objects.filter(song_id=song_id).order_by('-ws__Date')
-    file_name = 'lyrics/'+str(song_id)+'.html'
-    context = {'singing_list':singing_list, 'song': song, 'hymnal': song.hymnal}
+    topic_list = TopicSong.objects.filter(song_id=song_id).order_by('topic__name')
+    context = {'singing_list':singing_list, 'topic_list':topic_list, 'song': song, 'hymnal': song.hymnal}
 
+    file_name = 'lyrics/'+str(song_id)+'.html'
     if os.path.exists('hymnals/templates/'+file_name):
         return render(request, file_name, context)
     else:
@@ -121,10 +122,11 @@ def topic_chorus(request, chorus_id):
     context = {'topic_list' : topic_list, 'chorus':chorus}
     return render(request, 'hymnals/topic_chorus.html', context)
 
-def detail_topic(request, topic_id, chorus_id):
+def detail_topic(request, chorus_id, topic_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     topic = get_object_or_404(Topic, pk=topic_id)
     song_list = TopicSong.objects.extra(where=['topic_id=%s'], params=[topic_id]) #prefetch_related('song')
+#    song_list= TopicSong.objects.extra(select={'ch': 'SELECT hymnals_hymnal.chorus_id FROM hymnals_hymnal WHERE hymnals_hymnal.chorus_id = chorus_id'})
     context = {'song_list' : song_list, 'topic' : topic, 'chorus' : chorus}
     return render(request, 'hymnals/detail_topic.html', context)
 
