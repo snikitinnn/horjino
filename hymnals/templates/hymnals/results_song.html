@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <h2>{{ song.Name }}</h2>
 <table>
     {% if song.Authors %}
     <tr>
-        <td width=50%>Автор:</td>
-        <td align="right">
-                {{ song.Authors }}
-        </td>
+        <td width=50%>Автор:</td><td align="right">{{ song.Authors }}</td>
     </tr>
         {% if song.Authors_2 %}
         <tr>
-            <td width=50%></td>
-            <td align="right">
-                {{ song.Authors_2 }}
-            </td>
+            <td width=50%></td><td align="right">{{ song.Authors_2 }}</td>
         </tr>
         {% endif %}
     {% endif %}
     <tr>
-        <td width=50%>Начальные слова:</td>
-        <td align="right">{{ song.Name_Alt }}</td>
+        <td width=50%>Начальные слова:</td><td align="right">{{ song.Name_Alt }}</td>
     </tr>
     <tr>
         <td width=50%>Сборник:</td>
-        <td align="right"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{ song.hymnal }}</a></td>
+        <td align="right">
+            <a href="{% url 'hymnals:detail' song.hymnal.id 'n' %}">
+                <img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal.icon}}"/>
+            </a>
+        </td>
+
     </tr>
     <tr>
         <td width=50%>Страница:</td>

@@ -9,17 +9,17 @@
     <h3>Тематический список</h3>
     <table width=100%>
         <tr>
-            <TD width = 80%>Тема гимна</TD>
-            <TD align="center">Количество</TD>
+            <td width = 80%>Тема гимна</td>
+            <td align="center">Количество</td>
         </tr>
     {% for topic in topic_list %}
         <tr>
-            <TD width = 80%><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic.name }}</a></TD>
-            <TD class = "page" align="center">
+            <td width = 80%><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic }}</a></td>
+            <td class = "page" align="center">
             {% if topic.song_count %}
                 {{ topic.song_count }}
             {% endif %}
-            </TD>
+            </td>
         </tr>
     {% endfor %}
     </table>

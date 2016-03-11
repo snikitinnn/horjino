@@ -52,3 +52,4 @@ from django.test import TestCase
 #   <li class="active"><a href="/hymnals/search/">По названию</a></li>
 #   <li class="disabled"><a href="#">По автору</a></li>
 # </ul>
+

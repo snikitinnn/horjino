@@ -67,6 +67,7 @@ class SongvsWS(models.Model):
 class Topic(models.Model):
     class Meta:
         db_table = 'hymnals_topic'
+        ordering = ['name']
     name = models.CharField(max_length=40)
     theme = models.ManyToManyField(Song, through='TopicSong')
     def __unicode__(self):

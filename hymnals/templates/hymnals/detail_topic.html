@@ -10,8 +10,9 @@
     <table width=100%>
     {% for song in song_list %}
         <tr>
-            <TD width = 80%><a href="{% url 'hymnals:song' song.song.id %}">{{ song }}</a></TD>
-            <TD class = "page" align="center">
+            <td width=15% align="center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal.icon}}"></td>
+            <td width = 70%><a href="{% url 'hymnals:song' song.song.id %}">{{ song }}</a></td>
+            <td class = "page" align="center">
             {% if song.page %}
                 {{ song.page }}
             {% else %}
@@ -19,8 +20,7 @@
                     <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.song.id %}">PDF</a>
                 {% endif %}
             {% endif %}
-            </TD>
-
+            </td>
         </tr>
     {% endfor %}
     </table>

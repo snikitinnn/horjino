@@ -41,7 +41,8 @@ def results_song(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     singing_list = SongvsWS.objects.filter(song_id=song_id).order_by('-ws__Date')
     topic_list = TopicSong.objects.filter(song_id=song_id).order_by('topic__name')
-    context = {'singing_list':singing_list, 'topic_list':topic_list, 'song': song, 'hymnal': song.hymnal}
+#    context = {'singing_list':singing_list, 'topic_list':topic_list, 'song': song, 'hymnal': song.hymnal}
+    context = {'singing_list':singing_list, 'topic_list':topic_list, 'song': song}
 
     file_name = 'lyrics/'+str(song_id)+'.html'
     if os.path.exists('hymnals/templates/'+file_name):
@@ -115,17 +116,51 @@ def results_ws(request, ws_id, song_id):
 
 ########################################
 
+# def topic__chorus(request, chorus_id):
+#     chorus = get_object_or_404(Chorus, pk=chorus_id)
+#     topic_list = Topic.objects.all()
+#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
+#     context = {'topic_list' : topic_list, 'chorus':chorus}
+#     return render(request, 'hymnals/topic_chorus.html', context)
+#
+# from django.db.models import Count
+# def topic____chorus(request, chorus_id):
+#     chorus = get_object_or_404(Chorus, pk=chorus_id)
+#     topic_list = TopicSong.objects.all()
+#     topic_list = topic_list.select_related('song__hymnal__chorus')
+#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topic WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
+#     topic_list = topic_list.extra(select={'chorus_id_tab':'SELECT hymnals_hymnal.chorus_id FROM hymnals_hymnal, hymnals_song WHERE hymnals_hymnal.id = hymnals_song.hymnal_id AND hymnals_song.id=hymnals_topicsong.song_id'})
+# #    topic_list = topic_list.extra(where=['chorus_id_tab=%s'], params=[chorus_id])
+#
+#     context = {'topic_list' : topic_list, 'chorus':chorus}
+#     return render(request, 'hymnals/topic_chorus.html', context)
+
 def topic_chorus(request, chorus_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     topic_list = Topic.objects.all()
-    topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
-    context = {'topic_list' : topic_list, 'chorus':chorus}
+    topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong, hymnals_hymnal, hymnals_song WHERE hymnals_topicsong.topic_id = hymnals_topic.id AND hymnals_hymnal.id = hymnals_song.hymnal_id AND hymnals_song.id=hymnals_topicsong.song_id AND hymnals_hymnal.chorus_id = %s' %chorus_id})
+    context = {'topic_list' : topic_list, 'chorus' : chorus}
     return render(request, 'hymnals/topic_chorus.html', context)
+
+# def topic___chorus(request, chorus_id):
+#     chorus = get_object_or_404(Chorus, pk=chorus_id)
+#     topic_list = TopicSong.objects.all()
+#     topic_list = topic_list.select_related('song__hymnal__chorus')
+#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topic WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
+#     topic_list = topic_list.filter(song__hymnal__chorus__exact=chorus_id)
+#     context = {'topic_list' : topic_list, 'chorus':chorus}
+#     return render(request, 'hymnals/topic_chorus.html', context)
+
 
 def detail_topic(request, chorus_id, topic_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     topic = get_object_or_404(Topic, pk=topic_id)
-    song_list = TopicSong.objects.extra(where=['topic_id=%s'], params=[topic_id]) #prefetch_related('song')
+    song_list = TopicSong.objects.all()
+    song_list = song_list.select_related('song','song__hymnal')
+    song_list = song_list.extra(where=['topic_id=%s'], params=[topic_id])
+    song_list = song_list.order_by('song__Name')
+#    song_list = song_list.prefetch_related('song')
+#    song_list = song_list.extra(where=['song__hymnal_chorus=%s'], params=[chorus_id]) #prefetch_related('song')
 #    song_list= TopicSong.objects.extra(select={'ch': 'SELECT hymnals_hymnal.chorus_id FROM hymnals_hymnal WHERE hymnals_hymnal.chorus_id = chorus_id'})
     context = {'song_list' : song_list, 'topic' : topic, 'chorus' : chorus}
     return render(request, 'hymnals/detail_topic.html', context)
