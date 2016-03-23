@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 
     url(r'^topic/chorus/(?P<chorus_id>\d+)/$', views.topic_chorus, name='topic_chorus'),
     url(r'^topic/chorus/(?P<chorus_id>\d+)/(?P<topic_id>\d+)/$', views.detail_topic, name='detail_topic'),
+    url(r'^songbyws/(?P<chorus_id>\d+)/$', views.songbyws, name='songbyws'),
 #    url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
 
 )

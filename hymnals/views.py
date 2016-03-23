@@ -212,8 +212,60 @@ def file_view(request, song_id):
     song = get_object_or_404(Song, pk=song_id) # output is __unicode__
     filename = translit.slugify(unicode(song.Name))
     with open('static/pdf/' + str(song_id) + '.pdf', 'rb') as pdf:
-#/home/users/s/snikitinnn/domains/snikitinnn.myjino.ru/static/
+#    with open('/home/users/s/snikitinnn/domains/snikitinnn.myjino.ru/static/pdf/' + str(song_id) + '.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=%s.pdf' %filename
         return response
     pdf.closed
+
+
+def songbyws(request, chorus_id):
+#    from django.db import connection,transaction
+
+    ws_list = WS.objects.filter(chorus_id=5).order_by('time')
+    ws_len = ws_list.count()+1
+    song_list = Song.objects.filter(hymnal_id=23).order_by('Name')
+    song_len = song_list.count()
+
+    ws_row = [0 for j in xrange(0, ws_len)]
+    song_table = [ws_row for i in xrange(0, song_len)]
+
+#    cursor = connection.cursor()
+#    song_table = cursor.execute('SELECT * FROM hymnals_ws')
+#    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws INNER JOIN hymnals_songvsws ON hymnals_ws.id = hymnals_songvsws.ws_id INNER JOIN hymnals_songvsws ON hymnals_song.id = hymnals_songvsws.song_id WHERE hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
+#    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
+    song_i = 0
+    for song in song_list:
+
+#        songid = song.id
+#        cursor.execute('SELECT hymnals_ws.id FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 AND hymnals_song.id = %s ORDER BY hymnals_ws.time', [songid])
+#        ws_row = cursor.fetchall()
+
+        sws_list = SongvsWS.objects.all()
+        sws_list = sws_list.extra(where=['song_id=%s'], params=[song.id])
+        sws_list = sws_list.order_by('ws__time')
+
+        i = 0
+        ws_row = [0 for j in xrange(0, ws_len)]
+        ws_row[0] = song.Name  # first colon
+        i = 1
+        for ws in ws_list:
+            f_sws = 0
+            for sws in sws_list:
+                if sws.ws_id == ws.id:
+                    f_sws = 1
+                    break
+            ws_row[i] = f_sws;
+            i += 1
+
+        song_table[song_i] = ws_row
+        song_i += 1
+        # i=0
+        # for ws in ws_row:
+        #     song_table[song_i] = ws.id
+        #     i+=1
+        # song_i += 1
+    #        song_row = song_table.whereSongvsWS.objects.filter(song_id = song.id).order_by('ws__time')
+
+    context = {'song_table':song_table, 'song_list':song_list, 'ws_list' : ws_list, 'tdcolor':'lightblue'}
+    return render(request, 'hymnals/songbyws.html', context)

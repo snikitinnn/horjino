@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
+import datetime
+import time
 
 class Chorus(models.Model):
     name = models.CharField(max_length=30)
@@ -34,6 +36,7 @@ class Song(models.Model):
 
 class WS(models.Model):
     Date = models.DateField()
+    time = models.DateTimeField(default=0)
     chorus = models.ForeignKey(Chorus)
     Supper = models.BooleanField()
     Regents = models.CharField(max_length=100)
@@ -41,9 +44,11 @@ class WS(models.Model):
     Note = models.CharField(max_length=100)
     singing = models.ManyToManyField(Song, through='SongvsWS')
     class Meta:
-        ordering = ['-Date']
+        ordering = ['-time']
+        db_table = 'hymnals_ws'
     def __unicode__(self):
         return str(self.Date)
+
 
 class SongvsWS(models.Model):
     song = models.ForeignKey(Song)
@@ -55,6 +60,8 @@ class SongvsWS(models.Model):
         return self.song.hymnal
     def date(self):
         return self.ws.Date
+    def time(self):
+        return self.ws.time
     def event(self):
         return self.ws.Event
     def chorus(self):

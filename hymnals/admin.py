@@ -78,8 +78,8 @@ class SongAdmin(admin.ModelAdmin):
 
 class WSAdmin(admin.ModelAdmin):
     inlines = [SongvsWSInline,]
-    list_display = ('Date','Supper','chorus','Regents','Event','Note',)
-    list_filter = ('chorus','Date',)
+    list_display = ('time','Supper','chorus','Regents','Event','Note','Date',)
+    list_filter = ('chorus','time',)
 
 class HymnalAdmin(admin.ModelAdmin):
     inlines = [SongInline,]
@@ -88,7 +88,7 @@ class HymnalAdmin(admin.ModelAdmin):
 
 class SongvsWSAdmin(admin.ModelAdmin):
     list_display = ('ws','song','sequence',)
-    list_filter = ('ws__Date','song__hymnal__Hymnal_Name','song',)
+    list_filter = ('ws__time','song__hymnal__Hymnal_Name','song',)
 
 class TopicSongAdmin(admin.ModelAdmin):
     list_display = ('topic','song')

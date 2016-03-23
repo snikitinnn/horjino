@@ -9,7 +9,7 @@
             <hr>
             <h3><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h3>
             <p>{{ post.content|safe|linebreaks }}</p>
-            <p>{{ post.pubdate}}</p>
+            <p>{{ post.pubdate|date:"l, d E Y"}}</p>
     {% endfor %}
 {% else %}
     <p>Нет записей.</p>
