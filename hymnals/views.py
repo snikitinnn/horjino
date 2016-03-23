@@ -250,10 +250,10 @@ def songbyws(request, chorus_id):
         ws_row[0] = song.Name  # first colon
         i = 1
         for ws in ws_list:
-            f_sws = 0
+            f_sws = ws.Supper
             for sws in sws_list:
                 if sws.ws_id == ws.id:
-                    f_sws = 1
+                    f_sws = 2
                     break
             ws_row[i] = f_sws;
             i += 1

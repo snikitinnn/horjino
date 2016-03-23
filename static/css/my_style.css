@@ -38,6 +38,14 @@ td .btn-mini {
 .page {
     font-weight: bold;
 }
+
+.row1 {
+     background-color: #f4f4f4;
+}
+.row2 {
+     background-color: #white;
+}
+
     @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 568px) {
