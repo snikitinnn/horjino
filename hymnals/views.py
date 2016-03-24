@@ -220,29 +220,58 @@ def file_view(request, song_id):
 
 
 def songbyws(request, chorus_id):
-#    from django.db import connection,transaction
 
-    ws_list = WS.objects.filter(chorus_id=5).order_by('time')
-    ws_len = ws_list.count()+1
-    song_list = Song.objects.filter(hymnal_id=23).order_by('Name')
-    song_len = song_list.count()
+
+
+#    song_list = Song.objects.all()
+#    song_list = song_list.filter(hymnal_id=23).order_by('Name')
+
+#    song_list = Song.objects.filter(hymnal_id=23)
+
+    song_list = Song.objects.select_related('hymnal__chorus')
+    song_list = song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
+    song_list = song_list.order_by('Name')
+    song_len = len(song_list)
+
+#    song_list = Song.objects.select_related('hymnal__chorus_id')
+#    song_list = song_list.filter(chorus_id='hymnal__chorus_id').order_by('Name')
+#    song_len = song_list.count()
+
+    ws_list = WS.objects.filter(chorus_id=chorus_id).order_by('time')
+    ws_len = len(ws_list)
+    if ws_len > 20:
+        ws_list = ws_list[ws_len-20:ws_len]
+        ws_len = 20
+    ws_len += 1
+    ws_time = ws_list[0].time
 
     ws_row = [0 for j in xrange(0, ws_len)]
     song_table = [ws_row for i in xrange(0, song_len)]
 
+    sws_list_chorus = SongvsWS.objects.all()
+    sws_list_chorus = sws_list_chorus.prefetch_related('ws__chorus')
+    sws_list_chorus = sws_list_chorus.extra(where=['chorus_id = %s'], params=[chorus_id])
+    sws_list_chorus = sws_list_chorus.extra(where=['time > %s'], params=[ws_time])
+
+#.extra(select={'SELECT hymnals_songvsws.id, hymnals_songvsws.ws_id, hymnals_ws.chorus_id FROM hymnals_songvsws, hymnals_ws WHERE hymnals_ws.id = hymnals_songvsws.ws_id'})
+    song_i = 0
+
+#    from django.db import connection,transaction
 #    cursor = connection.cursor()
-#    song_table = cursor.execute('SELECT * FROM hymnals_ws')
+#    cursor.execute('SELECT hymnals_songvsws.id, hymnals_songvsws.ws_id, hymnals_ws.chorus_id FROM hymnals_songvsws, hymnals_ws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_ws.chorus_id=5')
+#    sws_list_chorus = cursor.fetchall()
 #    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws INNER JOIN hymnals_songvsws ON hymnals_ws.id = hymnals_songvsws.ws_id INNER JOIN hymnals_songvsws ON hymnals_song.id = hymnals_songvsws.song_id WHERE hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
 #    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
-    song_i = 0
+
     for song in song_list:
 
 #        songid = song.id
 #        cursor.execute('SELECT hymnals_ws.id FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 AND hymnals_song.id = %s ORDER BY hymnals_ws.time', [songid])
 #        ws_row = cursor.fetchall()
 
-        sws_list = SongvsWS.objects.all()
-        sws_list = sws_list.extra(where=['song_id=%s'], params=[song.id])
+#        sws_list = sorted(songid,sws_list_chorus)
+
+        sws_list = sws_list_chorus.extra(where=['song_id=%s'], params=[song.id])
         sws_list = sws_list.order_by('ws__time')
 
         i = 0
@@ -260,12 +289,6 @@ def songbyws(request, chorus_id):
 
         song_table[song_i] = ws_row
         song_i += 1
-        # i=0
-        # for ws in ws_row:
-        #     song_table[song_i] = ws.id
-        #     i+=1
-        # song_i += 1
-    #        song_row = song_table.whereSongvsWS.objects.filter(song_id = song.id).order_by('ws__time')
-
-    context = {'song_table':song_table, 'song_list':song_list, 'ws_list' : ws_list, 'tdcolor':'lightblue'}
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'song_table':song_table, 'ws_list' : ws_list, 'chorus' : chorus}
     return render(request, 'hymnals/songbyws.html', context)

@@ -52,8 +52,10 @@ class WS(models.Model):
 
 class SongvsWS(models.Model):
     song = models.ForeignKey(Song)
-    ws = models.ForeignKey(WS, related_name='Date1')
+    ws = models.ForeignKey(WS) #)related_name='Date1')
     sequence = models.IntegerField()
+    class Mets:
+        db_table = 'hymnals_songvsws'
     def page(self):
         return self.song.Page_Score
     def hymnal(self):

@@ -2,28 +2,25 @@
 {% load staticfiles %}
 
 {% block content %}
-<h2>{{ chorus.name }}</h2>
-<h3>{{ topic.name }}</h3>
-
 
  <style>
  #verticalRow {
-     -webkit-transform: rotate(270deg); /* разворот текста для разных браузеров */
+/*     -webkit-transform: rotate(270deg);
      -moz-transform: rotate(270deg);
      -ms-transform: rotate(270deg);
      -o-transform: rotate(270deg);
      transform: rotate(270deg);
-     height: 80px;  /* высота блока */
-     vertical-align: bottom;
+     height: 80px;
+     width: 20px; */
+     text-align: center;
 }
 
 table {
-
      table-layout: fixed; /* Фиксированная ширина ячеек */
-     width: 100%; /* Ширина таблицы */
+     width: 600px; /* Ширина таблицы */
    }
-   .col1 { width: 160px; }
-   .coln { width: 20px; }
+.col1 { width: 160px; }
+.coln { width: 15px; }
 
 td {
      font-size: smaller;
@@ -31,14 +28,30 @@ td {
 }
 </style>
 
+<h2>{{ chorus.name }}</h2>
+<h3>Cтатистика спетых гимнов</h3>
 {% if ws_list %}
     <table>
         <col class="col1">
-        <col span="9" class="coln">
+        <col span="20" class="coln">
         <tr>
-            <td width="120px">Гимн/Дата</td>
+            <td id="verticalRow"></td>
             {% for ws in ws_list %}
-                <td id="verticalRow" width="20px">{{ ws.Date|date:"j E" }}</td>
+                {% if ws.Supper %}
+                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"n" }}</td>
+                {% else %}
+                    <td id="verticalRow" >{{ ws.Date|date:"n" }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <td id="verticalRow">Гимн/Дата</td>
+            {% for ws in ws_list %}
+                {% if ws.Supper %}
+                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"j" }}</td>
+                {% else %}
+                    <td id="verticalRow" >{{ ws.Date|date:"j" }}</td>
+                {% endif %}
             {% endfor %}
         </tr>
         {% for song_row in song_table %}
@@ -46,16 +59,16 @@ td {
         <tr class={{rowcolors}}>
             {% for sws in song_row %}
                 {% if forloop.first %}
-                    <td width="200px">{{sws}}</td>
+                    <td>{{sws}}</td>
                 {% else %}
                     {% if sws %}
                         {% if sws == 1 %}
-                            <td width="20px" bgcolor="#FADADD"></td>
+                            <td bgcolor="#FADADD"></td>
                         {% else %}
-                            <td width="20px" bgcolor="{{tdcolor}}"></td>
+                            <td bgcolor="lightblue"></td>
                         {% endif %}
                     {% else %}
-                        <td width="20px"></td>
+                        <td></td>
                     {% endif%}
                 {% endif%}
             {% endfor %}
@@ -67,6 +80,8 @@ td {
 {% endif %}
 
     <br>
+    <h4><a href="{% url 'hymnals:topic_chorus' chorus.id %}">Тематический указатель</a><br></h4>
+    <hr>
     <h4><a href="{% url 'hymnals:alphabet' 'n' %}">Алфавитный указатель всех гимнов в базе</a><br></h4>
     <hr>
     <h4><a href="{% url 'hymnals:ws' %}">Полный список богослужений</a></h4>
