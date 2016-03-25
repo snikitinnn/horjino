@@ -80,6 +80,8 @@
 {% endblock lyrics %}
 
 <br>
+<h4><a href="{% url 'hymnals:songbyws' song.hymnal.chorus.id %}">Статистика спетых гимнов</a><br></h4>
+<hr>
 <h4><a href="{% url 'hymnals:topic_chorus' song.hymnal.chorus.id %}">Тематический указатель</a><br></h4>
 <hr>
 <h4><a href="{% url 'hymnals:alphabet_chorus' song.hymnal.chorus.id %}">Алфавитный указатель гимнов хора</a></h4>
