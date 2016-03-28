@@ -40,6 +40,14 @@
             {% endif %}
         </td>
     </tr>
+    {% if song.over %}
+    <tr>
+        <td width=50%>Номер в "Песнь Возрождения"</td>
+        <td align="right">
+            {{ song.over }}
+        </td>
+    </tr>
+    {% endif %}
 </table>
 
 <br>

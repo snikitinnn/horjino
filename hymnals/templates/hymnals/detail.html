@@ -24,8 +24,8 @@
     {% for song in selected_song_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
-            <TD width = 80%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></TD>
-            <TD class = "page" align="center">
+            <td width = 80%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
+            <td class = "page" align="center">
             {% if song.Page_Score %}
                 {{ song.Page_Score }}
             {% else %}
@@ -33,8 +33,14 @@
                     <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
                 {% endif %}
             {% endif %}
-            </TD>
-
+            </td>
+            {%if hymnal.id = 23 %}
+            <td class = "page" align="center">
+                {% if song.over %}
+                    {{ song.over }}
+                {% endif %}
+            </td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

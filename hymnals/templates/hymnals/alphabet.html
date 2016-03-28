@@ -15,7 +15,7 @@
         <a class="btn btn-default" href="{% url 'hymnals:alphabet' 'p' %}">по сборникам</a>
     {% endif %}
     </h4>
-    <table WIDTH=100%>
+    <table width=100%>
         {% for song in alphabet_song_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
@@ -28,6 +28,13 @@
                 {% if song.accords %}
                     <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
                 {% endif %}
+            {% endif %}
+            {%if hymnal.id = 23 %}
+            <td class = "page" align="center">
+                {% if song.over %}
+                    {{ song.over }}
+                {% endif %}
+            </td>
             {% endif %}
             </td>
         </tr>

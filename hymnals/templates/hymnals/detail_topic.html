@@ -22,6 +22,11 @@
                 {% endif %}
             {% endif %}
             </td>
+            <td class = "page" align="center">
+            {% if song.over %}
+                {{ song.over }}
+            {% endif %}
+            </td>
         </tr>
     {% endfor %}
     </table>
