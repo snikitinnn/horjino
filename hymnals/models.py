@@ -15,6 +15,7 @@ class Hymnal(models.Model):
     chorus = models.ForeignKey(Chorus, default=None)
     icon = models.CharField(default=None,max_length=50)
     active = models.BooleanField(default=False)
+    color = models.CharField(max_length=20, default=None)
     class Meta:
         ordering = ['Hymnal_Name']
     def __unicode__(self):

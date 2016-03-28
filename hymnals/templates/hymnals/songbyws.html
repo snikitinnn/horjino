@@ -59,7 +59,7 @@ td {
         <tr class={{rowcolors}}>
             {% for sws in song_row %}
                 {% if forloop.first %}
-                    <td>{{sws}}</td>
+                    <td bgcolor={{sws.hymnal.color}}>{{sws.Name}}</td>
                 {% else %}
                     {% if sws %}
                         {% if sws == 1 %}
@@ -82,9 +82,9 @@ td {
     <br>
     <h4><a href="{% url 'hymnals:topic_chorus' chorus.id %}">Тематический указатель</a><br></h4>
     <hr>
-    <h4><a href="{% url 'hymnals:alphabet' 'n' %}">Алфавитный указатель всех гимнов в базе</a><br></h4>
+    <h4><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}">Алфавитный указатель</a><br></h4>
     <hr>
-    <h4><a href="{% url 'hymnals:ws' %}">Полный список богослужений</a></h4>
+    <h4><a href="{% url 'hymnals:ws_chorus' chorus.id %}">Cписок богослужений</a></h4>
 
 
 {% endblock content%}

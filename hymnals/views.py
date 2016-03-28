@@ -69,7 +69,7 @@ def alphabet(request, order):
 def alphabet_chorus(request, chorus_id):
     alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
     alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
-    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon')
+    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords')
     alphabet_song_list = alphabet_song_list.order_by('Name')
     context = {'alphabet_song_list' : alphabet_song_list}
     return render(request, 'hymnals/alphabet.html', context)
@@ -232,6 +232,7 @@ def songbyws(request, chorus_id):
     song_list = song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
     song_list = song_list.order_by('Name')
     song_len = len(song_list)
+#    song_list = song_list.values('id','Name','hymnal__color')
 
 #    song_list = Song.objects.select_related('hymnal__chorus_id')
 #    song_list = song_list.filter(chorus_id='hymnal__chorus_id').order_by('Name')
@@ -265,18 +266,18 @@ def songbyws(request, chorus_id):
 
     for song in song_list:
 
-#        songid = song.id
+        songid = song.id
 #        cursor.execute('SELECT hymnals_ws.id FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 AND hymnals_song.id = %s ORDER BY hymnals_ws.time', [songid])
 #        ws_row = cursor.fetchall()
 
 #        sws_list = sorted(songid,sws_list_chorus)
 
-        sws_list = sws_list_chorus.extra(where=['song_id=%s'], params=[song.id])
+        sws_list = sws_list_chorus.extra(where=['song_id=%s'], params=[songid])
         sws_list = sws_list.order_by('ws__time')
 
         i = 0
         ws_row = [0 for j in xrange(0, ws_len)]
-        ws_row[0] = song.Name  # first colon
+        ws_row[0] = song
         i = 1
         for ws in ws_list:
             f_sws = ws.Supper

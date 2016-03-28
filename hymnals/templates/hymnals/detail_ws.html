@@ -8,7 +8,8 @@
 {% if songvsws_list %}
     <table WIDTH=100%>
     {% for song in songvsws_list  %}
-        <tr>
+        {% cycle 'row1' 'row2' as rowcolors silent %}
+        <tr class={{rowcolors}}>
             <TD width=15% align="center">
                 <a href="{% url 'hymnals:detail' song.hymnal.id 'n' %}">
                     <img src="{% static 'img' %}/small_{{song.hymnal.icon}}" alt="{{ song.hymnal }}"/>
@@ -36,8 +37,8 @@
     <hr>
     <h4><a href="{% url 'hymnals:topic_chorus' ws.chorus.id %}">Тематический указатель</a><br></h4>
     <hr>
-    <h4><a href="{% url 'hymnals:alphabet' 'n' %}">Алфавитный указатель всех гимнов</a><br></h4>
+    <h4><a href="{% url 'hymnals:alphabet_chorus' ws.chorus.id %}">Алфавитный указатель</a><br></h4>
     <hr>
-    <h4><a href="{% url 'hymnals:ws' %}">Полный список богослужений</a></h4>
+    <h4><a href="{% url 'hymnals:ws_chorus' ws.chorus.id %}">Cписок богослужений</a></h4>
 
 {% endblock content %}

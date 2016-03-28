@@ -16,8 +16,9 @@
     {% endif %}
     </h4>
     <table WIDTH=100%>
-    {% for song in alphabet_song_list %}
-        <tr>
+        {% for song in alphabet_song_list %}
+        {% cycle 'row1' 'row2' as rowcolors silent %}
+        <tr class={{rowcolors}}>
             <td width=15% align="center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
             <td width=70% align="left"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
             <td class = "page" align="center">
