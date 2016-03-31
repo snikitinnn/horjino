@@ -20,10 +20,9 @@
 {% endif %}
 
 {% if selected_song_list %}
-    <table width=100%>
+    <table width=100% class="table-hover table-striped">
     {% for song in selected_song_list %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-        <tr class={{rowcolors}}>
+        <tr>
             <td width = 80%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
             <td class = "page" align="center">
             {% if song.Page_Score %}

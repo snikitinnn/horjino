@@ -224,6 +224,7 @@ def songbyws(request, chorus_id):
     song_list = Song.objects.select_related('hymnal__chorus')
     song_list = song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
     song_list = song_list.order_by('Name')
+    song_list = song_list.extra(select={'song_count':'True'})
     song_len = len(song_list)
 
     ws_list = WS.objects.filter(chorus_id=chorus_id).order_by('time')
@@ -231,7 +232,7 @@ def songbyws(request, chorus_id):
     if ws_len > 20:
         ws_list = ws_list[ws_len-20:ws_len]
         ws_len = 20
-    ws_len += 1
+    ws_len += 1 # 1st for songname and last for flag of number of sung songs
     ws_time = ws_list[0].time
 
     ws_row = [0 for j in xrange(0, ws_len)]
@@ -242,8 +243,6 @@ def songbyws(request, chorus_id):
     sws_list_chorus = sws_list_chorus.extra(where=['chorus_id = %s'], params=[chorus_id])
     sws_list_chorus = sws_list_chorus.extra(where=['time > %s'], params=[ws_time])
 
-    song_i = 0
-
 #    from django.db import connection,transaction
 #    cursor = connection.cursor()
 #    cursor.execute('SELECT hymnals_songvsws.id, hymnals_songvsws.ws_id, hymnals_ws.chorus_id FROM hymnals_songvsws, hymnals_ws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_ws.chorus_id=5')
@@ -251,11 +250,13 @@ def songbyws(request, chorus_id):
 #    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws INNER JOIN hymnals_songvsws ON hymnals_ws.id = hymnals_songvsws.ws_id INNER JOIN hymnals_songvsws ON hymnals_song.id = hymnals_songvsws.song_id WHERE hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
 #    cursor.execute('SELECT hymnals_song.Name FROM hymnals_ws, hymnals_song, hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id AND hymnals_song.id = hymnals_songvsws.song_id AND hymnals_ws.chorus_id = 5 ORDER BY hymnals_ws.time GROUP BY hymnals_song.Name')
 
+    song_i = 0
     for song in song_list:
         songid = song.id
 
         sws_list = sws_list_chorus.extra(where=['song_id=%s'], params=[songid])
         sws_list = sws_list.order_by('ws__time')
+        song.song_count = len(sws_list)
 
         i = 0
         ws_row = [0 for j in xrange(0, ws_len)]
@@ -267,7 +268,7 @@ def songbyws(request, chorus_id):
                 if sws.ws_id == ws.id:
                     f_sws = 2
                     break
-            ws_row[i] = f_sws;
+            ws_row[i] = f_sws
             i += 1
 
         song_table[song_i] = ws_row

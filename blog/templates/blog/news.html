@@ -6,7 +6,47 @@
 <h3>Последние новости.</h3>
 
 <div class = "ws">
-    <h4><a href="{% url 'hymnals:ws_last' %}">Предстоящие богослужения</a></h4>
+    <h4><a href="{% url 'hymnals:ws_last' %}">Предстоящие</a></h4>
+</div>
+
+<div class="btn-group btn-group-vertical">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        События
+        <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="#">Предстоящие</a></li>
+        <li><a tabindex="-1" href="#">Все события</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1" href="#">Полный список</a></li>
+    </ul>
+
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Гимны
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="#">Смешанный хор</a></li>
+        <li><a tabindex="-1" href="#">Мужской хор</a></li>
+        <li><a tabindex="-1" href="#">Молодежный хор</a></li>
+        <li><a tabindex="-1" href="#">Прославление </a></li>
+        <li><a tabindex="-1" href="#">Общее пение</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1" href="#">Полный список</a></li>
+    </ul>
+
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Статистика
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a tabindex="-1" href="#">Смешанный хор</a></li>
+        <li><a tabindex="-1" href="#">Мужской хор</a></li>
+        <li><a tabindex="-1" href="#">Молодежный хор</a></li>
+        <li><a tabindex="-1" href="#">Прославление </a></li>
+        <li><a tabindex="-1" href="#">Общее пение</a></li>
+    </ul>
 </div>
 <hr>
     <h4><a href="{% url 'hymnals:choir' 1 %}">Смешанный хор</a></h4>

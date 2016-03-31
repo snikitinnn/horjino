@@ -55,24 +55,33 @@ td {
             {% endfor %}
         </tr>
         {% for song_row in song_table %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-        <tr class={{rowcolors}}>
-            {% for sws in song_row %}
-                {% if forloop.first %}
-                    <td bgcolor={{sws.hymnal.color}}>{{sws.Name}}</td>
+        {% for sws in song_row %}
+            {% if forloop.first %}  
+                {% if sws.song_count = 0 %}
+                    <tr bgcolor="#FAFAD6">
+                {% elif sws.song_count >= 3 %}
+                    <tr bgcolor="#DCE4EF">
                 {% else %}
-                    {% if sws %}
-                        {% if sws == 1 %}
-                            <td bgcolor="#FADADD"></td>
-                        {% else %}
-                            <td bgcolor="lightblue"></td>
-                        {% endif %}
+                    <tr>
+                {% endif %}
+                    {% if chorus.id < 5 %}
+                        <td bgcolor={{sws.hymnal.color}}>{{sws.Name}}</td>
                     {% else %}
-                        <td></td>
-                    {% endif%}
+                        <td>{{sws.Name}}</td>
+                    {% endif %}
+            {% else %}
+                {% if sws %}
+                     {% if sws == 1 %}
+                         <td bgcolor="#FADADD"></td>
+                     {% else %}
+                         <td bgcolor="lightblue"></td>
+                     {% endif %}
+                {% else %}
+                         <td></td>
                 {% endif%}
-            {% endfor %}
-        </tr>
+            {% endif%}
+        {% endfor %}
+                    </tr>
         {% endfor %}
     </table>
 {% else %}
