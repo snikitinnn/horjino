@@ -2,6 +2,21 @@
 {% load staticfiles %}
 
 {% block content %}
+<div>
+    <a name="top"></a>
+    <ul class="nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="{% url 'hymnals:songbyws' ws.chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
+                <li><a href="{% url 'hymnals:topic_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:ws_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+            </ul>
+        </li>
+    </ul>
+
 <h2>Дата богослужения:</h2>
 <h3>{{ ws.Date }}</h3>
 
@@ -38,14 +53,9 @@
 {% else %}
     <p>Список пуст.</p>
 {% endif %}
+<br>
+    <a class="btn btn-default btn-mini" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
-    <br>
-    <h4><a href="{% url 'hymnals:songbyws' ws.chorus.id %}">Статистика спетых гимнов</a><br></h4>
-    <hr>
-    <h4><a href="{% url 'hymnals:topic_chorus' ws.chorus.id %}">Тематический указатель</a><br></h4>
-    <hr>
-    <h4><a href="{% url 'hymnals:alphabet_chorus' ws.chorus.id %}">Алфавитный указатель</a><br></h4>
-    <hr>
-    <h4><a href="{% url 'hymnals:ws_chorus' ws.chorus.id %}">Cписок богослужений</a></h4>
+</div>
 
 {% endblock content %}

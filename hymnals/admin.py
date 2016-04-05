@@ -74,7 +74,9 @@ class SongAdmin(admin.ModelAdmin):
 #    form = SongAdminForm
     inlines = [TopicSong2Inline,]
     list_display = ('Name','Name_Alt','hymnal','Page_Score','Authors','Authors_2',)
-    list_filter = ('Name',)
+    list_filter = ('hymnal','hymnal__chorus','Name',)
+    ordering = ['Name']
+
 
 class WSAdmin(admin.ModelAdmin):
     inlines = [SongvsWSInline,]

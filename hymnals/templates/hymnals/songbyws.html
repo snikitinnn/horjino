@@ -27,6 +27,19 @@ td {
      border: solid 1px #f4f4f4;
 }
 </style>
+<div>
+    <a name="top"></a>
+    <ul class="nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+            </ul>
+        </li>
+    </ul>
 
 <h2>{{ chorus.name }}</h2>
 <h3>Cтатистика спетых гимнов</h3>
@@ -35,7 +48,7 @@ td {
         <col class="col1">
         <col span="20" class="coln">
         <tr>
-            <td id="verticalRow"></td>
+            <td id="verticalRow">Гимн \ Дата</td>
             {% for ws in ws_list %}
                 {% if ws.Supper %}
                     <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"n" }}</td>
@@ -45,7 +58,7 @@ td {
             {% endfor %}
         </tr>
         <tr>
-            <td id="verticalRow">Гимн/Дата</td>
+            <td id="verticalRow"</td>
             {% for ws in ws_list %}
                 {% if ws.Supper %}
                     <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"j" }}</td>
@@ -83,17 +96,32 @@ td {
         {% endfor %}
                     </tr>
         {% endfor %}
+        <tr>
+            <td id="verticalRow"></td>
+            {% for ws in ws_list %}
+                {% if ws.Supper %}
+                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"n" }}</td>
+                {% else %}
+                    <td id="verticalRow" >{{ ws.Date|date:"n" }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <td id="verticalRow">Гимн / Дата</td>
+            {% for ws in ws_list %}
+                {% if ws.Supper %}
+                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"j" }}</td>
+                {% else %}
+                    <td id="verticalRow" >{{ ws.Date|date:"j" }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
     </table>
 {% else %}
     <p>Исполненных гимнов в базе нет.</p>
 {% endif %}
+<br>
+    <a class="btn btn-default btn-mini" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
-    <br>
-    <h4><a href="{% url 'hymnals:topic_chorus' chorus.id %}">Тематический указатель</a><br></h4>
-    <hr>
-    <h4><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}">Алфавитный указатель</a><br></h4>
-    <hr>
-    <h4><a href="{% url 'hymnals:ws_chorus' chorus.id %}">Cписок богослужений</a></h4>
-
-
+</div>
 {% endblock content%}

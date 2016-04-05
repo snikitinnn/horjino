@@ -26,16 +26,16 @@ def detail(request, hymnal_id, order):
     context = {'selected_song_list' : selected_song_list, 'hymnal': hymnal, 'order' : order}
     return render(request, 'hymnals/detail.html', context)
 
-def results(request, hymnal_id, song_id):
-    song_count = SongvsWS.objects.filter(song_id=song_id).count()
-    svsws = SongvsWS.objects.extra(where=['song_id=%s'], params=[song_id])
-    date_ws = svsws.extra(select={'ws_id': 'SELECT ws_id FROM hymnals_ws,hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id'})
-    date_list = date_ws.select_related('ws__Date')
-
-    song = get_object_or_404(Song, pk=song_id)
-    hymnal = get_object_or_404(Hymnal, pk=hymnal_id)
-    context = {'song': song, 'hymnal': hymnal, 'song_count': song_count, 'svsws': svsws, 'date_list': date_list}
-    return render(request, 'hymnals/results.html', context)
+# def results(request, hymnal_id, song_id):
+#     song_count = SongvsWS.objects.filter(song_id=song_id).count()
+#     svsws = SongvsWS.objects.extra(where=['song_id=%s'], params=[song_id])
+#     date_ws = svsws.extra(select={'ws_id': 'SELECT ws_id FROM hymnals_ws,hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id'})
+#     date_list = date_ws.select_related('ws__Date')
+#
+#     song = get_object_or_404(Song, pk=song_id)
+#     hymnal = get_object_or_404(Hymnal, pk=hymnal_id)
+#     context = {'song': song, 'hymnal': hymnal, 'song_count': song_count, 'svsws': svsws, 'date_list': date_list}
+#     return render(request, 'hymnals/results.html', context)
 
 def results_song(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
@@ -89,10 +89,13 @@ def ws_chorus(request, chorus_id):
     context = {'ws_list': ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
 
-def ws_last(request):
+def ws_last(request, oneday):
 #    cur_date = timezone.now()
     cur_date = date.today()
-    coming_ws_list = WS.objects.extra(where=['Date>=%s'], params=[cur_date])
+    if oneday == 1:
+        coming_ws_list = WS.objects.extra(where=['Date=%s'], params=[cur_date])
+    else:
+        coming_ws_list = WS.objects.extra(where=['Date>=%s'], params=[cur_date])
     coming_ws_list = coming_ws_list.values('id','Date','chorus__name','Event')
     context = {'ws_list': coming_ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
@@ -114,43 +117,13 @@ def results_ws(request, ws_id, song_id):
     context = {'song': song, 'ws': ws}
     return render(request, 'hymnals/results_ws.html', context)
 
-########################################
-
-# def topic__chorus(request, chorus_id):
-#     chorus = get_object_or_404(Chorus, pk=chorus_id)
-#     topic_list = Topic.objects.all()
-#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
-#     context = {'topic_list' : topic_list, 'chorus':chorus}
-#     return render(request, 'hymnals/topic_chorus.html', context)
-#
-# from django.db.models import Count
-# def topic____chorus(request, chorus_id):
-#     chorus = get_object_or_404(Chorus, pk=chorus_id)
-#     topic_list = TopicSong.objects.all()
-#     topic_list = topic_list.select_related('song__hymnal__chorus')
-#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topic WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
-#     topic_list = topic_list.extra(select={'chorus_id_tab':'SELECT hymnals_hymnal.chorus_id FROM hymnals_hymnal, hymnals_song WHERE hymnals_hymnal.id = hymnals_song.hymnal_id AND hymnals_song.id=hymnals_topicsong.song_id'})
-# #    topic_list = topic_list.extra(where=['chorus_id_tab=%s'], params=[chorus_id])
-#
-#     context = {'topic_list' : topic_list, 'chorus':chorus}
-#     return render(request, 'hymnals/topic_chorus.html', context)
-
+############################################
 def topic_chorus(request, chorus_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     topic_list = Topic.objects.all()
     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topicsong, hymnals_hymnal, hymnals_song WHERE hymnals_topicsong.topic_id = hymnals_topic.id AND hymnals_hymnal.id = hymnals_song.hymnal_id AND hymnals_song.id=hymnals_topicsong.song_id AND hymnals_hymnal.chorus_id = %s' %chorus_id})
     context = {'topic_list' : topic_list, 'chorus' : chorus}
     return render(request, 'hymnals/topic_chorus.html', context)
-
-# def topic___chorus(request, chorus_id):
-#     chorus = get_object_or_404(Chorus, pk=chorus_id)
-#     topic_list = TopicSong.objects.all()
-#     topic_list = topic_list.select_related('song__hymnal__chorus')
-#     topic_list = topic_list.extra(select={'song_count':'SELECT COUNT(*) FROM hymnals_topic WHERE hymnals_topicsong.topic_id = hymnals_topic.id'})
-#     topic_list = topic_list.filter(song__hymnal__chorus__exact=chorus_id)
-#     context = {'topic_list' : topic_list, 'chorus':chorus}
-#     return render(request, 'hymnals/topic_chorus.html', context)
-
 
 def detail_topic(request, chorus_id, topic_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
@@ -241,7 +214,7 @@ def songbyws(request, chorus_id):
     sws_list_chorus = SongvsWS.objects.all()
     sws_list_chorus = sws_list_chorus.prefetch_related('ws__chorus')
     sws_list_chorus = sws_list_chorus.extra(where=['chorus_id = %s'], params=[chorus_id])
-    sws_list_chorus = sws_list_chorus.extra(where=['time > %s'], params=[ws_time])
+    sws_list_chorus = sws_list_chorus.extra(where=['time >= %s'], params=[ws_time])
 
 #    from django.db import connection,transaction
 #    cursor = connection.cursor()
@@ -260,16 +233,15 @@ def songbyws(request, chorus_id):
 
         i = 0
         ws_row = [0 for j in xrange(0, ws_len)]
-        ws_row[0] = song
-        i = 1
+        ws_row[i] = song
         for ws in ws_list:
+            i += 1
             f_sws = ws.Supper
             for sws in sws_list:
                 if sws.ws_id == ws.id:
                     f_sws = 2
                     break
             ws_row[i] = f_sws
-            i += 1
 
         song_table[song_i] = ws_row
         song_i += 1
