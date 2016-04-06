@@ -46,7 +46,7 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
+                    <a class="btn btn-mini btn-primary" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i> PDF</a>
                 {% else %}
                     Нет файла
                 {% endif %}
@@ -72,7 +72,7 @@
         {% for ws in singing_list %}
             <tr>
                 <td width=50% ><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></td>
-                <td ALIGN="right">{{ ws.event }}</td>
+                <td align="right">{{ ws.event }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -89,7 +89,7 @@
         {% for topic in topic_list %}
             <tr>
                 <td width=50% ><a href="{% url 'hymnals:detail_topic' song.hymnal.chorus.id topic.topic.id %}">{{ topic.topic.name }}</a></td>
-                <td ALIGN="right"></td>
+                <td aligne="right"></td>
             </tr>
         {% endfor %}
     </table>

@@ -21,7 +21,7 @@
 <h3>{{ ws.Date }}</h3>
 
 {% if songvsws_list %}
-    <table WIDTH=100%>
+    <table class="table" width=100%>
     {% for song in songvsws_list  %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
@@ -54,7 +54,7 @@
     <p>Список пуст.</p>
 {% endif %}
 <br>
-    <a class="btn btn-default btn-mini" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
+    <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
 </div>
 

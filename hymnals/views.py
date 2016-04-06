@@ -19,9 +19,13 @@ def choir(request, chorus_id):
 def detail(request, hymnal_id, order):
     song_list = Song.objects.extra(where=['hymnal_id=%s'], params=[hymnal_id])
     if order == 'p':
-        selected_song_list = song_list.order_by('Page_Score')
-    else:
-        selected_song_list = song_list.order_by('Name')
+        selected_song_list = song_list.order_by('Page_Score','Name')
+    elif order == 'n':
+        selected_song_list = song_list.order_by('Name','Page_Score')
+    elif order == 'f':
+        selected_song_list = song_list.order_by('accords','Name')
+    elif order == 's':
+        selected_song_list = song_list.order_by('over','Name')
     hymnal = get_object_or_404(Hymnal, pk=hymnal_id)
     context = {'selected_song_list' : selected_song_list, 'hymnal': hymnal, 'order' : order}
     return render(request, 'hymnals/detail.html', context)
@@ -57,21 +61,28 @@ def lyrics(request, song_id):
 #####################################
 
 def alphabet(request, order):
-    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords')
-    if order == 'p':
+    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+    if order == 'h':
+        alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Page_Score','Name')
+    elif order == 'p':
         alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Name')
-    else:
-        alphabet_song_list = alphabet_song_list.order_by('Name')
+    elif order == 'n':
+        alphabet_song_list = alphabet_song_list.order_by('Name','Page_Score')
+    elif order == 's':
+        alphabet_song_list = alphabet_song_list.order_by('over','Name')
+    elif order == 'f':
+        alphabet_song_list = alphabet_song_list.order_by('accords','Name')
 
-    context = {'alphabet_song_list' : alphabet_song_list, 'order' : order}
+    context = {'alphabet_song_list' : alphabet_song_list, 'order' : order, 'chorus':None}
     return render(request, 'hymnals/alphabet.html', context)
 
 def alphabet_chorus(request, chorus_id):
     alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
     alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
-    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords')
+    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
     alphabet_song_list = alphabet_song_list.order_by('Name')
-    context = {'alphabet_song_list' : alphabet_song_list}
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'alphabet_song_list' : alphabet_song_list, 'chorus':chorus}
     return render(request, 'hymnals/alphabet.html', context)
 
 #######################################
@@ -79,14 +90,15 @@ def alphabet_chorus(request, chorus_id):
 def ws(request):
     cur_date = timezone.now()
     ws_list = WS.objects.values('id','Date','chorus__name','Event')
-    context = {'ws_list': ws_list, 'cur_date':cur_date}
+    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':None}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_chorus(request, chorus_id):
     cur_date = timezone.now()
     ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
     ws_list = ws_list.values('id','Date','Event')
-    context = {'ws_list': ws_list, 'cur_date':cur_date}
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_last(request, oneday):

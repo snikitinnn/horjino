@@ -21,7 +21,7 @@
 <!-- if not Worship Service hymnal book -->
 
 {% if song_list %}
-    <table width=100%>
+    <table class="table" width=100%>
     {% for song in song_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>

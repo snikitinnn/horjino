@@ -24,18 +24,36 @@
     <img class="hymnal_icon" src="{% static 'img' %}/{{hymnal.icon}}" />
     <h4>
     {% if order == 'p' %}
-        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'n' %}">по алфавиту</a>
-        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'p' %}">по порядку</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> по алфавиту</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i> по порядку</a>
     {% else %}
-        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'n' %}">по алфавиту</a>
-        <a class="btn btn-default" href="{% url 'hymnals:detail' hymnal.id 'p' %}">по порядку</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> по алфавиту</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i> по порядку</a>
     {% endif %}
     </h4>
+{% elif hymnal != 24 %}
+    <h4>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> по алфавиту</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'f' %}"><i class="glyphicon glyphicon-sort-by-order"></i> по файлам</a>
+        <a class="btn btn-primary" href="{% url 'hymnals:detail' hymnal.id 'g' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i> по номеру в "ПВ"</a>
 
+    </h4>
 {% endif %}
 
 {% if selected_song_list %}
-    <table width=100% class="table-hover table-striped">
+    <table width=100% class="table table-hover table-striped">
+        {% if hymnal.id != 23 %}
+        <tr>
+            <td width = 80% align="center"><a class="btn" href="{% url 'hymnals:detail' hymnal.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></td>
+            <td align="center"><a class="btn" href="{% url 'hymnals:detail' hymnal.id 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <td width = 80% align="center"><a class="btn" href="{% url 'hymnals:detail' hymnal.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></td>
+            <td align="center"><a class="btn" href="{% url 'hymnals:detail' hymnal.id 'f' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></td>
+            <td align="center"><a class="btn" href="{% url 'hymnals:detail' hymnal.id 's' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></td>
+        </tr>
+        {% endif %}
     {% for song in selected_song_list %}
         <tr>
             <td width = 80%><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
@@ -44,7 +62,7 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}">PDF</a>
+                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i> PDF</a>
                 {% endif %}
             {% endif %}
             </td>
@@ -63,6 +81,6 @@
 {% endif %}
 </div>
 <br>
-    <a class="btn btn-default btn-mini" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
+    <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
 {% endblock content%}

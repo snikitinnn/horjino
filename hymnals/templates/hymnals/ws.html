@@ -8,35 +8,55 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                {% if chorus %}
+                    <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
+                    <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
+                    <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                {% else %}
+                    <li><a href="{% url 'hymnals:ws_chorus' 1 %}">Смешанный хор</a></li>
+                    <li><a href="{% url 'hymnals:ws_chorus' 2 %}">Мужской хор</a></li>
+                    <li><a href="{% url 'hymnals:ws_chorus' 3 %}">Молодежный хор</a></li>
+                    <li><a href="{% url 'hymnals:ws_chorus' 5 %}">Прославление</a></li>
+                    <li><a href="{% url 'hymnals:ws_chorus' 6 %}">Общее пение</a></li>
+                {% endif %}
+                <li class="divider"></li>
                 <li><a href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель всех гимнов</a></li>
                 <li><a href="{% url 'hymnals:ws' %}"><i class="glyphicon glyphicon-calendar"></i> Полный список богослужений</a></li>
             </ul>
         </li>
     </ul>
 
+{% if chorus %}
+    <h2>{{ chorus.name }}</h2>
+{% endif %}
 <h3>Список богослужений</h3>
 
 <h4>Сегодня: {{ cur_date|date:"j E" }}</h4>
 
 {% if ws_list %}
     {% for ws in ws_list %}
+        <table class="table" width=100% >
+        <tbody>
         {% ifchanged %}
-            <h4 ALIGN="center"> {{ ws.Date|date:"F Y" }}</h4>
-        {% endifchanged %}
-        <table WIDTH=100% >
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-            <tr class={{rowcolors}}>
-                <td width=35% ALIGN="center"><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></td>
-                <td ALIGN="right">{{ ws.chorus__name }}</td>
-                <td width=45% ALIGN="right">{{ ws.Event }}</td>
+            <tr valign="middle" class="success">
+                <td width=15% align="center"></td>
+                <td align="center"><h4> {{ ws.Date|date:"F Y" }}</h4></td>
+                <td width=15% align="right"></td>
             </tr>
+        {% endifchanged %}
+            <tr valign="middle">
+                <td width=35% align="center"><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></td>
+                <td align="right">{{ ws.chorus__name }}</td>
+                <td width=45% align="right">{{ ws.Event }}</td>
+            </tr>
+        </tbody>
         </table>
     {% endfor %}
 {% else %}
     <p>Список пуст.</p>
 {% endif %}
     <br>
-    <a class="btn btn-default btn-mini" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
+    <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
 </div>
 {% endblock content %}
