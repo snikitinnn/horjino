@@ -2,6 +2,36 @@
 {% load staticfiles %}
 
 {% block content %}
+<style>
+table {
+    table-layout: fixed; /* Фиксированная ширина ячеек */
+    width: 600px;
+}
+
+.col1 {
+    width: 50px;
+    text-align: center;
+}
+.col2 {
+    width: 250px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.col3 {
+    width: 100px;
+    text-align: center;
+}
+.col4 {
+    width: 100px;
+    text-align: center;
+}
+.col5 {
+    width: 200px;
+    text-align: center;
+}
+</style>
+
 <div>
     <a name="top"></a>
     <ul class="nav">
@@ -9,51 +39,63 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                {% if chorus %}
-                    <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
-                    <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
-                    <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+                {% if chorus != 0 %}
+                    <li><a href="{% url 'hymnals:songbyws' chorus %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
+                    <li><a href="{% url 'hymnals:topic_chorus' chorus %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
+                    <li><a href="{% url 'hymnals:ws_chorus' chorus %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'hymnals:ws' chorus %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список богослужений</a></li>
                 {% else %}
                     <li><a href="{% url 'hymnals:alphabet_chorus' 1 %}">Смешанный хор</a></li>
                     <li><a href="{% url 'hymnals:alphabet_chorus' 2 %}">Мужской хор</a></li>
                     <li><a href="{% url 'hymnals:alphabet_chorus' 3 %}">Молодежный хор</a></li>
                     <li><a href="{% url 'hymnals:alphabet_chorus' 5 %}">Прославление</a></li>
                     <li><a href="{% url 'hymnals:alphabet_chorus' 6 %}">Общее пение</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'hymnals:ws' 0 %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список богослужений</a></li>
                 {% endif %}
-                <li class="divider"></li>
-                <li><a href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель всех гимнов</a></li>
-                <li><a href="{% url 'hymnals:ws' %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список богослужений</a></li>
+                <li><a href="{% url 'hymnals:alphabet' 0 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель всех гимнов</a></li>
             </ul>
         </li>
     </ul>
-{% if chorus %}
-    <h2>{{ chorus.name }}</h2>
-{% endif %}
-<h3>Алфавитный указатель</h3>
+
+<div class="head">
+    <h2>{{ chorus_name }}</h2>
+</div>
 {% if alphabet_song_list %}
-    <table class="table-striped" width=100%>
-        {% if chorus.id != 5 %}
+    <table class="table table-striped" width=100%>
+        {% if chorus != 5 %}
+        <colgroup>
+            <col class="col1">
+            <col class="col2">
+            <col class="col5">
+        </colgroup>
         <tr>
-            <td width = 15% align="center"><a class="btn" href="{% url 'hymnals:alphabet' 'h' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></td>
-            <td width = 70% align="center"><a class="btn" href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> <i class="glyphicon glyphicon-sort-by-order"></i></a></td>
-            <td align="center"><a class="btn" href="{% url 'hymnals:alphabet' 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i> <i class="glyphicon glyphicon-sort-by-alphabet"></i></a></td>
-            <td align="center"></td>
+            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'h' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> <i class="glyphicon glyphicon-sort-by-order"></i></a></th>
+            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i> <i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
         </tr>
         {% else %}
+        <colgroup>
+            <col class="col1">
+            <col class="col2">
+            <col class="col3">
+            <col class="col4">
+        </colgroup>
         <tr>
-            <td width = 15% align="center"></td>
-            <td width = 70% align="center"><a class="btn" href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></td>
-            <td align="center"><a class="btn" href="{% url 'hymnals:alphabet' 'f' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></td>
-            <td align="center"><a class="btn" href="{% url 'hymnals:alphabet' 's' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></td>
+            <th></th>
+            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'f' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></th>
+            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 's' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></th>
         </tr>
         {% endif %}
 
         {% for song in alphabet_song_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
-            <td width=15% align="center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
-            <td width=70% align="left"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
-            <td class = "page" align="center">
+            <td><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
+            <td style="vertical-align:middle"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
+            <td style="vertical-align:middle">
             {% if song.Page_Score %}
                 {{ song.Page_Score }}
             {% else %}
@@ -62,8 +104,9 @@
                 {% endif %}
             {% endif %}
             </td>
-            {%if chorus.id == 5  %}
-            <td class = "page" align="center">
+
+            {%if chorus == 5  %}
+            <td class = "page" style="vertical-align:middle">
                 {% if song.over %}
                     {{ song.over }}
                 {% endif %}

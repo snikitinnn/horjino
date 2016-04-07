@@ -60,8 +60,19 @@ def lyrics(request, song_id):
 
 #####################################
 
-def alphabet(request, order):
-    alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+def alphabet(request, chorus_id, order):
+    if chorus_id == '0':
+        alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+        chorus_name = 'Полный указатель'
+        chorus_int = int(chorus_id)
+    else:
+        alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
+        alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
+        alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+        chorus = get_object_or_404(Chorus, pk=chorus_id)
+        chorus_int = int(chorus.id)
+        chorus_name = chorus.name
+
     if order == 'h':
         alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Page_Score','Name')
     elif order == 'p':
@@ -73,7 +84,7 @@ def alphabet(request, order):
     elif order == 'f':
         alphabet_song_list = alphabet_song_list.order_by('accords','Name')
 
-    context = {'alphabet_song_list' : alphabet_song_list, 'order' : order, 'chorus':None}
+    context = {'alphabet_song_list' : alphabet_song_list, 'order' : order, 'chorus':chorus_int, 'chorus_name':chorus_name}
     return render(request, 'hymnals/alphabet.html', context)
 
 def alphabet_chorus(request, chorus_id):
@@ -87,10 +98,14 @@ def alphabet_chorus(request, chorus_id):
 
 #######################################
 
-def ws(request):
+def ws(request, chorus_id):
     cur_date = timezone.now()
-    ws_list = WS.objects.values('id','Date','chorus__name','Event')
-    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':None}
+    ws_list = WS.objects.values('id','Date','chorus','chorus__name','Event')
+    if chorus_id == '0':
+        chorus = None
+    else:
+        chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_chorus(request, chorus_id):

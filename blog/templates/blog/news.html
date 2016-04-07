@@ -17,7 +17,7 @@
                 <li><a href="{% url 'hymnals:ws_chorus' 5 %}">Прославление</a></li>
                 <li><a href="{% url 'hymnals:ws_chorus' 6 %}">Общее пение</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'hymnals:ws' %}"><i class="glyphicon glyphicon-asterisk"></i> Все богослужения</a></li>
+                <li><a href="{% url 'hymnals:ws' 0 %}"><i class="glyphicon glyphicon-asterisk"></i> Все богослужения</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -30,7 +30,7 @@
                 <li><a href="{% url 'hymnals:choir' 5 %}">Прославление</a></li>
                 <li><a href="{% url 'hymnals:choir' 6 %}">Общее пение</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный список</a></li>
+                <li><a href="{% url 'hymnals:alphabet' 0 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный список</a></li>
                 <li><a href="/hymnals/search/"><i class="glyphicon glyphicon-search"></i> Поиск</a></li>
             </ul>
         </li>

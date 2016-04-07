@@ -12,10 +12,10 @@ urlpatterns = patterns('',
     url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
     url(r'^song/pdf/(?P<song_id>\d+)$', views.file_view, name='pdf'),
 
-    url(r'^alphabet/(?P<order>\D+)/$', views.alphabet, name='alphabet'),
+    url(r'^alphabet/(?P<chorus_id>\d+)/(?P<order>\D+)/$', views.alphabet, name='alphabet'),
     url(r'^alphabet/chorus/(?P<chorus_id>\d+)/$', views.alphabet_chorus, name='alphabet_chorus'),
 
-    url(r'^ws/$', views.ws, name='ws'),
+    url(r'^ws/(?P<chorus_id>\d+)/$', views.ws, name='ws'),
     url(r'^ws/last/(?P<oneday>\d+)/$', views.ws_last, name='ws_last'),
     url(r'^ws/chorus/(?P<chorus_id>\d+)/$', views.ws_chorus, name='ws_chorus'),
     url(r'^ws/(?P<ws_id>\d+)/$', views.detail_ws, name='detail_ws'),
@@ -31,4 +31,5 @@ urlpatterns = patterns('',
     url(r'^songbyws/(?P<chorus_id>\d+)/$', views.songbyws, name='songbyws'),
 #    url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
 
+#    todo http://127.0.0.1:8000/hymnals/alphabet/chorus/2/
 )

@@ -15,15 +15,16 @@
         </li>
     </ul>
 
-<h2>{{ chorus.name }}</h2>
-<!-- if not Worship Service hymnal book -->
+<div head="class">
+    <h2>{{ chorus.name }}</h2>
+</div>
 
 {% if topic_list %}
     <h3>Тематический список</h3>
-    <table class="table-striped" width=100%>
+    <table class="table table-striped" width=100%>
         <tr>
-            <td width = 80%>Тема гимна</td>
-            <td align="center">Количество</td>
+            <th width = 80%>Тема гимна</th>
+            <th align="center">Количество</th>
         </tr>
     {% for topic in topic_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
