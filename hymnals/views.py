@@ -30,17 +30,6 @@ def detail(request, hymnal_id, order):
     context = {'selected_song_list' : selected_song_list, 'hymnal': hymnal, 'order' : order}
     return render(request, 'hymnals/detail.html', context)
 
-# def results(request, hymnal_id, song_id):
-#     song_count = SongvsWS.objects.filter(song_id=song_id).count()
-#     svsws = SongvsWS.objects.extra(where=['song_id=%s'], params=[song_id])
-#     date_ws = svsws.extra(select={'ws_id': 'SELECT ws_id FROM hymnals_ws,hymnals_songvsws WHERE hymnals_ws.id = hymnals_songvsws.ws_id'})
-#     date_list = date_ws.select_related('ws__Date')
-#
-#     song = get_object_or_404(Song, pk=song_id)
-#     hymnal = get_object_or_404(Hymnal, pk=hymnal_id)
-#     context = {'song': song, 'hymnal': hymnal, 'song_count': song_count, 'svsws': svsws, 'date_list': date_list}
-#     return render(request, 'hymnals/results.html', context)
-
 def results_song(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     singing_list = SongvsWS.objects.filter(song_id=song_id).order_by('-ws__Date')
@@ -70,13 +59,13 @@ def alphabet(request, chorus_id, order):
         alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
         alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
         chorus = get_object_or_404(Chorus, pk=chorus_id)
-        chorus_int = int(chorus.id)
+        chorus_int = chorus_id
         chorus_name = chorus.name
 
     if order == 'h':
-        alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Page_Score','Name')
-    elif order == 'p':
         alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Name')
+    elif order == 'p':
+        alphabet_song_list = alphabet_song_list.order_by('hymnal__Hymnal_Name','Page_Score')
     elif order == 'n':
         alphabet_song_list = alphabet_song_list.order_by('Name','Page_Score')
     elif order == 's':
@@ -92,8 +81,8 @@ def alphabet_chorus(request, chorus_id):
     alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
     alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
     alphabet_song_list = alphabet_song_list.order_by('Name')
-    chorus = get_object_or_404(Chorus, pk=chorus_id)
-    context = {'alphabet_song_list' : alphabet_song_list, 'chorus':chorus}
+#    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'alphabet_song_list' : alphabet_song_list, 'chorus':chorus_id}
     return render(request, 'hymnals/alphabet.html', context)
 
 #######################################
@@ -127,9 +116,6 @@ def ws_last(request, oneday):
     context = {'ws_list': coming_ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
 
-
-#######################################
-
 def detail_ws(request, ws_id):
     ws = get_object_or_404(WS, pk=ws_id)
 #    songvsws_list = SongvsWS.objects.filter(ws_id=ws_id)
@@ -137,12 +123,6 @@ def detail_ws(request, ws_id):
     songvsws_list = songvsws_list.order_by('sequence')
     context = {'ws':ws, 'songvsws_list':songvsws_list}
     return render(request, 'hymnals/detail_ws.html', context)
-
-def results_ws(request, ws_id, song_id):
-    song = get_object_or_404(Song, pk=song_id)
-    ws = get_object_or_404(WS, pk=ws_id)
-    context = {'song': song, 'ws': ws}
-    return render(request, 'hymnals/results_ws.html', context)
 
 ############################################
 def topic_chorus(request, chorus_id):

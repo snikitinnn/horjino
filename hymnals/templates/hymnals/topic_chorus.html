@@ -2,6 +2,24 @@
 {% load staticfiles %}
 
 {% block content %}
+<style>
+table {
+     table-layout: fixed; /* Фиксированная ширина ячеек */
+     width: 600px;
+}
+
+.col1 {
+    width: 350px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.col2 {
+    width: 200px;
+    text-align: center;
+}
+</style>
+
 <div>
     <ul class="nav">
         <li class="dropdown">
@@ -15,22 +33,25 @@
         </li>
     </ul>
 
-<div head="class">
+<div class="head">
     <h2>{{ chorus.name }}</h2>
+    <h3>Тематический список</h3>
 </div>
 
 {% if topic_list %}
-    <h3>Тематический список</h3>
     <table class="table table-striped" width=100%>
+        <colgroup>
+            <col class="col1">
+            <col class="col2">
+        </colgroup>
         <tr>
-            <th width = 80%>Тема гимна</th>
-            <th align="center">Количество</th>
+            <th>Тема гимна</th><th style="text-align:center">Количество</th>
         </tr>
     {% for topic in topic_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
-            <td width = 80%><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic }}</a></td>
-            <td class = "page" align="center">
+            <td><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic }}</a></td>
+            <td class = "page" style="text-align:center">
             {% if topic.song_count %}
                 {{ topic.song_count }}
             {% endif %}

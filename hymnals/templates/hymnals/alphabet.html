@@ -63,7 +63,7 @@ table {
     <h2>{{ chorus_name }}</h2>
 </div>
 {% if alphabet_song_list %}
-    <table class="table table-striped" width=100%>
+    <table class="table table-striped">
         {% if chorus != 5 %}
         <colgroup>
             <col class="col1">
@@ -71,9 +71,9 @@ table {
             <col class="col5">
         </colgroup>
         <tr>
-            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'h' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></th>
-            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> <i class="glyphicon glyphicon-sort-by-order"></i></a></th>
-            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'p' %}"><i class="glyphicon glyphicon-sort-by-order"></i> <i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'h' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i> <i class="glyphicon glyphicon-sort-by-alphabet"></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'p' %}"><i class="glyphicon glyphicon-sort-by-attributes"> <i class="glyphicon glyphicon-sort-by-order"></i></a></th>
         </tr>
         {% else %}
         <colgroup>
@@ -84,18 +84,18 @@ table {
         </colgroup>
         <tr>
             <th></th>
-            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i></a></th>
             <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 'f' %}"><i class="glyphicon glyphicon-sort-by-attributes"></i></a></th>
-            <th><a class="btn" href="{% url 'hymnals:alphabet' chorus 's' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></th>
+            <th style="text-align:center"><a class="btn" href="{% url 'hymnals:alphabet' chorus 's' %}"><i class="glyphicon glyphicon-sort-by-order"></i></a></th>
         </tr>
         {% endif %}
 
         {% for song in alphabet_song_list %}
         {% cycle 'row1' 'row2' as rowcolors silent %}
         <tr class={{rowcolors}}>
-            <td><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
+            <td style="text-align:center"><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
             <td style="vertical-align:middle"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
-            <td style="vertical-align:middle">
+            <td style="vertical-align:middle; text-align:center">
             {% if song.Page_Score %}
                 {{ song.Page_Score }}
             {% else %}
