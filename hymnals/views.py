@@ -255,3 +255,58 @@ def songbyws(request, chorus_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     context = {'song_table':song_table, 'ws_list' : ws_list, 'chorus' : chorus}
     return render(request, 'hymnals/songbyws.html', context)
+
+def songbyws_one(request, chorus_id, ws_id):
+
+    song_list = Song.objects.select_related('hymnal__chorus')
+    song_list = song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
+    song_list = song_list.order_by('Name')
+    song_list = song_list.extra(select={'song_count':'True'})
+    song_len = len(song_list)
+
+    ws_list = WS.objects.filter(chorus_id=chorus_id).order_by('time')
+    ws_len = len(ws_list)
+    if ws_len > 20:
+        ws_list = ws_list[ws_len-20:ws_len]
+        ws_len = 20
+    ws_len += 1 # 1st for songname and last for flag of number of sung songs
+    ws_time = ws_list[0].time
+
+    ws_row = [0 for j in xrange(0, ws_len)]
+
+    sws_list_ws = SongvsWS.objects.all()
+    sws_list_ws = sws_list_ws.select_related('ws__time')
+    sws_list_ws = sws_list_ws.extra(where=['ws_id = %s'], params=[ws_id])
+    sws_list_ws = sws_list_ws.extra(where=['time >= %s'], params=[ws_time])
+
+    sws_len=len(sws_list_ws)
+    song_table = [ws_row for i in xrange(0, sws_len)]
+
+    song_i = 0
+    for sws in sws_list_ws:
+        for song in song_list:
+            if song.id == sws.song_id:
+                songid = song.id
+                sws_list_song = SongvsWS.objects.all()
+                sws_list_song = sws_list_song.extra(where=['song_id=%s'], params=[songid])
+                sws_list_song = sws_list_song.order_by('ws__time')
+                song.song_count = len(sws_list_song)
+
+                i = 0
+                ws_row = [0 for j in xrange(0, ws_len)]
+                ws_row[i] = song
+                for ws in ws_list:
+                    i += 1
+                    f_sws = ws.Supper
+                    for sws_song in sws_list_song:
+                        if sws_song.ws_id == ws.id:
+                           f_sws = 2
+                           break
+                    ws_row[i] = f_sws
+                song_table[song_i] = ws_row
+                song_i += 1
+                break
+
+    chorus = get_object_or_404(Chorus, pk=chorus_id)
+    context = {'song_table':song_table, 'ws_list' : ws_list, 'chorus' : chorus}
+    return render(request, 'hymnals/songbyws.html', context)

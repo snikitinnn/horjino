@@ -63,9 +63,9 @@ td {
             <td id="verticalRow"</td>
             {% for ws in ws_list %}
                 {% if ws.Supper %}
-                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"j" }}</td>
+                    <td id="verticalRow" bgcolor="#FADADD"><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% else %}
-                    <td id="verticalRow" >{{ ws.Date|date:"j" }}</td>
+                    <td id="verticalRow" ><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% endif %}
             {% endfor %}
         </tr>
@@ -87,7 +87,7 @@ td {
             {% else %}
                 {% if sws %}
                      {% if sws == 1 %}
-                         <td bgcolor="#FADADD"></td>
+                         <td bgcolor="#FADADD"></td> <!-- column separated -->
                      {% else %}
                          <td bgcolor="lightblue"></td>
                      {% endif %}
@@ -112,9 +112,9 @@ td {
             <td id="verticalRow">Гимн / Дата</td>
             {% for ws in ws_list %}
                 {% if ws.Supper %}
-                    <td id="verticalRow" bgcolor="#FADADD">{{ ws.Date|date:"j" }}</td>
+                    <td id="verticalRow" bgcolor="#FADADD"><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% else %}
-                    <td id="verticalRow" >{{ ws.Date|date:"j" }}</td>
+                    <td id="verticalRow" ><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% endif %}
             {% endfor %}
         </tr>
