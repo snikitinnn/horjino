@@ -3,26 +3,23 @@
 
 {% block content %}
 <style>
-table {
-     table-layout: fixed; /* Фиксированная ширина ячеек */
-     width: 600px;
-}
 .col1 {
-    width: 50px;
-    text-align: left;
+    width: 5%;
+    text-align: center;
 }
+
 .col2 {
-    width: 250px;
+    width: 85%;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
 }
 .col3 {
-    width: 100px;
+    width: 5%
     text-align: center;
 }
 .col4 {
-    width: 100px;
+    width: 5%
     text-align: center;
 }
 </style>
@@ -36,7 +33,7 @@ table {
                 <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
                 <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
-                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
     </ul>
@@ -47,7 +44,7 @@ table {
 </div>
 
 {% if song_list %}
-    <table class="table table-striped" width=100%>
+    <table class="table-striped">
         <colgroup>
             <col class="col1">
             <col class="col2">
@@ -55,20 +52,19 @@ table {
             <col class="col4">
         </colgroup>
     {% for song in song_list %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-        <tr class={{rowcolors}}>
-            <td><img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal.icon}}"></td>
-            <td style="vertical-align:middle"><a href="{% url 'hymnals:song' song.song.id %}">{{ song }}</a></td>
-            <td class = "page" style="vertical-align:middle">
+         <tr>
+            <td class="icon"><img class="icon" src="{% static 'img' %}/small_{{song.hymnal.icon}}"></td>
+            <td class="name"><a href="{% url 'hymnals:song' song.song.id %}">{{ song }}</a></td>
+            <td class="page">
             {% if song.page %}
                 {{ song.page }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.song.id %}">PDF</a>
+                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.song.id %}"></a>
                 {% endif %}
             {% endif %}
             </td>
-            <td class = "page" style="vertical-align:middle">
+            <td class="page">
             {% if song.over %}
                 {{ song.over }}
             {% endif %}

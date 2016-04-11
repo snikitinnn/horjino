@@ -3,19 +3,14 @@
 
 {% block content %}
 <style>
-table {
-     table-layout: fixed; /* Фиксированная ширина ячеек */
-     width: 600px;
-}
-
 .col1 {
-    width: 350px;
+    width: 60%;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
 }
 .col2 {
-    width: 200px;
+    width: 40%;
     text-align: center;
 }
 </style>
@@ -28,7 +23,7 @@ table {
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
-                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
     </ul>
@@ -39,19 +34,18 @@ table {
 </div>
 
 {% if topic_list %}
-    <table class="table table-striped" width=100%>
+    <table class="table-striped">
         <colgroup>
             <col class="col1">
             <col class="col2">
         </colgroup>
         <tr>
-            <th>Тема гимна</th><th style="text-align:center">Количество</th>
+            <th class="page">Тема гимна</th><th class="page">Количество</th>
         </tr>
     {% for topic in topic_list %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-        <tr class={{rowcolors}}>
-            <td><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic }}</a></td>
-            <td class = "page" style="text-align:center">
+        <tr>
+            <td class="name"><a href="{% url 'hymnals:detail_topic' chorus.id topic.id %}">{{ topic }}</a></td>
+            <td class="page">
             {% if topic.song_count %}
                 {{ topic.song_count }}
             {% endif %}

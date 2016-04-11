@@ -2,6 +2,20 @@
 {% load staticfiles %}
 
 {% block content %}
+
+<style>
+.col1 {
+    width: 20%;
+    text-align: center;
+}
+.col2 {
+    width: 80%;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+</style>
+
 <div>
     <ul class="nav">
         <li class="dropdown">
@@ -11,7 +25,7 @@
                 <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
                 <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
-                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список богослужений</a></li>
+                <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
     </ul>
@@ -23,15 +37,15 @@
 </div>
 
 {% if hymnal_list %}
-    <table class="table-striped" width=100%>
+    <table class="table-striped">
     {% for hymnal in hymnal_list %}
         <tr>
-            <td width=15% align="center">
+            <td class="icon">
                 <a href="{% url 'hymnals:detail' hymnal.id 'n' %}">
-                    <img class="hymnal_icon" src="{% static 'img' %}/small_{{hymnal.icon}}" />
+                    <img class="icon" src="{% static 'img' %}/small_{{hymnal.icon}}" />
                 </a>
             </td>
-            <td align="left"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{hymnal}}</a></td>
+            <td class="name"><a href="{% url 'hymnals:detail' hymnal.id 'n' %}">{{hymnal}}</a></td>
         </tr>
     {% endfor %}
     </table>

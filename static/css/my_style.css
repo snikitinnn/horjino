@@ -3,7 +3,7 @@ body {
     background-image: url(img/27.jpg) 0 0 repeat;
     padding: 5px 5px 110px 5px;
     width:100%;
-    max-width:1000px;
+/*    max-width:1000px;*/
 }
 
 .nb p {
@@ -24,18 +24,19 @@ textarea {
     height: 70px;
 }
 
+table {
+    table-layout: auto;
+    width: 100%;
+}
+
 td {
-  padding: 1px;
-  border: none;
+    padding: 1px;
+    border: none;
 /*  border: solid 1px #f4f4f4; */
 }
 
 td .btn-mini {
-  font-size: 60%;
-  font-weight: bold;
-}
-
-.page {
+    font-size: 60%;
     font-weight: bold;
 }
 
@@ -50,6 +51,28 @@ td .btn-mini {
     text-align:center;
 }
 
+.ws td th {
+    text-align:center;
+    vertical-align: middle;
+}
+
+.name td{
+    text-align:left;
+    vertical-align: middle;
+}
+
+.page td th{
+    text-align:left;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.icon td {
+    width = 25px;
+    text-align:center;
+    vertical-align: middle;
+}
+
     @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 568px) {
@@ -58,17 +81,350 @@ body {
     padding: 5px 5px 110px 5px;
 }
 
+.container-fluid {
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+td {
+  border: none;body {
+/*    background: url("http://ilyakhasanov.ru/images/Background/27.jpg") 0 0 repeat;*/
+    background-image: url(img/27.jpg) 0 0 repeat;
+    padding: 5px 5px 110px 5px;
+    width:100%;
+/*    max-width:1000px;*/
+}
+
+.nb p {
+  color: ligthgray;
+  font-size: 75%;
+  }
+
+input, textarea {
+  outline: none;
+  border: none;
+/*  border: solid 1px #DCDCDC; */
+}
+
+textarea {
+  height: 120px;
+}
+.container {
+    height: 70px;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+}
+
+td {
+    padding: 1px;
+    border: none;
+/*  border: solid 1px #f4f4f4; */
+}
+
+td .btn-mini {
+    font-size: 60%;
+    font-weight: bold;
+}
+
+.row1 {
+     background-color: #eeeeee;
+}
+.row2 {
+     background-color: #white;
+}
+
+.head {
+    text-align:center;
+}
+
+th .ws, td .ws {
+    text-align:center;
+    vertical-align: middle;
+}
+
+td .name {
+    text-align:left;
+    vertical-align: middle;
+}
+
+th .page, td .page {
+    text-align:center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+th .icon, td .icon {
+    width = 25px;
+    text-align:center;
+    vertical-align: middle;
+}
+
+    @media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+
+body {
+    padding: 5px 5px 110px 5px;
+}
+
+.container-fluid {
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 td {
   border: none;
 }
-td .hymnal_icon{
+
+/*td .hymnal_icon{
   width: 25px;
   vertical-align: middle;
-}
 
 td .hymnal_icon_ll{
   width: 20px;
   vertical-align: middle;
 }
+*/
 
+th .ws{
+    text-align:center;
+    vertical-align: middle;
 }
+
+td .ws {
+    text-align:center;
+    vertical-align: middle;
+    font-size: 80%;
+}
+
+td .name {
+    text-align:left;
+    vertical-align: middle;
+    padding-left: 2px;
+    padding-right: 2px;body {
+/*    background: url("http://ilyakhasanov.ru/images/Background/27.jpg") 0 0 repeat;*/
+    background-image: url(img/27.jpg) 0 0 repeat;
+    padding: 5px 5px 110px 5px;
+    width:100%;
+/*    max-width:1000px;*/
+}
+
+.nb p {
+  color: ligthgray;
+  font-size: 75%;
+  }
+
+input, textarea {
+  outline: none;
+  border: none;
+/*  border: solid 1px #DCDCDC; */
+}
+
+textarea {
+  height: 120px;
+}
+.container {
+    height: 70px;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+}
+
+td {
+    padding: 1px;
+    border: none;
+/*  border: solid 1px #f4f4f4; */
+}
+
+td .btn-mini {
+    font-size: 60%;
+    font-weight: bold;
+}
+
+.row1 {
+     background-color: #eeeeee;
+}
+.row2 {
+     background-color: #white;
+}
+
+.head {
+    text-align:center;
+}
+
+.ws td th {
+    text-align:center;
+    vertical-align: middle;
+}
+
+.name td{
+    text-align:left;
+    vertical-align: middle;
+}
+
+.page td th{
+    text-align:left;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.icon td {
+    width = 25px;
+    text-align:center;
+    vertical-align: middle;
+}
+
+    @media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+
+body {
+    padding: 5px 5px 110px 5px;
+}
+
+.container-fluid {
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+td {
+  border: none;body {
+/*    background: url("http://ilyakhasanov.ru/images/Background/27.jpg") 0 0 repeat;*/
+    background-image: url(img/27.jpg) 0 0 repeat;
+    padding: 5px 5px 110px 5px;
+    width:100%;
+/*    max-width:1000px;*/
+}
+
+.nb p {
+  color: ligthgray;
+  font-size: 75%;
+  }
+
+input, textarea {
+  outline: none;
+  border: none;
+/*  border: solid 1px #DCDCDC; */
+}
+
+textarea {
+  height: 120px;
+}
+.container {
+    height: 70px;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+}
+
+.table td {
+    padding: 1px;
+    border: none;
+/*  border: solid 1px #f4f4f4; */
+}
+
+td .btn-mini {
+    font-size: 60%;
+    font-weight: bold;
+}
+
+.row1 {
+     background-color: #eeeeee;
+}
+.row2 {
+     background-color: #white;
+}
+
+.head {
+    text-align:center;
+}
+
+th .ws, td .ws {
+    text-align:center;
+    vertical-align: middle;
+}
+
+td .name {
+    text-align:left;
+    vertical-align: middle;
+}
+
+th .page, td .page {
+    text-align:center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+th .icon, td .icon {
+    width = 25px;
+    text-align:center;
+    vertical-align: middle;
+}
+
+    @media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+
+body {
+    padding: 5px 5px 110px 5px;
+}
+
+.container-fluid {
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+td {
+  border: none;
+}
+
+/*td .hymnal_icon{
+  width: 25px;
+  vertical-align: middle;
+
+td .hymnal_icon_ll{
+  width: 20px;
+  vertical-align: middle;
+}
+*/
+
+.ws {
+    text-align:center;
+    vertical-align: middle;
+    font-size: 80%;
+}
+
+td .name {
+    text-align:left;
+    vertical-align: middle;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+th .icon, td .icon {
+    width = 20px;
+    text-align:center;
+    vertical-align: middle;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+}
+
+

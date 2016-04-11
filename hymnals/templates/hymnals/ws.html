@@ -4,27 +4,18 @@
 {% block content %}
 
 <style>
-table {
-     table-layout: fixed; /* Фиксированная ширина ячеек */
-     width: 600px;
-}
+
 .col1 {
-    width: 170px;
+    width: 35%;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
 }
 .col2 {
-    width: 170px;
+    width: 32%;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
 }
 .col3 {
-    width: 160px;
+    width: 33%;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 </style>
@@ -41,7 +32,7 @@ table {
                     <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
                     <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
                     <li class="divider"></li>
-                    <li><a href="{% url 'hymnals:ws' chorus.id %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список богослужений</a></li>
+                    <li><a href="{% url 'hymnals:ws' chorus.id %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список собраний</a></li>
                 {% else %}
                     <li><a href="{% url 'hymnals:ws_chorus' 1 %}">Смешанный хор</a></li>
                     <li><a href="{% url 'hymnals:ws_chorus' 2 %}">Мужской хор</a></li>
@@ -49,7 +40,7 @@ table {
                     <li><a href="{% url 'hymnals:ws_chorus' 5 %}">Прославление</a></li>
                     <li><a href="{% url 'hymnals:ws_chorus' 6 %}">Общее пение</a></li>
                     <li class="divider"></li>
-                    <li><a href="{% url 'hymnals:ws' 0 %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список богослужений</a></li>
+                    <li><a href="{% url 'hymnals:ws' 0 %}"><i class="glyphicon glyphicon-asterisk"></i> Полный список собраний</a></li>
                 {% endif %}
                 <li><a href="{% url 'hymnals:alphabet' 0 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель всех гимнов</a></li>
             </ul>
@@ -60,7 +51,7 @@ table {
 {% if chorus %}
     <h2>{{ chorus.name }}</h2>
 {% endif %}
-    <h3>Список богослужений</h3>
+    <h3>Список cобраний</h3>
     <h4>Сегодня: {{ cur_date|date:"j E" }}</h4>
 </div>
 
@@ -75,7 +66,7 @@ table {
             {% ifchanged %}
             <tr class="info">
                 <th></th>
-                <th style="text-align:center">{{ ws.Date|date:"F Y" }}</th>
+                <th class="ws">{{ ws.Date|date:"F Y" }}</th>
                 <th></th>
             </tr>
             {% endifchanged %}
@@ -86,9 +77,9 @@ table {
             {% else %}
             <tr>
             {% endif%}
-                <td><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></td>
-                <td>{{ ws.chorus__name }}</td>
-                <td>{{ ws.Event }}</td>
+                <td class="ws"><a href="{% url 'hymnals:detail_ws' ws.id %}">{{ ws.Date|date:"j E" }}</a></td>
+                <td class="ws">{{ ws.chorus__name }}</td>
+                <td class="ws">{{ ws.Event }}</td>
             </tr>
     {% endfor %}
     </table>

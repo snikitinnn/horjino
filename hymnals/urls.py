@@ -31,5 +31,7 @@ urlpatterns = patterns('',
     url(r'^songbyws/(?P<chorus_id>\d+)/$', views.songbyws, name='songbyws'),
 #    url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
 
-#    todo http://127.0.0.1:8000/hymnals/alphabet/chorus/2/
+#    todo separate statistic for one ws
+#   fixme ws_last for current date
+#   fixme topic for separate chorus
 )
