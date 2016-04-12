@@ -2,6 +2,19 @@
 {% load staticfiles %}
 
 {% block content %}
+<style>
+.col1 {
+    width: 50%;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.col2 {
+    width: 50%;
+    text-align: left;
+}
+</style>
+
 <div>
     <ul class="nav">
         <li class="dropdown">
@@ -15,38 +28,23 @@
             </ul>
         </li>
     </ul>
-<h2>{{ song.Name }}</h2>
+
+<div class="head">
+    <h2>{{ song.Name }}</h2>
+</div>
+
 <table>
     {% if song.Authors %}
     <tr>
-        <td width=50%>Автор:</td><td align="right">{{ song.Authors }}</td>
+        <td class="name">Автор:</td>
+        <td class="name">{{ song.Authors }}</td>
     </tr>
         {% if song.Authors_2 %}
-        <tr>
-            <td width=50%></td><td align="right">{{ song.Authors_2 }}</td>
-        </tr>
-        {% endif %}
-    {% endif %}
-    <tr>
-        <td width=50%>Начальные слова:</td><td align="right">{{ song.Name_Alt }}</td>
-    </tr>
-    <tr>
-        <td width=50%>Сборник:</td>
-        <td align="right">
-            <a href="{% url 'hymnals:detail' song.hymnal.id 'n' %}">
-                <img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal.icon}}"/>
-            </a>
-        </td>
-
-    </tr>
-    <tr>
-        <td width=50%>Страница:</td>
-        <td align="right">
-            {% if song.Page_Score %}
+     ge_Score %}
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-mini btn-primary" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
+                    <a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
                 {% else %}
                     Нет файла
                 {% endif %}
@@ -55,8 +53,8 @@
     </tr>
     {% if song.over %}
     <tr>
-        <td width=50%>Номер в "Песнь Возрождения"</td>
-        <td align="right">
+        <td class="name">Номер в "Песнь Возрождения"</td>
+        <td class="name">
             {{ song.over }}
         </td>
     </tr>

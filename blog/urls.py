@@ -15,4 +15,3 @@ urlpatterns = patterns('',
     url(r'^login/$', views.LoginFormView.as_view()),
 #    url(r'^redirect/$', views.post_redirect),
 )
-2

@@ -84,14 +84,18 @@
 
         {% for song in alphabet_song_list %}
         <tr>
-            <td class="icon"><img class="icon" src="{% static 'img' %}/small_{{song.hymnal__icon}}"></td>
+            <td class="icon">
+                <a href="{% url 'hymnals:detail' song.hymnal 'n' %}">
+                    <img class="icon" src="{% static 'img' %}/small_{{song.hymnal__icon}}">
+                </a>
+            </td>
             <td class="name"><a href="{% url 'hymnals:song' song.id %}">{{ song.Name }}</a></td>
-            <td clase="page">
+            <td class="page">
             {% if song.Page_Score %}
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
+                    <a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
                 {% endif %}
             {% endif %}
             </td>

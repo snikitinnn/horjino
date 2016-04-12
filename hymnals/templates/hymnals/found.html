@@ -28,6 +28,14 @@
                 {% if song.Page_Score %}
                     {{ song.Page_Score }}
                 {% endif %}
+
+                {% if song.Page_Score %}
+                    {{ song.Page_Score }}
+                 {% else %}
+                    {% if song.accords %}
+                        <a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
+                    {% endif %}
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

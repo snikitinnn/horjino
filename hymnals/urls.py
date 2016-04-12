@@ -31,14 +31,15 @@ urlpatterns = patterns('',
     url(r'^songbyws/(?P<chorus_id>\d+)/$', views.songbyws, name='songbyws'),
     url(r'^songbyws/one/(?P<chorus_id>\d+)/(?P<ws_id>\d+)/$', views.songbyws_one, name='songbyws_one'),
 #    url(r'^song/lyrics/(?P<song_id>\d+)/$', views.lyrics, name='lyrics'),
+)
 
 #   TO DO:
-#   todo separate statistic for one ws
+#   to do separate statistic for one ws
 #   todo fixed first line
-#   todo whole <tr> - link for ws, for example
-#   todo grey separate column for unknown info
+#       todo whole <tr> - link for ws, for example
+#       todo grey separate column for unknown info
 
 #   FIX ME:
-#   fixme ws_last for current date
+#       fixme ws_last for current date
 #   fixme topic for separate chorus
-)
+#       fixme no icons in buttons in theme list

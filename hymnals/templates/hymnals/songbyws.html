@@ -5,13 +5,6 @@
 
  <style>
  #verticalRow {
-/*     -webkit-transform: rotate(270deg);
-     -moz-transform: rotate(270deg);
-     -ms-transform: rotate(270deg);
-     -o-transform: rotate(270deg);
-     transform: rotate(270deg);
-     height: 80px;
-     width: 20px; */
      text-align: center;
 }
 
@@ -22,11 +15,13 @@ table {
 .col1 { width: 160px; }
 .coln { width: 15px; }
 
-td {
+td, th {
      font-size: smaller;
      border: solid 1px #f4f4f4;
 }
+
 </style>
+
 <div>
     <a name="top"></a>
     <ul class="nav">
@@ -40,7 +35,7 @@ td {
             </ul>
         </li>
     </ul>
-<div class="head">
+<div>
     <h2>{{ chorus.name }}</h2>
     <h3>Cтатистика спетых гимнов</h3>
 </div>
@@ -49,6 +44,7 @@ td {
     <table>
         <col class="col1">
         <col span="20" class="coln">
+
         <tr>
             <td id="verticalRow">Гимн \ Дата</td>
             {% for ws in ws_list %}

@@ -51,13 +51,13 @@ def lyrics(request, song_id):
 
 def alphabet(request, chorus_id, order):
     if chorus_id == '0':
-        alphabet_song_list = Song.objects.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+        alphabet_song_list = Song.objects.values('id','Name','hymnal','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
         chorus_name = 'Полный указатель'
         chorus_int = int(chorus_id)
     else:
         alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
         alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
-        alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+        alphabet_song_list = alphabet_song_list.values('id','Name','hymnal','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
         chorus = get_object_or_404(Chorus, pk=chorus_id)
         chorus_int = chorus_id
         chorus_name = chorus.name
@@ -79,7 +79,7 @@ def alphabet(request, chorus_id, order):
 def alphabet_chorus(request, chorus_id):
     alphabet_song_list = Song.objects.select_related('hymnal__chorus_id')
     alphabet_song_list = alphabet_song_list.extra(where=['chorus_id = %s'], params=[chorus_id])
-    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
+    alphabet_song_list = alphabet_song_list.values('id','Name','hymnal','hymnal__Hymnal_Name','Page_Score','hymnal__icon','accords','over')
     alphabet_song_list = alphabet_song_list.order_by('Name')
 #    chorus = get_object_or_404(Chorus, pk=chorus_id)
     context = {'alphabet_song_list' : alphabet_song_list, 'chorus':chorus_id}

@@ -76,7 +76,7 @@
                 {{ song.page }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.song_id %}">PDF</a>
+                    <a class="btn" href="{% url 'hymnals:pdf' song.song_id %}"><i class="glyphicon glyphicon-open-file"></i></a>
                 {% endif %}
             {% endif %}
             </td>

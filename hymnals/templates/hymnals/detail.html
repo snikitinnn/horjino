@@ -79,12 +79,12 @@
                 {{ song.Page_Score }}
             {% else %}
                 {% if song.accords %}
-                    <a class="btn btn-primary btn-mini" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
+                    <a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
                 {% endif %}
             {% endif %}
             </td>
             {%if hymnal.id = 23 %}
-            <td class="page" style="text-align:center">
+            <td class="page">
                 {% if song.over %}
                     {{ song.over }}
                 {% endif %}
