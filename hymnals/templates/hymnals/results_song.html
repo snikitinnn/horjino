@@ -21,9 +21,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="{% url 'hymnals:choir' song.chorus.id %}"><i class="glyphicon glyphicon-music"></i> Сборники гимнов</a></li>
                 <li><a href="{% url 'hymnals:songbyws' song.hymnal.chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:topic_chorus' song.hymnal.chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
-                <li><a href="{% url 'hymnals:alphabet_chorus' song.hymnal.chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet' song.chorus.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Алфавитный указатель</a></li>
                 <li><a href="{% url 'hymnals:ws_chorus' song.hymnal.chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
@@ -33,23 +34,41 @@
     <h2>{{ song.Name }}</h2>
 </div>
 
-<table>
+<table class="table table-bordered">
+    <colgroup>
+        <col class="col1">
+        <col class="col2">
+    </colgroup>
     {% if song.Authors %}
     <tr>
         <td class="name">Автор:</td>
-        <td class="name">{{ song.Authors }}</td>
+        <td class="name">{{ song.Authors }}<br>{{ song.Authors_2 }}</td>
     </tr>
-        {% if song.Authors_2 %}
-     ge_Score %}
-                {{ song.Page_Score }}
-            {% else %}
-                {% if song.accords %}
-                    <a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a>
-                {% else %}
-                    Нет файла
-                {% endif %}
-            {% endif %}
+    {% endif %}
+    <tr>
+        <td class="name">Начальные слова:</td>
+        <td class="name">{{ song.Name_Alt }}</td>
+    </tr>
+    <tr>
+        <td class="name" style="vertical-align: middle">Сборник:</td>
+        <td class="icon" style="text-align: left">
+            <a href="{% url 'hymnals:detail' song.hymnal.id 'n' %}">
+                <img class="hymnal_icon_ll" src="{% static 'img' %}/small_{{song.hymnal.icon}}"/>
+            </a>
         </td>
+
+    </tr>
+    <tr>
+        <td class="name">Страница:</td>
+        {% if song.Page_Score %}
+                <td class="name">{{ song.Page_Score }}</td>
+        {% else %}
+            {% if song.accords %}
+                <td class="name"><a class="btn" href="{% url 'hymnals:pdf' song.id %}"><i class="glyphicon glyphicon-open-file"></i></a></td>
+            {% else %}
+                <td class="name text-warning">Нет файла</td>
+            {% endif %}
+       {% endif %}
     </tr>
     {% if song.over %}
     <tr>
@@ -63,14 +82,19 @@
 
 <br>
     {% if singing_list %}
-    <table>
-        <tr>
-            <td><h4>Даты собраний:</h4></td><td></td>
-        </tr>
+    <div class="head">
+        <h4>Даты собраний</h4>
+    </div>
+    <table class="table table-bordered">
+        <colgroup>
+            <col class="col1">
+            <col class="col2">
+        </colgroup>
+
         {% for ws in singing_list %}
             <tr>
-                <td width=50% ><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></td>
-                <td align="right">{{ ws.event }}</td>
+                <td class="name"><a href="{% url 'hymnals:detail_ws' ws.ws_id %}">{{ ws.date }}</a></td>
+                <td class="name">{{ ws.event }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -80,14 +104,13 @@
 
     <br>
     {% if topic_list %}
-    <table>
-        <tr>
-            <td><h4>Темы гимна:</h4></td><td></td>
-        </tr>
+    <div class="head">
+        <h4>Темы гимна</h4>
+    </div>
+    <table class="table table-bordered">
         {% for topic in topic_list %}
             <tr>
-                <td width=50% ><a href="{% url 'hymnals:detail_topic' song.hymnal.chorus.id topic.topic.id %}">{{ topic.topic.name }}</a></td>
-                <td aligne="right"></td>
+                <td class="name"><a href="{% url 'hymnals:detail_topic' song.hymnal.chorus.id topic.topic.id %}">{{ topic.topic.name }}</a></td>
             </tr>
         {% endfor %}
     </table>

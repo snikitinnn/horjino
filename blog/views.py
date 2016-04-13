@@ -26,6 +26,9 @@ def news(request):
     context = {'blog_list': blog_list}
     return render(request, 'blog/news.html', context)
 
+def readme(request):
+    return render(request, 'blog/readme.html')
+
 # новый пост
 def post_new(request):
     if not request.user.is_authenticated():

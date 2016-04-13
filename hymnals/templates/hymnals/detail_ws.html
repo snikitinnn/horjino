@@ -34,9 +34,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="{% url 'hymnals:choir' ws.chorus.id %}"><i class="glyphicon glyphicon-music"></i> Сборники гимнов</a></li>
                 <li><a href="{% url 'hymnals:songbyws' ws.chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:topic_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
-                <li><a href="{% url 'hymnals:alphabet_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet' ws.chorus.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Алфавитный указатель</a></li>
                 <li><a href="{% url 'hymnals:ws_chorus' ws.chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
@@ -91,7 +92,7 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>Список пуст.</p>
+    <p class="text-warning">Список пуст.</p>
 {% endif %}
 <br>
     <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>

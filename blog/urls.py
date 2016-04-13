@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     url(r'^post/(?P<id>\d+)/$', views.post_detail, name='post_detail'),
     url(r'^post/(?P<id>\d+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^login/$', views.LoginFormView.as_view()),
+
+    url(r'^readme/$', views.readme, name='readme'),
 #    url(r'^redirect/$', views.post_redirect),
 )

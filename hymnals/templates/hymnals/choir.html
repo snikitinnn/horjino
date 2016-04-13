@@ -24,7 +24,7 @@
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
                 <li><a href="{% url 'hymnals:topic_chorus' chorus.id %}"><i class="glyphicon glyphicon-list-alt"></i> Тематический указатель</a></li>
-                <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet' chorus.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Алфавитный указатель</a></li>
                 <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
@@ -50,7 +50,7 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>Таких гимнов нет в базе данных.</p>
+    <p class="text-warning">Таких гимнов нет в базе данных.</p>
 {% endif %}
 </div>
 {% endblock content %}

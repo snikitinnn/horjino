@@ -21,8 +21,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="{% url 'hymnals:choir' chorus.id %}"><i class="glyphicon glyphicon-music"></i> Сборники гимнов</a></li>
                 <li><a href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика спетых гимнов</a></li>
-                <li><a href="{% url 'hymnals:alphabet_chorus' chorus.id %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель</a></li>
+                <li><a href="{% url 'hymnals:alphabet' chorus.id 'n' %}"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Алфавитный указатель</a></li>
                 <li><a href="{% url 'hymnals:ws_chorus' chorus.id %}"><i class="glyphicon glyphicon-calendar"></i> Список собраний</a></li>
             </ul>
         </li>
@@ -54,7 +55,7 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>Тематический список отсутствует.</p>
+    <p class="text-warning">Тематический список отсутствует.</p>
 {% endif %}
 
 </div>

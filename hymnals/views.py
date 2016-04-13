@@ -94,15 +94,15 @@ def ws(request, chorus_id):
         chorus = None
     else:
         chorus = get_object_or_404(Chorus, pk=chorus_id)
-    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus}
+    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus, 'one_chorus':0}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_chorus(request, chorus_id):
     cur_date = timezone.now()
     ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
-    ws_list = ws_list.values('id','Date','Event')
+    ws_list = ws_list.values('id','chorus','Date','Event')
     chorus = get_object_or_404(Chorus, pk=chorus_id)
-    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus}
+    context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus, 'one_chorus':1}
     return render(request, 'hymnals/ws.html', context)
 
 def ws_last(request, oneday):

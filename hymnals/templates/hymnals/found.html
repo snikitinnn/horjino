@@ -9,7 +9,7 @@
                 <i class="glyphicon glyphicon-menu-hamburger"></i> Меню</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><a href="{% url 'hymnals:search' %}"><i class="glyphicon glyphicon-search"></i> Новый поиск</a></li>
-                <li><a href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-book"></i> Алфавитный указатель всех гимнов</a></li>
+                <li><a href="{% url 'hymnals:alphabet' 'n' %}"><i class="glyphicon glyphicon-sort"></i> Сортировка по базе</a></li>
                 <li><a href="{% url 'hymnals:ws 0' %}"><i class="glyphicon glyphicon-calendar"></i> Полный список собраний</a></li>
 
             </ul>
@@ -42,7 +42,7 @@
     </table>
 
 {% else %}
-    <p>Не найдено.</p>
+    <p class="text-warning">Не найдено.</p>
 {% endif %}
 </div>
 {% endblock content%}
