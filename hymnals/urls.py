@@ -34,12 +34,6 @@ urlpatterns = patterns('',
 )
 
 #   TO DO:
-#   to do separate statistic for one ws
-#   todo fixed first line
-#       todo whole <tr> - link for ws, for example
-#       todo grey separate column for unknown info
-
+#   todo whole <tr> - link for ws, for example
+#   todo display fixed button at the bootom
 #   FIX ME:
-#       fixme ws_last for current date
-#   fixme topic for separate chorus
-#       fixme no icons in buttons in theme list

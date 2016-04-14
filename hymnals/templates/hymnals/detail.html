@@ -42,12 +42,11 @@
 
 <div class="head">
     <h2>{{ hymnal.Hymnal_Name}}</h2>
-</div>
-
 <!-- if not Worship Service hymnal book -->
-{% if hymnal.id != 23 %}
-    <img class="icon" src="{% static 'img' %}/{{hymnal.icon}}" />
-{% endif %}
+    {% if hymnal.id != 23 %}
+        <img class="icon" src="{% static 'img' %}/small_{{hymnal.icon}}" />
+    {% endif %}
+</div>
 
 {% if selected_song_list %}
     <table class="table-hover table-striped">

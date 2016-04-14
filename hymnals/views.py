@@ -108,11 +108,11 @@ def ws_chorus(request, chorus_id):
 def ws_last(request, oneday):
 #    cur_date = timezone.now()
     cur_date = date.today()
-    if oneday == 1:
+    if oneday == '1':
         coming_ws_list = WS.objects.extra(where=['Date=%s'], params=[cur_date])
     else:
-        coming_ws_list = WS.objects.extra(where=['Date>=%s'], params=[cur_date])
-    coming_ws_list = coming_ws_list.values('id','Date','chorus__name','Event')
+        coming_ws_list = WS.objects.extra(where=['Date>%s'], params=[cur_date])
+    coming_ws_list = coming_ws_list.values('id','chorus','Date','chorus__name','Event')
     context = {'ws_list': coming_ws_list, 'cur_date':cur_date}
     return render(request, 'hymnals/ws.html', context)
 
@@ -136,6 +136,10 @@ def detail_topic(request, chorus_id, topic_id):
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     topic = get_object_or_404(Topic, pk=topic_id)
     song_list = TopicSong.objects.all()
+
+    song_list = song_list.prefetch_related('song__hymnal__chorus')
+    song_list = song_list.extra(where=['chorus_id=%s'], params=[chorus_id])
+
     song_list = song_list.select_related('song','song__hymnal')#,'song__Page','song__over','song__accords')
     song_list = song_list.extra(where=['topic_id=%s'], params=[topic_id])
     song_list = song_list.order_by('song__Name')
@@ -198,6 +202,10 @@ def file_view(request, song_id):
         return response
     pdf.closed
 
+##########################################
+#   todo fixed first line
+#   todo grey separate column for unknown info
+#   todo colorize other cases of singig
 
 def songbyws(request, chorus_id):
 
