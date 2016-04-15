@@ -57,12 +57,12 @@ td, th {
             {% endfor %}
         </tr>
         <tr>
-            <td id="verticalRow"</td>
+            <td id="verticalRow"></td>
             {% for ws in ws_list %}
                 {% if ws.Supper %}
                     <td id="verticalRow" bgcolor="#FADADD"><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% else %}
-                    <td id="verticalRow" ><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
+                    <td id="verticalRow"><a href="{% url 'hymnals:songbyws_one' chorus.id ws.id %}">{{ ws.Date|date:"j" }}</a></td>
                 {% endif %}
             {% endfor %}
         </tr>
@@ -72,29 +72,39 @@ td, th {
                 {% if sws.song_count = 0 %}
                     <tr bgcolor="#FAFAD6">
                 {% elif sws.song_count >= 3 %}
-                    <tr bgcolor="#DCE4EF">
+                    <tr bgcolor="#E6E6FF">
                 {% else %}
                     <tr>
                 {% endif %}
                     {% if chorus.id < 5 %}
                         <td bgcolor={{sws.hymnal.color}}>{{sws.Name}}</td>
                     {% else %}
-                        <td>{{sws.Name}}</td>
+                        {% if sws.before %}
+                            <td>{{sws.Name}}</td>
+                        {% else%}
+                            <td bgcolor="#E7C25F">{{sws.Name}}</td> <!-- this song is new! -->
+                        {% endif %}
                     {% endif %}
             {% else %}
-                {% if sws %}
-                     {% if sws == 1 %}
-                         <td bgcolor="#FADADD"></td> <!-- column separated -->
-                     {% else %}
-                         <td bgcolor="lightblue"></td>
-                     {% endif %}
-                {% else %}
+                    {% if sws %}
+                        {% if sws == 1 %}
+                            <td id="verticalRow" bgcolor="#FADADD"></td> <!-- column for Supper -->
+                        {% else %}
+                            {% if sws == 2 %}
+                                <td bgcolor="lightblue"></td> <!-- song case -->
+<!--                                    <td bgcolor="#E7C25F"></td> this song is new! -->
+                            {% else %}
+                                <td bgcolor="#FFF5EE"></td> <!-- column for lack info -->
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
                          <td></td>
-                {% endif%}
-            {% endif%}
+                    {% endif %}
+            {% endif %}
         {% endfor %}
                     </tr>
         {% endfor %}
+        {% if song_table|length > 30 %}
         <tr>
             <td id="verticalRow"></td>
             {% for ws in ws_list %}
@@ -116,11 +126,17 @@ td, th {
             {% endfor %}
         </tr>
     </table>
+            <br>
+            <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
+        {% else %}
+    </table>
+            <br>
+            <a class="btn btn-primary" href="{% url 'hymnals:songbyws' chorus.id %}"><i class="glyphicon glyphicon-stats"></i> Статистика</a>
+        {% endif %}
+
 {% else %}
     <p class="text-warning">Исполненных гимнов в базе нет.</p>
 {% endif %}
-<br>
-    <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>
 
 </div>
 {% endblock content%}

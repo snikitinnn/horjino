@@ -91,8 +91,11 @@
         </tr>
     {% endfor %}
     </table>
+    {% if ws.info = 0 %}
+        <p class="text-warning">Информация об исполнении гимнов быть неполной.</p>
+    {% endif %}
 {% else %}
-    <p class="text-warning">Список пуст.</p>
+    <p class="text-warning">Информация об исполнении гимнов отсутствует.</p>
 {% endif %}
 <br>
     <a class="btn btn-primary" href="#top"><i class="glyphicon glyphicon-arrow-up"></i> Наверх</a>

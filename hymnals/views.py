@@ -86,10 +86,10 @@ def alphabet_chorus(request, chorus_id):
     return render(request, 'hymnals/alphabet.html', context)
 
 #######################################
-
+# todo separate future ws by another color
 def ws(request, chorus_id):
     cur_date = timezone.now()
-    ws_list = WS.objects.values('id','Date','chorus','chorus__name','Event')
+    ws_list = WS.objects.values('id','Date','chorus','chorus__name','Event','info')
     if chorus_id == '0':
         chorus = None
     else:
@@ -100,7 +100,7 @@ def ws(request, chorus_id):
 def ws_chorus(request, chorus_id):
     cur_date = timezone.now()
     ws_list = WS.objects.extra(where=['chorus_id=%s'], params=[chorus_id])
-    ws_list = ws_list.values('id','chorus','Date','Event')
+    ws_list = ws_list.values('id','chorus','Date','Event','info')
     chorus = get_object_or_404(Chorus, pk=chorus_id)
     context = {'ws_list': ws_list, 'cur_date':cur_date, 'chorus':chorus, 'one_chorus':1}
     return render(request, 'hymnals/ws.html', context)
@@ -203,9 +203,11 @@ def file_view(request, song_id):
     pdf.closed
 
 ##########################################
-#   todo fixed first line
+#   to do fixed first line
+#  ! todo select case of new song
 #   todo grey separate column for unknown info
-#   todo colorize other cases of singig
+#   todo colorize other cases of singing
+#   todo show statistic for songs separately by books
 
 def songbyws(request, chorus_id):
 
@@ -251,9 +253,12 @@ def songbyws(request, chorus_id):
         ws_row[i] = song
         for ws in ws_list:
             i += 1
-            f_sws = ws.Supper
-            for sws in sws_list:
-                if sws.ws_id == ws.id:
+            if ws.info:  # column has or no info
+                f_sws = ws.Supper
+            else:
+                f_sws = 3
+            for sws_song in sws_list:
+                if sws_song.ws_id == ws.id:
                     f_sws = 2
                     break
             ws_row[i] = f_sws
@@ -305,11 +310,17 @@ def songbyws_one(request, chorus_id, ws_id):
                 ws_row[i] = song
                 for ws in ws_list:
                     i += 1
-                    f_sws = ws.Supper
+                    if ws.info: # column has or no info
+                        f_sws = ws.Supper
+                    else:
+                        f_sws = 3
                     for sws_song in sws_list_song:
                         if sws_song.ws_id == ws.id:
-                           f_sws = 2
-                           break
+                            if song.info:
+                                f_sws = 2
+                            else:
+                                f_sws = 4  # this song is new
+                            break
                     ws_row[i] = f_sws
                 song_table[song_i] = ws_row
                 song_i += 1

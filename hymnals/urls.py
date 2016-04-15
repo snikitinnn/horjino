@@ -34,6 +34,7 @@ urlpatterns = patterns('',
 )
 
 #   TO DO:
-#   todo whole <tr> - link for ws, for example
+#   to do whole <tr> - link for ws, for example
 #   todo display fixed button at the bootom
+#   todo add songs to ws by form
 #   FIX ME:

@@ -28,6 +28,7 @@ class Song(models.Model):
     Page_Score = models.IntegerField()
     Authors = models.CharField(max_length=50)
     Authors_2 = models.CharField(max_length=50)
+    before = models.BooleanField(default=True)
     accords = models.IntegerField(default=0)
     over = models.IntegerField(default=0)
     class Meta:
@@ -41,6 +42,7 @@ class WS(models.Model):
     time = models.DateTimeField(default=0)
     chorus = models.ForeignKey(Chorus)
     Supper = models.BooleanField()
+    info = models.BooleanField(default=True)
     Regents = models.CharField(max_length=100)
     Event = models.CharField(max_length=100)
     Note = models.CharField(max_length=100)

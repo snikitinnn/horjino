@@ -15,6 +15,8 @@ from hymnals.models import Chorus, Hymnal, Song, WS, SongvsWS, Topic, TopicSong
 #         ),
 #     ]
 
+# todo upgrade admins panel with diferent kind of filters
+
 class TopicSongInline(admin.TabularInline):
     model = TopicSong
     extra = 0
